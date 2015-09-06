@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Sexo</title>
+</h:head>
+<h:body>
+	<h:form>
+		<p:panel id="basic" header="Sexo">
+			<h:panelGrid columns="2" cellpadding="10">
+				<h:outputLabel name="lblId" value="Id Sexo :" />
+				<h:outputText
+					value="${sexoManagedBean.sexoAtual.idSexo}" />
+				<h:outputLabel name="lblSexo" value="Sexo :" />
+				<h:inputText
+					value="${sexoManagedBean.sexoAtual.sexo}" />
+				<h:commandButton action="${sexoManagedBean.adicionarSexo()}"
+					value="Salvar" />
+			</h:panelGrid>
+
+
+			<p:dataTable value="${sexoManagedBean.sexos}"
+				var="sexo">
+				<p:column headerText="id">
+		${sexo.idSexo}
+		</p:column>
+				<p:column headerText="Sexo">
+		${sexo.sexo}
+		</p:column>
+
+				<p:column headerText="Editar">
+					<h:commandButton value="Editar"
+						action="#{sexoManagedBean.editar(sexo)}" />
+				</p:column>
+				<p:column headerText="Deletar">
+					<h:commandButton value="Deletar"
+						action="#{sexoManagedBean.remover(sexo)}" />
+				</p:column>
+				<p:chart type="line" model="#{chartView.lineModel1}"
+					style="height:300px;" />
+			</p:dataTable>
+		</p:panel>
+	</h:form>
+</h:body>
+</html>

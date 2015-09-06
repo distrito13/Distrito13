@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+<title>Tipo de Telefone</title>
+</h:head>
+<h:body>
+	<h:form>
+	<p:panel id="basic" header="Tipo de Telefone">
+		<h:panelGrid columns="2" cellpadding="10">
+		<h:outputLabel name="lblId" value="Id Tipo de Telefone :" />
+		<h:outputText value="${tipoTelefoneManagedBean.tipoTelefoneAtual.idTipoTelefone}" />
+		<h:outputLabel name="lblTipo" value="Tipo de Telefone :" />
+		<h:inputText value="${tipoTelefoneManagedBean.tipoTelefoneAtual.tipoTelefone}" />
+		<h:commandButton action="${tipoTelefoneManagedBean.adicionarTipo()}" value="Salvar" />	
+		</h:panelGrid>
+		
+		
+		<p:dataTable value="${tipoTelefoneManagedBean.tiposTelefones}" var="tipoTelefone">
+		<p:column headerText="id">
+		${tipoTelefone.idTipoTelefone}
+		</p:column>
+		<p:column headerText="Tipo de Telefone">
+		${tipoTelefone.tipoTelefone}
+		</p:column>
+		
+		<p:column headerText="Editar">
+		<h:commandButton value="Editar" action="#{tipoTelefoneManagedBean.editar(tipoTelefone)}" />
+		</p:column>
+		<p:column headerText="Deletar">
+	    <h:commandButton value="Deletar" action="#{tipoTelefoneManagedBean.remover(tipoTelefone)}" />
+		</p:column>
+		<p:chart type="line" model="#{chartView.lineModel1}" style="height:300px;" />
+		</p:dataTable>
+	</p:panel>
+	</h:form>
+</h:body>
+</html>

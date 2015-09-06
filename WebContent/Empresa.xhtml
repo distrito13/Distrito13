@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Empresa</title>
+</h:head>
+<h:body>
+	<h:form>
+		<p:panel id="basic" header="Empresas">
+			<h:panelGrid columns="2" cellpadding="10">
+				<h:outputLabel name="lblId" value="Id Empresa :" />
+				<h:outputText value="${empresaManagedBean.empresaAtual.idEmpresa}" />
+				<h:outputLabel name="lblRazaoSocial" value="Razao Social :" />
+				<h:inputText value="${empresaManagedBean.empresaAtual.razaoSocial}" />
+				<h:outputLabel name="lblNomeFantasia" value="Nome Fantasia :" />
+				<h:inputText value="${empresaManagedBean.empresaAtual.nomeFantasia}" />
+				<h:outputLabel name="lblCnpj" value="Cnpj :" />
+				<h:inputText value="${empresaManagedBean.empresaAtual.cnpj}" />
+				<h:commandButton action="${empresaManagedBean.adicionarEmpresa()}"
+					value="Salvar" />
+			</h:panelGrid>
+
+
+			<p:dataTable value="${empresaManagedBean.empresas}" var="empresa">
+				<p:column headerText="id">
+		${empresa.idEmpresa}
+		</p:column>
+				<p:column headerText="Razao Social">
+		${empresa.razaoSocial}
+		</p:column>
+				<p:column headerText="Nome Fantasia">
+		${empresa.nomeFantasia}
+		</p:column>
+				<p:column headerText="Cnpj">
+		${empresa.cnpj}
+		</p:column>
+
+				<p:column headerText="Editar">
+					<h:commandButton value="Editar"
+						action="#{empresaManagedBean.editar(empresa)}" />
+				</p:column>
+				<p:column headerText="Deletar">
+					<h:commandButton value="Deletar"
+						action="#{empresaManagedBean.remover(empresa)}" />
+				</p:column>
+				<p:chart type="line" model="#{chartView.lineModel1}"
+					style="height:300px;" />
+			</p:dataTable>
+		</p:panel>
+	</h:form>
+</h:body>
+</html>

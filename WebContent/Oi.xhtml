@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+</h:head>
+<h:body>
+	<h:form>
+		<h:outputLabel styleClass="control-label col-xs-2" name=""
+										value="Id:">
+									</h:outputLabel>
+		<h:outputText value="${questionarioPtVMB.questionarioPtVAtual.id}">
+										</h:outputText>
+									
+		<h:outputLabel styleClass="control-label col-xs-2" name=""
+										value="Data de Atraso:">
+										</h:outputLabel>
+
+		<p:calendar id="popup" value="#{questionarioPtVMB.questionarioPtVAtual.dataAtraso}" />
+ 
+		
+		<h:outputLabel styleClass="control-label col-xs-2" name=""
+										value="Tipo de Pendência:">
+									</h:outputLabel>
+										<h:selectOneMenu styleClass="form-control"
+											value="${questionarioPtVMB.questionarioPtVAtual.tipoPendencia}">
+											<f:selectItem itemValue="1" itemLabel="A definir" />
+										</h:selectOneMenu>
+																	<h:outputLabel styleClass="control-label col-xs-2" name=""
+										value="Valor:">
+									</h:outputLabel>
+										<h:inputText styleClass="form-control"
+											value="${questionarioPtVMB.questionarioPtVAtual.valor}"></h:inputText>
+																	<h:outputLabel styleClass="control-label col-xs-2" name=""
+										value="Período:">
+									</h:outputLabel>
+										<h:selectOneMenu styleClass="form-control"
+											value="${questionarioPtVMB.questionarioPtVAtual.periodo}">
+											<f:selectItem itemValue="1" itemLabel="A definir" />
+										</h:selectOneMenu>
+																	<h:outputLabel styleClass="control-label col-xs-2" name=""
+										value="Id Orgao:">
+									</h:outputLabel>
+										<h:inputText styleClass="form-control"
+											value="${questionarioPtVMB.questionarioPtVAtual.idOrgao}"></h:inputText>
+																	<h:outputLabel styleClass="control-label col-xs-2" name=""
+										value="Id Tomador:">
+									</h:outputLabel>
+								
+										<h:inputText styleClass="form-control"
+											value="${questionarioPtVMB.questionarioPtVAtual.idTomador}"></h:inputText>
+								
+											
+								
+	<h:commandButton action="${questionarioPtVMB.adicionar()}" value="Oi"></h:commandButton>
+	</h:form>
+	</h:body>
+</html>
