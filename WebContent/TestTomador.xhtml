@@ -130,13 +130,17 @@
 									<h:outputLabel styleClass="control-label col-xs-2"
 										name="lblSexo" value="Sexo:">
 									</h:outputLabel>
-									<h:panelGroup styleClass="col-md-2 col-sm-3">
-										<h:selectOneMenu styleClass="form-control"
-											value="${questionarioPtIMB.questionarioPtIAtual.sexo}">
-											<f:selectItem itemValue="1" itemLabel="Masculino" />
-											<f:selectItem itemValue="2" itemLabel="Feminino" />
-										</h:selectOneMenu>
-									</h:panelGroup>
+ 									<h:panelGroup styleClass="col-md-2 col-sm-3"> 
+
+
+						<h:selectOneMenu id="sexo" 
+							value="#{sexoManagedBean.sexoAtual.sexo}" converter="simpleIndexConverter">
+							<f:selectItems value="#{sexoManagedBean.sexos}" var="sexo" 
+							itemValue="#{sexo}"/> 
+						</h:selectOneMenu> 
+
+
+<!-- 					</h:panelGroup> -->
 								</h:panelGroup>
 
 								<h:panelGroup styleClass="form-group">
@@ -201,6 +205,7 @@
 
 									</h:panelGroup>
 								</h:panelGroup>
+							</h:panelGroup>
 							</h:panelGrid>
 		
 

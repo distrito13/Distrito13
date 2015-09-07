@@ -32,7 +32,7 @@ public class SexoManagedBean {
 	public String adicionarSexo(){
 		try {
 			sexoDAO.manter(getSexoAtual());
-			sexoAtual = new Sexo();
+			setSexoAtual(new Sexo());
 			setSexos(sexoDAO.pesquisar());
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -43,7 +43,7 @@ public class SexoManagedBean {
 	
 	public void remover(Sexo sexo){
 		try {
-			sexoDAO.remover(sexoAtual);
+			sexoDAO.remover(getSexoAtual());
 			setSexos(sexoDAO.pesquisar());
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -51,7 +51,7 @@ public class SexoManagedBean {
 	}
 	
 	public void editar(Sexo sexo){
-		sexoAtual = sexo;
+		setSexoAtual(sexo);
 	}
 	
 	public List<Sexo> getSexos() {
@@ -77,5 +77,7 @@ public class SexoManagedBean {
 	public void setSexoAtual(Sexo sexoAtual) {
 		this.sexoAtual = sexoAtual;
 	}
+
+
 
 }

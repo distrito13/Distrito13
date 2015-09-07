@@ -1,8 +1,11 @@
 package fatec.edu.models;
 
-import java.io.Serializable;
 
-public class Sexo implements Serializable{
+import fatec.edu.mb.EntityGenerica;
+
+
+
+public class Sexo implements EntityGenerica{
 
 	private static final long serialVersionUID = 1L;
 	private int idSexo;
@@ -23,8 +26,19 @@ public class Sexo implements Serializable{
 	public int getIdSexo() {
 		return idSexo;
 	}
-	
+
+
 	@Override
+	public int getId() {
+		return idSexo;
+	}
+
+	@Override
+	public void setId(int id) {
+		this.idSexo = id;
+		
+	}
+	
 	public String toString(){
 		return getSexo();
 	}
