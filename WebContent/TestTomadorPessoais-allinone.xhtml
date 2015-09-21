@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<!-- vsp test -->
 	<meta charset="utf-8" />
@@ -23,225 +24,167 @@
 	<nav class="navbar navbar-inverse">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed"
-				data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-				aria-expanded="false">
-				<span class="sr-only">Toggle navigation</span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="#"> FuzzyTCC</a>
+			<a class="navbar-brand" href="#">FuzzyTCC</a>
 		</div>
 
-		<div class="collapse navbar-collapse"
-			id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-haspopup="true"
-					aria-expanded="false">Tomador <span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="Tomador.html">Pessoal</a></li>
-						<li><a href="#">Profissional</a></li>
-						<li><a href="#">Rendas</a></li>
-						<li role="separator" class="divider"></li>
-						<li><a href="#">Dívidas</a></li>
-						<li role="separator" class="divider"></li>
-						<li><a href="#">Pendências</a></li>
-					</ul></li>
-			</ul>
-
-			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-haspopup="true"
-					aria-expanded="false">Usuário <span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="#">Configurações</a></li>
-						<li role="separator" class="divider"></li>
-						<li><a href="#">Sair</a></li>
-					</ul></li>
-			</ul>
-		</div>
 	</div>
 	</nav>
 </h:head>
 <h:body>
 	<h:form>
-		<p:panel>
-			<div class="well">
-				<!-- Abas -->
-				<ul class="nav nav-tabs" id="Abas">
-					<li class="active"><a href="#pessoal-tab" data-toggle="tab">Pessoal<i
-							class="fa"></i></a></li>
-					<li><a href="#profissional-tab" data-toggle="tab">Profissional
-							<i class="fa"></i>
-					</a></li>
-					<li><a href="#renda-tab" data-toggle="tab">Renda <i
-							class="fa"></i></a></li>
-					<li><a href="#divida-tab" data-toggle="tab">Dívida <i
-							class="fa"></i></a></li>
-					<li><a href="#pendencia-tab" data-toggle="tab">Pendência <i
-							class="fa"></i>
-					</a></li>
-				</ul>
+		<p:panel id="basic" header="Tomador">
+			<h:panelGrid styleClass="table table-responsive" columns="1"
+				cellpadding="10">
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2" name=""
+						value="ID:">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-xs-10">
+						<h:outputText value="IDcarregado">
+						</h:outputText>
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2" name="lblCPF"
+						value="CPF:">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-md-3 col-sm-6">
+						<h:inputText styleClass="form-control"
+							value="${questionarioPtIMB.questionarioPtIAtual.cpf}">
+						</h:inputText>
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2" name="lblNome"
+						value="Nome:">
+					</h:outputLabel>
+					<h:panelGroup styleClass=" col-xs-12 col-sm-5">
+						<h:inputText styleClass="form-control"
+							value="${questionarioPtIMB.questionarioPtIAtual.nome}"></h:inputText>
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-12 col-sm-2"
+						name="lblDataNascimento" value="Data de Nascimento:">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+						<p:calendar id="popup"
+							value="${questionarioPtIMB.questionarioPtIAtual.data}" />
+					</h:panelGroup>
+				</h:panelGroup>
 
 
-				<form id="accountForm" method="post" class="form-horizontal">
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2"
+						name="lblFiliacao1" value="Filiação1:">
+					</h:outputLabel>
+					<h:panelGroup styleClass=" col-xs-12 col-sm-5">
+						<h:inputText styleClass="form-control"
+							value="${questionarioPtIMB.questionarioPtIAtual.filiacaoI}"></h:inputText>
+					</h:panelGroup>
+				</h:panelGroup>
 
-					<div class="tab-content">
-						<!-- INICIO CONTEÚDO ABAS-->
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2"
+						name="lblFiliacao2" value="Filiação2:">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-xs-12 col-sm-5">
+						<h:inputText styleClass="form-control"
+							value="${questionarioPtIMB.questionarioPtIAtual.filiacaoII}"></h:inputText>
+					</h:panelGroup>
+				</h:panelGroup>
 
-						<div class="tab-pane active" id="pessoal-tab">
-							<!-- ABA PESSOAIS -->
-							<h:panelGrid styleClass="table table-responsive" columns="1"
-								cellpadding="10">
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2" name="lblSexo"
+						value="Sexo:">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-md-2 col-sm-3">
+						<h:selectOneMenu styleClass="form-control"
+							value="${questionarioPtIMB.questionarioPtIAtual.sexo}">
+							<!-- <c:forEach var="#{sexos}"  > -->
+							<f:selectItems value="#{questionarioPtIMB.sexos}" var="s"
+								itemValue="#{s.idSexo}" itemLabel="#{s.sexo}"></f:selectItems>
+							<!-- </c:forEach> -->
+						</h:selectOneMenu>
 
-								<h:panelGroup styleClass="form-group">
-									<h:outputLabel styleClass="control-label col-xs-2" name=""
-										value="ID:">
-									</h:outputLabel>
-									<h:panelGroup styleClass="col-xs-10">
-										<h:outputText value="IDcarregado">
-										</h:outputText>
-									</h:panelGroup>
-								</h:panelGroup>
+					</h:panelGroup>
+				</h:panelGroup>
 
-								<h:panelGroup styleClass="form-group">
-									<h:outputLabel styleClass="control-label col-xs-2"
-										name="lblCPF" value="CPF:">
-									</h:outputLabel>
-									<h:panelGroup styleClass="col-md-3 col-sm-6">
-										<h:inputText styleClass="form-control"
-											value="${questionarioPtIMB.questionarioPtIAtual.cpf}">
-										</h:inputText>
-									</h:panelGroup>
-								</h:panelGroup>
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2"
+						name="lblEstadoCivil" value="Estado Civil:">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-md-2 col-sm-2">
+						<h:selectOneMenu styleClass="form-control"
+							value="${questionarioPtIMB.questionarioPtIAtual.estadoCivil}">
+							<f:selectItem itemValue="1" itemLabel="Solteiro" />
+							<f:selectItem itemValue="2" itemLabel="Casado" />
+							<f:selectItem itemValue="3" itemLabel="Separado" />
+							<f:selectItem itemValue="4" itemLabel="Divorciado" />
+							<f:selectItem itemValue="5" itemLabel="Viúvo" />
+						</h:selectOneMenu>
+					</h:panelGroup>
+				</h:panelGroup>
 
-								<h:panelGroup styleClass="form-group">
-									<h:outputLabel styleClass="control-label col-xs-2"
-										name="lblNome" value="Nome:">
-									</h:outputLabel>
-									<h:panelGroup styleClass=" col-xs-12 col-sm-5">
-										<h:inputText styleClass="form-control"
-											value="${questionarioPtIMB.questionarioPtIAtual.nome}"></h:inputText>
-									</h:panelGroup>
-								</h:panelGroup>
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2"
+						name="lblRegimeCasamento" value="Regime de Casamento:">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-md-3 col-sm-4">
+						<h:selectOneMenu styleClass="form-control"
+							value="${questionarioPtIMB.questionarioPtIAtual.regimeCasamento}">
+							<f:selectItem itemValue="1" itemLabel="Comunhão parcial de bens" />
+							<f:selectItem itemValue="2"
+								itemLabel="Comunhão universal de bens" />
+							<f:selectItem itemValue="3" itemLabel="Separação total de bens" />
+						</h:selectOneMenu>
+					</h:panelGroup>
+				</h:panelGroup>
 
-								<h:panelGroup styleClass="form-group">
-									<h:outputLabel styleClass="control-label col-xs-12 col-sm-2"
-										name="lblDataNascimento" value="Data de Nascimento:">
-									</h:outputLabel>
-									<h:panelGroup styleClass="col-xs-12 col-sm-2 col-md-2 col-lg-2">
-										<p:calendar id="popup" value="#{questionarioPtIMB.questionarioPtIAtual.data}" />
-									</h:panelGroup>
-								</h:panelGroup>
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2"
+						name="lblIdEstado" value="Id Estado:">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-xs-10">
+						<h:inputText styleClass="form-control"
+							value="${questionarioPtIMB.questionarioPtIAtual.idEstado}"></h:inputText>
+					</h:panelGroup>
+				</h:panelGroup>
 
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2"
+						name="lblIdCidade" value="Id Cidade:">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-xs-10">
+						<h:inputText styleClass="form-control"
+							value="${questionarioPtIMB.questionarioPtIAtual.idCidade}"></h:inputText>
+					</h:panelGroup>
+				</h:panelGroup>
 
-								<h:panelGroup styleClass="form-group">
-									<h:outputLabel styleClass="control-label col-xs-2"
-										name="lblFiliacao1" value="Filiação1:">
-									</h:outputLabel>
-									<h:panelGroup styleClass=" col-xs-12 col-sm-5">
-										<h:inputText styleClass="form-control"
-											value="${questionarioPtIMB.questionarioPtIAtual.filiacaoI}"></h:inputText>
-									</h:panelGroup>
-								</h:panelGroup>
-
-								<h:panelGroup styleClass="form-group">
-									<h:outputLabel styleClass="control-label col-xs-2"
-										name="lblFiliacao2" value="Filiação2:">
-									</h:outputLabel>
-									<h:panelGroup styleClass="col-xs-12 col-sm-5">
-										<h:inputText styleClass="form-control"
-											value="${questionarioPtIMB.questionarioPtIAtual.filiacaoII}"></h:inputText>
-									</h:panelGroup>
-								</h:panelGroup>
-
-								<h:panelGroup styleClass="form-group">
-									<h:outputLabel styleClass="control-label col-xs-2"
-										name="lblSexo" value="Sexo:">
-									</h:outputLabel>
-									<h:panelGroup styleClass="col-md-2 col-sm-3">
-										<h:selectOneMenu styleClass="form-control"
-											value="${questionarioPtIMB.questionarioPtIAtual.sexo}">
-											<f:selectItem itemValue="1" itemLabel="Masculino" />
-											<f:selectItem itemValue="2" itemLabel="Feminino" />
-										</h:selectOneMenu>
-									</h:panelGroup>
-								</h:panelGroup>
-
-								<h:panelGroup styleClass="form-group">
-									<h:outputLabel styleClass="control-label col-xs-2"
-										name="lblEstadoCivil" value="Estado Civil:">
-									</h:outputLabel>
-									<h:panelGroup styleClass="col-md-2 col-sm-2">
-										<h:selectOneMenu styleClass="form-control"
-											value="${questionarioPtIMB.questionarioPtIAtual.estadoCivil}">
-											<f:selectItem itemValue="1" itemLabel="Solteiro" />
-											<f:selectItem itemValue="2" itemLabel="Casado" />
-											<f:selectItem itemValue="3" itemLabel="Separado" />
-											<f:selectItem itemValue="4" itemLabel="Divorciado" />
-											<f:selectItem itemValue="5" itemLabel="Viúvo" />
-										</h:selectOneMenu>
-									</h:panelGroup>
-								</h:panelGroup>
-
-								<h:panelGroup styleClass="form-group">
-									<h:outputLabel styleClass="control-label col-xs-2"
-										name="lblRegimeCasamento" value="Regime de Casamento:">
-									</h:outputLabel>
-									<h:panelGroup styleClass="col-md-3 col-sm-4">
-										<h:selectOneMenu styleClass="form-control"
-											value="${questionarioPtIMB.questionarioPtIAtual.RegimeCasamento}">
-											<f:selectItem itemValue="1"
-												itemLabel="Comunhão parcial de bens" />
-											<f:selectItem itemValue="2"
-												itemLabel="Comunhão universal de bens" />
-											<f:selectItem itemValue="3"
-												itemLabel="Separação total de bens" />
-										</h:selectOneMenu>
-									</h:panelGroup>
-								</h:panelGroup>
-
-								<h:panelGroup styleClass="form-group">
-									<h:outputLabel styleClass="control-label col-xs-2"
-										name="lblIdEstado" value="Id Estado:">
-									</h:outputLabel>
-									<h:panelGroup styleClass="col-xs-10">
-										<h:inputText styleClass="form-control"
-											value="${questionarioPtIMB.questionarioPtIAtual.idEstado}"></h:inputText>
-									</h:panelGroup>
-								</h:panelGroup>
-
-								<h:panelGroup styleClass="form-group">
-									<h:outputLabel styleClass="control-label col-xs-2"
-										name="lblIdCidade" value="Id Cidade:">
-									</h:outputLabel>
-									<h:panelGroup styleClass="col-xs-10">
-										<h:inputText styleClass="form-control"
-											value="${questionarioPtIMB.questionarioPtIAtual.idCidade}"></h:inputText>
-									</h:panelGroup>
-								</h:panelGroup>
-
-								<h:panelGroup styleClass="form-group">
-									<h:panelGroup styleClass="col-xs-offset-2 col-xs-10">
-										<h:commandButton styleClass="btn btn-xs btn-primary"
-											action="${questionarioPtIMB.adicionar()}" value="Salvar">
-										</h:commandButton>
+				<h:panelGroup styleClass="form-group">
+					<h:panelGroup styleClass="col-xs-offset-2 col-xs-10">
+						<h:commandButton styleClass="btn btn-xs btn-primary"
+							action="${questionarioPtIMB.adicionar()}" value="Salvar">
+						</h:commandButton>
 
 
-									</h:panelGroup>
-								</h:panelGroup>
-							</h:panelGrid>
+					</h:panelGroup>
+				</h:panelGroup>
+			</h:panelGrid>
 
 
-						</div>
-						
-						<!-- FIM ABA PESSOAIS -->
+		</p:panel>
 
-						<div class="tab-pane" id="profissional-tab">
-							<!-- ABA PROFISSIONAIS -->
 
-							<h:panelGrid styleClass="table table-responsive" columns="1"
+	</h:form>
+	<!-- acima pessoais -->
+	<h:form>
+	<p:panel id="basic" header="ExerceAtividade">
+	<h:panelGrid styleClass="table table-responsive" columns="1"
 								cellpadding="10">
 
 								<h:panelGroup styleClass="form-group">
@@ -289,8 +232,7 @@
 										value="Data de Admissão:">
 									</h:outputLabel>
 									<h:panelGroup styleClass="col-xs-10">
-										<h:inputText styleClass="form-control"
-											value="${questionarioPtIIMB.questionarioPtIIAtual.dataAdmissao}"></h:inputText>
+										<p:calendar id="popup" value="${questionarioPtIIMB.questionarioPtIIAtual.dataAdmissao}" />		
 									</h:panelGroup>
 								</h:panelGroup>
 
@@ -331,16 +273,17 @@
 								</h:panelGroup>
 
 							</h:panelGrid>
+		
 
-						</div>
-						
-						<!-- FIM ABA PROFISSIONAIS -->
-
-						
-							<div class="tab-pane" id="renda-tab">
-								<!-- ABA RENDAS -->
-
-								<h:panelGrid styleClass="table table-responsive" columns="1"
+	</p:panel>
+	
+	
+	</h:form>
+	
+	<!-- acima profissionaiss -->
+	<h:form>
+	<p:panel id="basic" header="Renda">
+<h:panelGrid styleClass="table table-responsive" columns="1"
 									cellpadding="10">
 									<h:panelGroup>
 										<h:outputLabel styleClass="control-label col-xs-2" name=""
@@ -376,7 +319,7 @@
 
 									<h:panelGroup styleClass="form-group">
 										<h:outputLabel styleClass="control-label col-xs-2" name=""
-											value="Periodo:">
+											value="Período:">
 										</h:outputLabel>
 										<h:panelGroup styleClass="col-xs-10">
 											<h:selectOneMenu styleClass="form-control"
@@ -404,15 +347,15 @@
 									</h:panelGroup>
 								</h:panelGrid>
 
-							</div>
-							
-						
-						<!-- FIM ABA RENDAS -->
-						
-						<div class="tab-pane" id="divida-tab">
-							<!-- ABA DIVIDAS -->
-
-							<h:panelGrid styleClass="table table-responsive" columns="1"
+	</p:panel>
+	
+	
+	</h:form>
+	
+	<!-- acima rendas -->
+	<h:form>
+	<p:panel id="basic" header="Divida">
+<h:panelGrid styleClass="table table-responsive" columns="1"
 								cellpadding="10">
 								<h:panelGroup>
 									<h:outputLabel styleClass="control-label col-xs-2" name=""
@@ -464,13 +407,16 @@
 								</h:panelGroup>
 							</h:panelGrid>
 
-						</div>
-						
-						<!-- FIM ABA DIVIDAS -->
-				
-						<div class="tab-pane" id="pendencia-tab">
-							<!-- ABA PENDENCIAS -->
-							<h:panelGrid styleClass="table table-responsive" columns="1"
+		
+
+	</p:panel>
+	
+	
+	</h:form>
+	<!-- acima dividas -->
+	<h:form>
+	<p:panel id="basic" header="Pendencia">
+	<h:panelGrid styleClass="table table-responsive" columns="1"
 								cellpadding="10">
 								<h:panelGroup>
 									<h:outputLabel styleClass="control-label col-xs-2" name=""
@@ -487,8 +433,7 @@
 										value="Data de Atraso:">
 									</h:outputLabel>
 									<h:panelGroup styleClass="col-xs-10">
-										<h:inputText styleClass="form-control"
-											value="${questionarioPtVMB.questionarioPtVAtual.dataAtraso}"></h:inputText>
+												<p:calendar id="popup" value="#{questionarioPtVMB.questionarioPtVAtual.dataAtraso}" />
 									</h:panelGroup>
 								</h:panelGroup>
 
@@ -516,7 +461,7 @@
 
 								<h:panelGroup styleClass="form-group">
 									<h:outputLabel styleClass="control-label col-xs-2" name=""
-										value="Período:">
+										value="Perï¿½odo:">
 									</h:outputLabel>
 									<h:panelGroup styleClass="col-xs-10">
 										<h:selectOneMenu styleClass="form-control"
@@ -555,82 +500,19 @@
 									</h:commandButton>
 								</h:panelGroup>
 							</h:panelGrid>
-
-						</div>
-						
-						<!-- FIM ABA PENDENCIAS -->
-					
-					</div>
-					<!-- FIM CONTEÚDO ABAS -->
-
-				</form>
-
-			</div>
-		</p:panel>
-
-
-
-		<!--  MOLDE formulário,colocar sempre dentro de h:body e h:form
-		p:panel é o panel do primefaces
+	
 		
-		equivalência com html ( class compativel com styleclass )
-		
-		h:panelgrid equivale a table
-		h:panelgroup equivale a div
-		h:outputlabel equivale a label
-		h:inputtext equivale a input
-		h:commandbutton equivale a button
-		h:selectonemenu equivale ao select 
-		 -->
 
-		<p:panel>
-
-			<h:panelGrid styleClass="table table-bordered" columns="1"
-				cellpadding="10">
-				<h:panelGroup>
-					<h:outputLabel styleClass="control-label col-xs-2" name=""
-						value="testlabel:">
-					</h:outputLabel>
-					<h:panelGroup styleClass="col-xs-10">
-						<h:outputText value="carregado">
-						</h:outputText>
-					</h:panelGroup>
-				</h:panelGroup>
-
-				<h:panelGroup styleClass="form-group">
-					<h:outputLabel styleClass="control-label col-xs-2" name=""
-						value="testinput:">
-					</h:outputLabel>
-					<h:panelGroup styleClass="col-xs-10">
-						<h:inputText styleClass="form-control"></h:inputText>
-					</h:panelGroup>
-				</h:panelGroup>
-
-				<h:panelGroup styleClass="form-group">
-					<h:outputLabel styleClass="control-label col-xs-2" name=""
-						value="testcombo:">
-					</h:outputLabel>
-					<h:panelGroup styleClass="col-xs-10">
-						<h:selectOneMenu styleClass="form-control"
-							value="#{userData.data}">
-							<f:selectItem itemValue="1" itemLabel="Masculino" />
-							<f:selectItem itemValue="2" itemLabel="Feminino" />
-						</h:selectOneMenu>
-					</h:panelGroup>
-				</h:panelGroup>
-
-				<h:panelGroup styleClass="form-group">
-					<h:commandButton styleClass="btn btn-sm btn-primary" value="Salvar">
-					</h:commandButton>
-				</h:panelGroup>
-			</h:panelGrid>
-
-		</p:panel>
-
-
+	</p:panel>
+	
+	
 	</h:form>
-
-
+	
+	<!-- acima pendencias -->
+	
+	
+	
+	
 </h:body>
 
 </html>

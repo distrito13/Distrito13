@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import fatec.edu.controle.acesso.ControleAcessoDAO;
+import fatec.edu.controle.acesso.ControleAcessoDAOImpl;
 import fatec.edu.dao.generic.GenericDAO;
+import fatec.edu.dao.interfaces.crud.QuestionarioPtIDAO;
 import fatec.edu.dao.interfaces.crud.QuestionarioPtIVDAO;
 import fatec.edu.models.QuestionarioPtIV;
 
@@ -24,7 +27,8 @@ public class QuestionarioPtIVDAOImpl implements QuestionarioPtIVDAO {
 		
 		ps.setFloat(1, questionarioPtIV.getValor());
 		ps.setString(2, questionarioPtIV.getTipoDivida());
-		ps.setInt(3, questionarioPtIV.getIdTomador());
+		ControleAcessoDAO controleAcessoDAO= new ControleAcessoDAOImpl();
+		ps.setInt(3, controleAcessoDAO.retornaIdControleAcesso());
 		
 		
 		ps.execute();

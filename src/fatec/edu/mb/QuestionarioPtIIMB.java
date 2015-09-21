@@ -3,23 +3,39 @@ package fatec.edu.mb;
 import java.sql.SQLException;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
+import fatec.edu.dao.implementation.crud.QuestionarioPtIDAOImpl;
 import fatec.edu.dao.implementation.crud.QuestionarioPtIIDAOImpl;
+import fatec.edu.dao.interfaces.crud.QuestionarioPtIDAO;
 import fatec.edu.dao.interfaces.crud.QuestionarioPtIIDAO;
+import fatec.edu.models.QuestionarioPtI;
 import fatec.edu.models.QuestionarioPtII;
 
 @ManagedBean
-@SessionScoped
+//@SessionScoped
+//@RequestScoped
+@ViewScoped
 public class QuestionarioPtIIMB {
 
 	
 	private QuestionarioPtII questionarioPtIIAtual;
 	private QuestionarioPtIIDAO questionarioPtIIDAO;
+	private QuestionarioPtI questionarioPtI;
+	private QuestionarioPtIDAO questionarioPtIDAO;
+	private int newId;
 	
 	public QuestionarioPtIIMB() {
 		questionarioPtIIAtual = new QuestionarioPtII();
 		questionarioPtIIDAO = new QuestionarioPtIIDAOImpl();
+		questionarioPtIDAO = new QuestionarioPtIDAOImpl();
+		
+		try {
+			System.out.println(questionarioPtIDAO.pesquisarUltimoId());
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -48,6 +64,36 @@ public class QuestionarioPtIIMB {
 
 	public void setQuestionarioPtIIAtual(QuestionarioPtII questionarioPtIIAtual) {
 		this.questionarioPtIIAtual = questionarioPtIIAtual;
+	}
+
+
+	public void setQuestionarioPtI(QuestionarioPtI questionarioPtI) {
+		this.questionarioPtI = questionarioPtI;
+	}
+
+
+	public QuestionarioPtI getQuestionarioPtI() {
+		return questionarioPtI;
+	}
+
+
+	public void setQuestionarioPtIDAO(QuestionarioPtIDAO questionarioPtIDAO) {
+		this.questionarioPtIDAO = questionarioPtIDAO;
+	}
+
+
+	public QuestionarioPtIDAO getQuestionarioPtIDAO() {
+		return questionarioPtIDAO;
+	}
+
+
+	public int getNewId() {
+		return newId;
+	}
+
+
+	public void setNewId(int newId) throws SQLException {
+		this.newId = questionarioPtIDAO.pesquisarUltimoId();
 	}
 
 }

@@ -2,23 +2,19 @@ package fatec.edu.models;
 
 import java.util.Date;
 
-import fatec.edu.mb.EntityGenerica;
+public class QuestionarioPtI {
 
-public class QuestionarioPtI implements EntityGenerica{
-
-	
-	private static final long serialVersionUID = 1L;
 	private int id;
 	private String cpf;
 	private String nome;
 	private Date data;
 	private String filiacaoI;
 	private String filiacaoII;
-	private String sexo;
+	private int sexo;
 	private int estadoCivil;
-	private int RegimeCasamento;
-	private String idEstado;
-	private String idCidade;
+	private String regismeCasamento;
+	private int idEstado;
+	private int idCidade;
 
 	public int getId() {
 		return id;
@@ -60,20 +56,20 @@ public class QuestionarioPtI implements EntityGenerica{
 		this.filiacaoII = filiacaoII;
 	}
 
+	public int getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(int sexo) {
+		this.sexo = sexo;
+	}
+
 	public int getEstadoCivil() {
 		return estadoCivil;
 	}
 
 	public void setEstadoCivil(int estadoCivil) {
 		this.estadoCivil = estadoCivil;
-	}
-
-	public int getRegimeCasamento() {
-		return RegimeCasamento;
-	}
-
-	public void setRegimeCasamento(int regimeCasamento) {
-		RegimeCasamento = regimeCasamento;
 	}
 
 	public String getCpf() {
@@ -84,32 +80,30 @@ public class QuestionarioPtI implements EntityGenerica{
 		this.cpf = cpf;
 	}
 
-	public String getIdEstado() {
+
+
+	public String getRegismeCasamento() {
+		return regismeCasamento;
+	}
+
+	public void setRegismeCasamento(String regismeCasamento) {
+		this.regismeCasamento = regismeCasamento;
+	}
+
+	public int getIdEstado() {
 		return idEstado;
 	}
 
-	public void setIdEstado(String idEstado) {
+	public void setIdEstado(int idEstado) {
 		this.idEstado = idEstado;
 	}
 
-	public String getIdCidade() {
+	public int getIdCidade() {
 		return idCidade;
 	}
 
-	public void setIdCidade(String idCidade) {
+	public void setIdCidade(int idCidade) {
 		this.idCidade = idCidade;
 	}
-
-	public String getSexo() {
-		return sexo;
-	}
-
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
-	}
-
-
-
-
 
 }

@@ -2,5 +2,21 @@ package fatec.edu.enumeration;
 
 public enum RegimeCasamento {
 
-	COMUNHAO_PARCIAL_BENS, COMUNHAO_UNIVERSAL_BENS, SEPARACAO_TOTAL_BENS;
+	a("Comunhão Parcial de Bens"), b("Comunhão Universal de Bens"), c("Separação Total de Bens");
+
+	private final String regimeCasamento;
+
+	RegimeCasamento(String regimeCasamento) {
+		this.regimeCasamento = regimeCasamento;
+	}
+
+	public String getRegimeCasamento() {
+		return regimeCasamento;
+	}
+
+	@Override
+	public String toString() {
+		return getRegimeCasamento();
+	}
+
 }

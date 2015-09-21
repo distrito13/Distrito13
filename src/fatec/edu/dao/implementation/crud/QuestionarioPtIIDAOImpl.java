@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import fatec.edu.controle.acesso.ControleAcessoDAO;
+import fatec.edu.controle.acesso.ControleAcessoDAOImpl;
 import fatec.edu.dao.generic.GenericDAO;
+import fatec.edu.dao.interfaces.crud.QuestionarioPtIDAO;
 import fatec.edu.dao.interfaces.crud.QuestionarioPtIIDAO;
 import fatec.edu.models.QuestionarioPtII;
 
@@ -22,12 +25,15 @@ public class QuestionarioPtIIDAOImpl implements QuestionarioPtIIDAO {
 		String sql = "insert into ExerceAtividade Values(?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement ps = conection.prepareStatement(sql);
 		ps.setInt(1, questionarioPtII.getCarteiraTrabalho());
-		ps.setInt(2, questionarioPtII.getIdAtividade());
-		ps.setInt(3, questionarioPtII.getIdEmpresa());
+		ps.setString(2, questionarioPtII.getIdAtividade());
+		ps.setString(3, questionarioPtII.getIdEmpresa());
 		ps.setDate(4,new java.sql.Date(questionarioPtII.getDataAdmissao().getTime()));
-		ps.setInt(5, questionarioPtII.getIdCargo());
+		ps.setString(5, questionarioPtII.getIdCargo());
 		ps.setFloat(6, questionarioPtII.getSalario());
-		ps.setInt(7, questionarioPtII.getIdTomador());
+		
+		ControleAcessoDAO controleAcessoDAO= new ControleAcessoDAOImpl();
+		
+		ps.setInt(7, controleAcessoDAO.retornaIdControleAcesso());
 		
 		ps.execute();
 		ps.close();

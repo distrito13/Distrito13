@@ -5,10 +5,10 @@ import java.util.Date;
 public class QuestionarioPtII {
 	private int id;
 	private int carteiraTrabalho;
-	private int idAtividade;
-	private int idEmpresa;
+	private String idAtividade;
+	private String idEmpresa;
 	private Date dataAdmissao;
-	private int idCargo;
+	private String idCargo;
 	private float salario;
 	private int idTomador;
 	public int getId() {
@@ -23,30 +23,14 @@ public class QuestionarioPtII {
 	public void setCarteiraTrabalho(int carteiraTrabalho) {
 		this.carteiraTrabalho = carteiraTrabalho;
 	}
-	public int getIdAtividade() {
-		return idAtividade;
-	}
-	public void setIdAtividade(int idAtividade) {
-		this.idAtividade = idAtividade;
-	}
-	public int getIdEmpresa() {
-		return idEmpresa;
-	}
-	public void setIdEmpresa(int idEmpresa) {
-		this.idEmpresa = idEmpresa;
-	}
+	
 	public Date getDataAdmissao() {
 		return dataAdmissao;
 	}
 	public void setDataAdmissao(Date dataAdmissao) {
 		this.dataAdmissao = dataAdmissao;
 	}
-	public int getIdCargo() {
-		return idCargo;
-	}
-	public void setIdCargo(int idCargo) {
-		this.idCargo = idCargo;
-	}
+
 	public float getSalario() {
 		return salario;
 	}
@@ -57,7 +41,26 @@ public class QuestionarioPtII {
 		return idTomador;
 	}
 	public void setIdTomador(int idTomador) {
+		
 		this.idTomador = idTomador;
+	}
+	public String getIdCargo() {
+		return idCargo;
+	}
+	public void setIdCargo(String idCargo) {
+		this.idCargo = idCargo;
+	}
+	public String getIdAtividade() {
+		return idAtividade;
+	}
+	public void setIdAtividade(String idAtividade) {
+		this.idAtividade = idAtividade;
+	}
+	public String getIdEmpresa() {
+		return idEmpresa;
+	}
+	public void setIdEmpresa(String idEmpresa) {
+		this.idEmpresa = idEmpresa;
 	}
 	
 	

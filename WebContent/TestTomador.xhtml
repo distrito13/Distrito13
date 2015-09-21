@@ -3,219 +3,226 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 <h:head>
 	<!-- vsp test -->
-	<meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>   
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <h:outputStylesheet library="css" name="bootstrap.min.css"  > </h:outputStylesheet>
-    <h:outputScript library="js" name="bootstrap.min.js"></h:outputScript>
-    <!-- vsp test -->
-    
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
-<title>Tomador</title>
-       
-    
-    <nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-      <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">
-          FuzzyTCC</a>
-    </div>
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tomador <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="Tomador.html">Pessoal</a></li>
-            <li><a href="#">Profissional</a></li>
-            <li><a href="#">Rendas</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Dívidas</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Pendências</a></li>
-          </ul>
-        </li>
-      </ul>
-     
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuário <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Configurações</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Sair</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<h:outputStylesheet library="css" name="bootstrap.min.css">
+	</h:outputStylesheet>
+	<h:outputScript library="js" name="bootstrap.min.js"></h:outputScript>
+
+	<!-- vsp test -->
+
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Pessoais</title>
+
 </h:head>
 <h:body>
+
 	<h:form>
-	<p:panel id="basic" header="Tomador">
-		<h:panelGrid styleClass="table table-responsive" columns="1"
-								cellpadding="10">
+		<p:panel id="basic" header="Dados Pessoais">
+			<h:panelGrid styleClass="table table-responsive" columns="1"
+				cellpadding="10">
 
-								<h:panelGroup styleClass="form-group">
-									<h:outputLabel styleClass="control-label col-xs-2" name=""
-										value="ID:">
-									</h:outputLabel>
-									<h:panelGroup styleClass="col-xs-10">
-										<h:outputText value="IDcarregado">
-										</h:outputText>
-									</h:panelGroup>
-								</h:panelGroup>
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2" name="lblCPF"
+						value="CPF:">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-md-3 col-sm-6">
+						<h:inputText id="cpf" styleClass="form-control cpf"  type="text"
+							size="11" maxLength="11"
+							value="${questionarioPtIMB.questionarioPtIAtual.cpf}"
+							required="true" requiredMessage="*CPF ï¿½ OBRIGATï¿½RIO.">
+																
+						</h:inputText>
+						<h:message id="m1" for="cpf" style="color:red"></h:message>
+					</h:panelGroup>
+				</h:panelGroup>
 
-								<h:panelGroup styleClass="form-group">
-									<h:outputLabel styleClass="control-label col-xs-2"
-										name="lblCPF" value="CPF:">
-									</h:outputLabel>
-									<h:panelGroup styleClass="col-md-3 col-sm-6">
-										<h:inputText styleClass="form-control"
-											value="${questionarioPtIMB.questionarioPtIAtual.cpf}">
-										</h:inputText>
-									</h:panelGroup>
-								</h:panelGroup>
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2" name="lblNome"
+						value="Nome:">
+					</h:outputLabel>
+					<h:panelGroup styleClass=" col-xs-12 col-sm-5">
+						<h:inputText styleClass="form-control"
+							value="${questionarioPtIMB.questionarioPtIAtual.nome}"></h:inputText>
+					</h:panelGroup>
+				</h:panelGroup>
 
-								<h:panelGroup styleClass="form-group">
-									<h:outputLabel styleClass="control-label col-xs-2"
-										name="lblNome" value="Nome:">
-									</h:outputLabel>
-									<h:panelGroup styleClass=" col-xs-12 col-sm-5">
-										<h:inputText styleClass="form-control"
-											value="${questionarioPtIMB.questionarioPtIAtual.nome}"></h:inputText>
-									</h:panelGroup>
-								</h:panelGroup>
-
-								<h:panelGroup styleClass="form-group">
-									<h:outputLabel styleClass="control-label col-xs-12 col-sm-2"
-										name="lblDataNascimento" value="Data de Nascimento:">
-									</h:outputLabel>
-									<h:panelGroup styleClass="col-xs-12 col-sm-2 col-md-2 col-lg-2">									
-										<p:calendar id="popup" value="${questionarioPtIMB.questionarioPtIAtual.data}" />
-									</h:panelGroup>
-								</h:panelGroup>
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-12 col-sm-2"
+						name="lblDataNascimento" value="Data de Nascimento:">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+						<p:calendar  id="popup"
+							value="${questionarioPtIMB.questionarioPtIAtual.data}" />
+					</h:panelGroup>
+				</h:panelGroup>
 
 
-								<h:panelGroup styleClass="form-group">
-									<h:outputLabel styleClass="control-label col-xs-2"
-										name="lblFiliacao1" value="Filiação1:">
-									</h:outputLabel>
-									<h:panelGroup styleClass=" col-xs-12 col-sm-5">
-										<h:inputText styleClass="form-control"
-											value="${questionarioPtIMB.questionarioPtIAtual.filiacaoI}"></h:inputText>
-									</h:panelGroup>
-								</h:panelGroup>
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2"
+						name="lblFiliacao1" value="Filiação 1 :">
+					</h:outputLabel>
+					<h:panelGroup styleClass=" col-xs-12 col-sm-5">
+						<h:inputText styleClass="form-control"
+							value="${questionarioPtIMB.questionarioPtIAtual.filiacaoI}"></h:inputText>
+					</h:panelGroup>
+				</h:panelGroup>
 
-								<h:panelGroup styleClass="form-group">
-									<h:outputLabel styleClass="control-label col-xs-2"
-										name="lblFiliacao2" value="Filiação2:">
-									</h:outputLabel>
-									<h:panelGroup styleClass="col-xs-12 col-sm-5">
-										<h:inputText styleClass="form-control"
-											value="${questionarioPtIMB.questionarioPtIAtual.filiacaoII}"></h:inputText>
-									</h:panelGroup>
-								</h:panelGroup>
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2"
+						name="lblFiliacao2" value="Filiação 2 :">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-xs-12 col-sm-5">
+						<h:inputText styleClass="form-control"
+							value="${questionarioPtIMB.questionarioPtIAtual.filiacaoII}"></h:inputText>
+					</h:panelGroup>
+				</h:panelGroup>
 
-								<h:panelGroup styleClass="form-group">
-									<h:outputLabel styleClass="control-label col-xs-2"
-										name="lblSexo" value="Sexo:">
-									</h:outputLabel>
- 									<h:panelGroup styleClass="col-md-2 col-sm-3"> 
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2" name="lblSexo"
+						value="Sexo:">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-md-2 col-sm-3">
+						<h:selectOneMenu styleClass="form-control"
+							value="${questionarioPtIMB.questionarioPtIAtual.sexo}">
+							<!-- <c:forEach var="#{sexos}"  > -->
+							<f:selectItems value="#{questionarioPtIMB.sexos}" var="s"
+								itemValue="#{s.idSexo}" itemLabel="#{s.sexo}"></f:selectItems>
+							<!-- </c:forEach> -->
+						</h:selectOneMenu>
+
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2"
+						name="lblEstadoCivil" value="Estado Civil:">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-md-2 col-sm-2">
+						<h:selectOneMenu styleClass="form-control"
+							value="${questionarioPtIMB.questionarioPtIAtual.estadoCivil}">
+							<f:selectItem itemValue="1" itemLabel="Solteiro" />
+							<f:selectItem itemValue="2" itemLabel="Casado" />
+							<f:selectItem itemValue="3" itemLabel="Separado" />
+							<f:selectItem itemValue="4" itemLabel="Divorciado" />
+							<f:selectItem itemValue="5" itemLabel="Viï¿½vo" />
+						</h:selectOneMenu>
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2"
+						name="lblRegimeCasamento" value="Regime de Casamento:">
+					</h:outputLabel>
+					
+					
+					
+					<h:panelGroup styleClass="col-md-3 col-sm-4">
+						<h:selectOneMenu styleClass="form-control"
+							value="#{questionarioPtIMB.questionarioPtIAtual.regismeCasamento}">
+							<f:selectItems value="#{questionarioPtIMB.regimesCasamento}"
+								var="r" itemLabel="#{r}" itemValue="#{r}"></f:selectItems>
+						</h:selectOneMenu>
+
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2"
+						name="lblIdEstado" value="Estado:">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-xs-10">
+						<h:selectOneMenu styleClass="form-control"
+							value="${questionarioPtIMB.questionarioPtIAtual.idEstado}">
+
+							<f:selectItems value="#{questionarioPtIMB.estados}" var="e"
+								itemValue="#{e.idEstado}" itemLabel="#{e.estado}"></f:selectItems>
+
+						</h:selectOneMenu>
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2"
+						name="lblIdCidade" value="Cidade:">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-xs-10">
+						
+						<h:selectOneMenu styleClass="form-control"
+							value="${questionarioPtIMB.questionarioPtIAtual.idCidade}">
+
+							<f:selectItems value="#{questionarioPtIMB.cidades}" var="c"
+								itemValue="#{c.idCidade}" itemLabel="#{c.cidade}"></f:selectItems>
+
+						</h:selectOneMenu>
+						
+						
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup styleClass="form-group text-center">
+					<h:panelGroup styleClass="col-xs-offset-2 col-xs-8 ">
+						<h:commandButton styleClass="btn btn-xs btn-primary"
+							action="${questionarioPtIMB.adicionar()}" value="Salvar">
+						</h:commandButton>
 
 
-						<h:selectOneMenu id="sexo" 
-							value="#{sexoManagedBean.sexoAtual.sexo}" converter="simpleIndexConverter">
-							<f:selectItems value="#{sexoManagedBean.sexos}" var="sexo" 
-							itemValue="#{sexo}"/> 
-						</h:selectOneMenu> 
+					</h:panelGroup>
+				</h:panelGroup>
+			</h:panelGrid>
 
 
-<!-- 					</h:panelGroup> -->
-								</h:panelGroup>
-
-								<h:panelGroup styleClass="form-group">
-									<h:outputLabel styleClass="control-label col-xs-2"
-										name="lblEstadoCivil" value="Estado Civil:">
-									</h:outputLabel>
-									<h:panelGroup styleClass="col-md-2 col-sm-2">
-										<h:selectOneMenu styleClass="form-control"
-											value="${questionarioPtIMB.questionarioPtIAtual.estadoCivil}">
-											<f:selectItem itemValue="1" itemLabel="Solteiro" />
-											<f:selectItem itemValue="2" itemLabel="Casado" />
-											<f:selectItem itemValue="3" itemLabel="Separado" />
-											<f:selectItem itemValue="4" itemLabel="Divorciado" />
-											<f:selectItem itemValue="5" itemLabel="Viúvo" />
-										</h:selectOneMenu>
-									</h:panelGroup>
-								</h:panelGroup>
-
-								<h:panelGroup styleClass="form-group">
-									<h:outputLabel styleClass="control-label col-xs-2"
-										name="lblRegimeCasamento" value="Regime de Casamento:">
-									</h:outputLabel>
-									<h:panelGroup styleClass="col-md-3 col-sm-4">
-										<h:selectOneMenu styleClass="form-control"
-											value="${questionarioPtIMB.questionarioPtIAtual.regimeCasamento}">
-											<f:selectItem itemValue="1"
-												itemLabel="Comunhão parcial de bens" />
-											<f:selectItem itemValue="2"
-												itemLabel="Comunhão universal de bens" />
-											<f:selectItem itemValue="3"
-												itemLabel="Separação total de bens" />
-										</h:selectOneMenu>
-									</h:panelGroup>
-								</h:panelGroup>
-
-								<h:panelGroup styleClass="form-group">
-									<h:outputLabel styleClass="control-label col-xs-2"
-										name="lblIdEstado" value="Id Estado:">
-									</h:outputLabel>
-									<h:panelGroup styleClass="col-xs-10">
-										<h:inputText styleClass="form-control"
-											value="${questionarioPtIMB.questionarioPtIAtual.idEstado}"></h:inputText>
-									</h:panelGroup>
-								</h:panelGroup>
-
-								<h:panelGroup styleClass="form-group">
-									<h:outputLabel styleClass="control-label col-xs-2"
-										name="lblIdCidade" value="Id Cidade:">
-									</h:outputLabel>
-									<h:panelGroup styleClass="col-xs-10">
-										<h:inputText styleClass="form-control"
-											value="${questionarioPtIMB.questionarioPtIAtual.idCidade}"></h:inputText>
-									</h:panelGroup>
-								</h:panelGroup>
-
-								<h:panelGroup styleClass="form-group">
-									<h:panelGroup styleClass="col-xs-offset-2 col-xs-10">
-										<h:commandButton styleClass="btn btn-xs btn-primary"
-											action="${questionarioPtIMB.adicionar()}" value="Salvar">
-										</h:commandButton>
+		</p:panel>
 
 
-									</h:panelGroup>
-								</h:panelGroup>
-							</h:panelGroup>
-							</h:panelGrid>
-		
-
-	</p:panel>
-	
-	
 	</h:form>
-	
-	
+
+
+
+
 </h:body>
-	
- 
+
+<h:outputScript>
+PrimeFaces.locales['pt'] = {
+    closeText: 'Fechar',
+    prevText: 'Anterior',
+    nextText: 'Prï¿½ximo',
+    currentText: 'Comeï¿½o',
+    monthNames: ['Janeiro','Fevereiro','Marï¿½o','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun', 'Jul','Ago','Set','Out','Nov','Dez'],
+    dayNames: ['Domingo','Segunda','Terï¿½a','Quarta','Quinta','Sexta','Sï¿½bado'],
+    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sï¿½b'],
+    dayNamesMin: ['D','S','T','Q','Q','S','S'],
+    weekHeader: 'Semana',
+    firstDay: 0,
+    isRTL: false,
+    showMonthAfterYear: false,
+    yearSuffix: '',
+    timeOnlyTitle: 'Sï¿½ Horas',
+    timeText: 'Tempo',
+    hourText: 'Hora',
+    minuteText: 'Minuto',
+    secondText: 'Segundo',
+    ampm: false,
+    month: 'Mï¿½s',
+    week: 'Semana',
+    day: 'Dia',
+    allDayText : 'Todo o Dia'
+};
+
+jQuery(function($){     
+   // $(".cpf").mask("999.999.999-99");
+   $(".cpf").mask("99999999999");     
+   
+});  
+</h:outputScript>
+
+
+
 </html>

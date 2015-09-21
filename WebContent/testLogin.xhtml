@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<!-- vsp test -->
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css">
+	</h:outputStylesheet>
+	<h:outputStylesheet library="css" name="custom.css">
+	</h:outputStylesheet>
+	<h:outputScript library="js" name="bootstrap.min.js"></h:outputScript>
+	<!-- vsp test -->
+
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Login</title>
+</h:head>
+<h:body>
+
+	<h:panelGroup layout="block" styleClass="container bg-primary" >
+		<h:panelGroup layout="block" styleClass="row ">
+			
+			<h:panelGroup layout="block" styleClass="col-md-4 col-md-offset-4 bg-primary ">
+				<h:panelGroup styleClass="panel panel-primary">  
+					<h:outputLabel styleClass="bg-primary"></h:outputLabel>
+					<h:panelGroup styleClass="chat-img pull-center">
+						<h:graphicImage library="images" name="lamp5.png"
+							styleClass="img-responsive center-block img-rounded"></h:graphicImage>
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="panel-heading  ">
+
+						<h:outputText styleClass="panel-title"
+							value="Por favor, Insira seu Usuário e Senha."></h:outputText>
+					</h:panelGroup>
+					<h:panelGroup layout="block" class="panel-body bg-primary ">
+						<h:form role="form">
+							<fieldset>
+								<h:panelGroup layout="block" styleClass="form-group">
+									<h:inputText class="form-control" name="email" type="email"
+										pt:placeholder="E-mail"></h:inputText>
+								</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="form-group">
+									<h:inputSecret class="form-control" name="password"
+										type="password" pt:placeholder="Senha"></h:inputSecret>
+								</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="checkbox">
+									<h:outputLabel>
+										<h:selectBooleanCheckbox id="chkRememberMe"></h:selectBooleanCheckbox> Lembrar
+									</h:outputLabel>
+								</h:panelGroup>
+
+								<h:panelGroup layout="block" styleClass="form-group">
+									<h:commandButton
+										styleClass="btn btn-lg btn-tccblue  btnbackground btn-block"
+										value="Entrar"></h:commandButton>
+
+								</h:panelGroup>
+							</fieldset>
+						</h:form>
+					</h:panelGroup>
+				</h:panelGroup>
+			</h:panelGroup>
+		</h:panelGroup>
+	</h:panelGroup>
+
+</h:body>
+</html>

@@ -33,18 +33,19 @@ public class SexoDAOImpl implements SexoDAO {
 	@Override
 	public List<Sexo> pesquisar() throws SQLException {
 		List<Sexo> lista = new ArrayList<Sexo>();
-		String sql = "SELECT sexo FROM Sexos";
+		String sql = "SELECT * FROM Sexos";
 		PreparedStatement ps = conection.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
 			Sexo sexo = new Sexo();
+			sexo.setIdSexo(rs.getInt("idSexo"));
 			sexo.setSexo(rs.getString("sexo"));
 			lista.add(sexo);
-			System.out.println(sexo);
 		}
 		ps.close();
 		rs.close();
 		return lista;
+		//return estava null
 	}
 
 	@Override

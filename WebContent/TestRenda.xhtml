@@ -6,135 +6,105 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<!-- vsp test -->
-	<meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>   
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <h:outputStylesheet library="css" name="bootstrap.min.css"  > </h:outputStylesheet>
-    <h:outputScript library="js" name="bootstrap.min.js"></h:outputScript>
-    <!-- vsp test -->
-    
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
-<title>Tomador</title>
-       
-    
-    <nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-      <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">
-          FuzzyTCC</a>
-    </div>
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tomador <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="Tomador.html">Pessoal</a></li>
-            <li><a href="#">Profissional</a></li>
-            <li><a href="#">Rendas</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Dívidas</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Pendências</a></li>
-          </ul>
-        </li>
-      </ul>
-     
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuário <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Configurações</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Sair</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css">
+	</h:outputStylesheet>
+	<h:outputScript library="js" name="bootstrap.min.js"></h:outputScript>
+	<!-- vsp test -->
+
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Rendas</title>
+
 </h:head>
 <h:body>
-	<h:form>
-	<p:panel id="basic" header="Tomador">
-<h:panelGrid styleClass="table table-responsive" columns="1"
-									cellpadding="10">
-									<h:panelGroup>
-										<h:outputLabel styleClass="control-label col-xs-2" name=""
-											value="Id:">
-										</h:outputLabel>
-										<h:panelGroup styleClass="col-xs-10">
-											<h:outputText value="carregado">
-											</h:outputText>
-										</h:panelGroup>
-									</h:panelGroup>
-
-									<h:panelGroup styleClass="form-group">
-										<h:outputLabel styleClass="control-label col-xs-2" name=""
-											value="Valor:">
-										</h:outputLabel>
-										<h:panelGroup styleClass="col-xs-10">
-											<h:inputText styleClass="form-control"
-												value="${questionarioPtIIIMB.questionarioPtIIIAtual.valor}"></h:inputText>
-										</h:panelGroup>
-									</h:panelGroup>
-
-									<h:panelGroup styleClass="form-group">
-										<h:outputLabel styleClass="control-label col-xs-2" name=""
-											value="Tipo de Renda:">
-										</h:outputLabel>
-										<h:panelGroup styleClass="col-xs-10">
-											<h:selectOneMenu styleClass="form-control "
-												value="${questionarioPtIIIMB.questionarioPtIIIAtual.tipoRenda}">
-												<f:selectItem itemValue="1" itemLabel="A definir" />
-											</h:selectOneMenu>
-										</h:panelGroup>
-									</h:panelGroup>
-
-									<h:panelGroup styleClass="form-group">
-										<h:outputLabel styleClass="control-label col-xs-2" name=""
-											value="Periodo:">
-										</h:outputLabel>
-										<h:panelGroup styleClass="col-xs-10">
-											<h:selectOneMenu styleClass="form-control"
-												value="${questionarioPtIIIMB.questionarioPtIIIAtual.periodo}">
-												<f:selectItem itemValue="1" itemLabel="A definir" />
-											</h:selectOneMenu>
-										</h:panelGroup>
-									</h:panelGroup>
-
-									<h:panelGroup styleClass="form-group">
-										<h:outputLabel styleClass="control-label col-xs-2" name=""
-											value="Id Tomador:">
-										</h:outputLabel>
-										<h:panelGroup styleClass="col-xs-10">
-											<h:inputText styleClass="form-control"
-												value="${questionarioPtIIIMB.questionarioPtIIIAtual.idTomador}"></h:inputText>
-										</h:panelGroup>
-									</h:panelGroup>
+	<h:form id="renda">
+		<p:panel id="basic" header="Renda">
+			<h:panelGrid styleClass="table table-responsive" columns="1"
+				cellpadding="10">
 
 
-									<h:panelGroup styleClass="form-group">
-										<h:commandButton styleClass="btn btn-sm btn-primary"
-											action="${questionarioPtIIIMB.adicionar()}" value="Salvar">
-										</h:commandButton>
-									</h:panelGroup>
-								</h:panelGrid>
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2" name=""
+						value="Valor:">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-xs-10">
+						<h:inputText styleClass="form-control"
+							value="${questionarioPtIIIMB.questionarioPtIIIAtual.valor}"></h:inputText>
+					</h:panelGroup>
+				</h:panelGroup>
 
-		
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2" name=""
+						value="Tipo de Renda:">
+					</h:outputLabel>
 
-	</p:panel>
-	
-	
+					<h:panelGroup styleClass="col-md-3 col-sm-4">
+						<h:selectOneMenu styleClass="form-control"
+							value="#{questionarioPtIIIMB.questionarioPtIIIAtual.tipoRenda}">
+							<f:selectItems value="#{questionarioPtIIIMB.tipoRenda}" var="t"
+								itemLabel="#{t}" itemValue="#{t}"></f:selectItems>
+						</h:selectOneMenu>
+					</h:panelGroup>
+
+				</h:panelGroup>
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2" name=""
+						value="Período">
+					</h:outputLabel>
+
+					<h:panelGroup styleClass="col-md-3 col-sm-4">
+						<h:selectOneMenu styleClass="form-control"
+							value="#{questionarioPtIIIMB.questionarioPtIIIAtual.periodo}">
+							<f:selectItems value="#{questionarioPtIIIMB.periodo}" var="p"
+								itemLabel="#{p}" itemValue="#{p}"></f:selectItems>
+						</h:selectOneMenu>
+					</h:panelGroup>
+
+				</h:panelGroup>
+
+				<h:panelGroup styleClass="form-group">
+					<h:commandButton styleClass="btn btn-sm btn-primary"
+						action="${questionarioPtIIIMB.adicionar()}" value="Adiciona Renda">
+
+					</h:commandButton>
+				</h:panelGroup>
+
+
+				<h:panelGroup styleClass="form-group">
+					<h:commandButton styleClass="btn btn-sm btn-primary"
+						action="${questionarioPtIIIMB.adicionar()}" value="Salvar">
+						<f:ajax render="renda"></f:ajax>
+					</h:commandButton>
+				</h:panelGroup>
+			</h:panelGrid>
+
+			<p:dataTable value="${questionarioPtIIIMB.rendas}"
+				var="questionarioPtIII">
+				<p:column headerText="id">
+		${questionarioPtIII.id}
+		</p:column>
+				<p:column headerText="Valor">
+		${questionarioPtIII.valor}
+		</p:column>
+				<p:column headerText="Tipo de Renda">
+		${questionarioPtIII.tipoRenda}
+		</p:column>
+				<p:column headerText="Periodo">
+		${questionarioPtIII.periodo}
+		</p:column>
+
+				<p:chart type="line" model="#{chartView.lineModel1}"
+					style="height:300px;" />
+			</p:dataTable>
+
+
+		</p:panel>
+
 	</h:form>
-	
-	
+
 </h:body>
-	
- 
+
 </html>

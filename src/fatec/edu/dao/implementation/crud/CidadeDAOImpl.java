@@ -34,7 +34,7 @@ public class CidadeDAOImpl implements CidadeDAO {
 	@Override
 	public List<Cidade> pesquisar() throws SQLException {
 		List<Cidade> lista= new ArrayList<Cidade>();
-		String sql= "SELECT * FROM Cidade";
+		String sql= "SELECT * FROM Cidades";
 		PreparedStatement ps = conection.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		while(rs.next()){
