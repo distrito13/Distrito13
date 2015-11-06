@@ -7,16 +7,21 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import fatec.edu.Session.salva.SessionSalDAO;
+import fatec.edu.Session.salva.SessionSalDAOImpl;
+
 @ManagedBean
 @SessionScoped
 public class ManagedBeanControleAcesso {
 
 	private ControleAcesso controleAcessoUltimo;
 	private ControleAcessoDAO controleAcessoDAO;
+	private SessionSalDAO sessioDAO;
 
 	public ManagedBeanControleAcesso() {
 		controleAcessoUltimo = new ControleAcesso();
 		controleAcessoDAO = new ControleAcessoDAOImpl();
+		sessioDAO = new SessionSalDAOImpl();
 	}
 
 	public String iniciarControleAcesso() {
@@ -31,6 +36,7 @@ public class ManagedBeanControleAcesso {
 				e.printStackTrace();
 			}
 
+			sessioDAO.UsuarioCredor();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -64,5 +70,13 @@ public class ManagedBeanControleAcesso {
 
 	public void setControleAcessoDAO(ControleAcessoDAO controleAcessoDAO) {
 		this.controleAcessoDAO = controleAcessoDAO;
+	}
+
+	public SessionSalDAO getSessioDAO() {
+		return sessioDAO;
+	}
+
+	public void setSessioDAO(SessionSalDAO sessioDAO) {
+		this.sessioDAO = sessioDAO;
 	}
 }

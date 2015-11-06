@@ -2,7 +2,7 @@ package fatec.edu.enumeration;
 
 public enum Periodo {
 
-	a("Anual"), b("Semestral"), c("Mensal"), d("Diário"), e("Bimestral"), f("Trimestral");
+	Anual("Anual"), Semestral("Semestral"), Mensal("Mensal"), Diário("Diário"), Bimestral("Bimestral"), Trimestral("Trimestral");
 
 	private final String periodo;
 

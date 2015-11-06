@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<!-- vsp test -->
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css">
+	</h:outputStylesheet>
+	<h:outputScript library="js" name="bootstrap.min.js"></h:outputScript>
+	<!-- vsp test -->
+
+
+	<title>Rendas</title>
+
+</h:head>
+<h:body>
+	<h:form id="renda">
+		<p:panel>
+
+			<h:panelGrid styleClass="table table-responsive" columns="1"
+				cellpadding="10">
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2" name=""
+						value="Valor:">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-xs-10">
+						<h:inputText id="out"
+							value="${configuracoesEditarTomadorManagedBean.questionarioPtIIIAtual.valor}"></h:inputText>
+					</h:panelGroup>
+				</h:panelGroup>
+
+			</h:panelGrid>
+			<p:dataTable
+				value="${configuracoesEditarTomadorManagedBean.listaRenda}"
+				var="questionarioPtIII" id="table"
+				selection="#{configuracoesEditarTomadorManagedBean.questionarioPtIIIAtual}"
+				rowKey="#{questionarioPtIIIAtual.id}">
+
+
+				<p:column headerText="Id">
+		${questionarioPtIII.id}</p:column>
+				<p:column headerText="Valor">
+		${questionarioPtIII.valor}
+		</p:column>
+				<p:column headerText="Tipo de Renda">
+		${questionarioPtIII.tipoRenda}
+		</p:column>
+				<p:column headerText="Periodo">
+		${questionarioPtIII.periodo}
+		</p:column>
+				<p:column headerText="Editar">
+					<h:commandButton value="Editar" />
+				</p:column>
+				<p:column headerText="Deletar">
+					<h:commandButton value="deletar" action="${configuracoesEditarTomadorManagedBean.editarRenda(questionarioPtIII)}"/>
+				</p:column>
+
+				<p:chart type="line" model="#{chartView.lineModel1}"
+					style="height:300px;" />
+			</p:dataTable>
+
+
+
+
+
+		</p:panel>
+
+	</h:form>
+
+</h:body>
+
+</html>

@@ -4,24 +4,15 @@ public class Ativo {
 
 	private int idAtivo;
 	private double valor;
-	private String descricao;
-	private String situacao;
-	private int credor;
+	private String tipo;
+	private String idTomador;
 
-	public String getSituacao() {
-		return situacao;
+	public int getIdAtivo() {
+		return idAtivo;
 	}
 
-	public void setSituacao(String situacao) {
-		this.situacao = situacao;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setIdAtivo(int idAtivo) {
+		this.idAtivo = idAtivo;
 	}
 
 	public double getValor() {
@@ -32,22 +23,19 @@ public class Ativo {
 		this.valor = valor;
 	}
 
-	public int getIdAtivo() {
-		return idAtivo;
+	public String getTipo() {
+		return tipo;
 	}
 
-	public void setIdAtivo(int idAtivo) {
-		this.idAtivo = idAtivo;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
-	public int getCredor() {
-		return credor;
-	}
-	
-	public void setCredor(int credor) {
-		this.credor = credor;
+	public String getIdTomador() {
+		return idTomador;
 	}
 
-	
-
+	public void setIdTomador(String idTomador) {
+		this.idTomador = idTomador;
+	}
 }

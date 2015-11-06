@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<h:head>
+	<!-- vsp test -->
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<h:outputStylesheet library="css" name="bootstrap.min.css">
+	</h:outputStylesheet>
+	<h:outputScript library="js" name="bootstrap.min.js"></h:outputScript>
+
+	<!-- vsp test -->
+	<title>Pessoais</title>
+
+</h:head>
+<h:body>
+
+	<h:form>
+		<p:panel>
+			<h:panelGrid styleClass="table table-responsive" columns="1"
+				cellpadding="10">
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2" name="lblCPF"
+						value="CPF:">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-md-3 col-sm-3 col-xs-3">
+						<h:inputText id="cpf" styleClass="form-control cpf" type="text"
+							size="11" maxLength="11"
+							value="${configuracoesEditarTomadorManagedBean.questionarioPtIAtual.cpf}"
+							required="true" requiredMessage="*Preencha o campo CPF.">
+
+						</h:inputText>
+						<h:message id="m1" for="cpf" style="color:red"></h:message>
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2" name="lblNome"
+						value="Nome:">
+					</h:outputLabel>
+					<h:panelGroup styleClass=" col-xs-12 col-sm-5">
+						<h:inputText id="nome" styleClass="form-control"
+							value="${configuracoesEditarTomadorManagedBean.questionarioPtIAtual.nome}"
+							required="true" requiredMessage="*Preencha o campo Nome."></h:inputText>
+						<h:message id="m2" for="nome" style="color:red"></h:message>
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-12 col-sm-2"
+						name="lblDataNascimento" value="Data de Nascimento:">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+						<p:calendar id="datanasc" locale="pt_BR" pattern="dd/MM/yyyy"
+							mask="true" maxlength="10" size="30"
+							value="${configuracoesEditarTomadorManagedBean.questionarioPtIAtual.data}"
+							required="true"
+							requiredMessage="*Preencha o campo Data de nascimento." />
+						<h:message id="m3" for="datanasc" style="color:red"></h:message>
+					</h:panelGroup>
+				</h:panelGroup>
+
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2"
+						name="lblFiliacao1" value="Filiação I :">
+					</h:outputLabel>
+					<h:panelGroup styleClass=" col-xs-12 col-sm-5">
+						<h:inputText id="filiacao1" styleClass="form-control"
+							value="${configuracoesEditarTomadorManagedBean.questionarioPtIAtual.filiacaoI}"
+							required="true" requiredMessage="*Preencha o campo Filiação I."></h:inputText>
+						<h:message id="m4" for="filiacao1" style="color:red"></h:message>
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2"
+						name="lblFiliacao2" value="Filiação II :">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-xs-12 col-sm-5">
+						<h:inputText id="filiacao2" styleClass="form-control"
+							value="${configuracoesEditarTomadorManagedBean.questionarioPtIAtual.filiacaoII}"
+							required="true" requiredMessage="*Preencha o campo Filiação II."></h:inputText>
+						<h:message id="m5" for="filiacao2" style="color:red"></h:message>
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2" name="lblSexo"
+						value="Sexo:">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-md-2 col-sm-3">
+						<h:selectOneMenu styleClass="form-control"
+							value="${configuracoesEditarTomadorManagedBean.questionarioPtIAtual.sexo}">
+
+							<f:selectItems value="#{questionarioPtIMB.sexos}" var="s"
+								itemValue="#{s.idSexo}" itemLabel="#{s.sexo}"></f:selectItems>
+						</h:selectOneMenu>
+
+					</h:panelGroup>
+				</h:panelGroup>
+
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2" name=""
+						value="Estado Civil">
+					</h:outputLabel>
+
+					<h:panelGroup styleClass="col-md-3 col-sm-4">
+						<h:selectOneMenu styleClass="form-control"
+							value="${configuracoesEditarTomadorManagedBean.questionarioPtIAtual.estadoCivil}">
+							<f:selectItems value="#{questionarioPtIMB.estadosCivil}" var="e"
+								itemLabel="#{e}" itemValue="#{e.estadoCivil}"></f:selectItems>
+						</h:selectOneMenu>
+					</h:panelGroup>
+
+				</h:panelGroup>
+
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2"
+						name="lblRegimeCasamento" value="Regime de Casamento:">
+					</h:outputLabel>
+
+
+
+					<h:panelGroup styleClass="col-md-5 col-sm-5 col-xs-5">
+						<h:selectOneMenu styleClass="form-control"
+							value="${configuracoesEditarTomadorManagedBean.questionarioPtIAtual.regimeCasamento}">
+							<f:selectItems value="#{questionarioPtIMB.regimeCasamento}"
+								var="r" itemLabel="#{r}" itemValue="#{r.regimeCasamento}"></f:selectItems>
+						</h:selectOneMenu>
+
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2"
+						name="lblIdEstado" value="Estado:">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-md-4 col-sm-4 col-xs-4">
+						<h:selectOneMenu styleClass="form-control"
+							value="${configuracoesEditarTomadorManagedBean.questionarioPtIAtual.idEstado}">
+
+							<f:selectItems value="#{questionarioPtIMB.estados}" var="e"
+								itemValue="#{e.idEstado}" itemLabel="#{e.estado}"></f:selectItems>
+
+						</h:selectOneMenu>
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2" name="lblCidade"
+						value="Cidade">
+					</h:outputLabel>
+					<h:panelGroup styleClass=" col-xs-12 col-sm-5">
+						<h:inputText id="cidade" styleClass="form-control"
+							value="${configuracoesEditarTomadorManagedBean.questionarioPtIAtual.cidade}"
+							required="true" requiredMessage="*Preencha o campo Cidade."></h:inputText>
+						<h:message id="m6" for="cidade" style="color:red"></h:message>
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2"
+						name="lblEscolaridade" value="Escolaridade:">
+					</h:outputLabel>
+
+					<h:panelGroup styleClass="col-md-5 col-sm-5 col-xs-5">
+						<h:selectOneMenu styleClass="form-control"
+							value="${configuracoesEditarTomadorManagedBean.questionarioPtIAtual.escolaridade}">
+							<f:selectItems value="#{questionarioPtIMB.escolaridades}"
+								var="e" itemLabel="#{e}" itemValue="#{e.escolaridade}"></f:selectItems>
+						</h:selectOneMenu>
+
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup styleClass="form-group text-center">
+					<h:panelGroup styleClass="col-xs-offset-2 col-xs-8 ">
+						<h:commandButton styleClass="btn btn-sm btn-tccblue"
+							action="${questionarioPtIMB.adicionar()}" value="Salvar">
+						</h:commandButton>
+					</h:panelGroup>
+				</h:panelGroup>
+			</h:panelGrid>
+
+
+		</p:panel>
+
+
+	</h:form>
+
+
+
+
+</h:body>
+
+<script>
+	PrimeFaces.locales['pt_BR'] = {
+		closeText : 'Fechar',
+		prevText : 'Anterior',
+		nextText : 'Próximo',
+		currentText : 'Começo',
+		monthNames : [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio',
+				'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro',
+				'Dezembro' ],
+		monthNamesShort : [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul',
+				'Ago', 'Set', 'Out', 'Nov', 'Dez' ],
+		dayNames : [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta',
+				'Sexta', 'Sábado' ],
+		dayNamesShort : [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb' ],
+		dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
+		weekHeader : 'Semana',
+		firstDay : 0,
+		isRTL : false,
+		showMonthAfterYear : false,
+		yearSuffix : '',
+		timeOnlyTitle : 'Só Horas',
+		timeText : 'Tempo',
+		hourText : 'Hora',
+		minuteText : 'Minuto',
+		secondText : 'Segundo',
+		ampm : false,
+		month : 'Mês',
+		week : 'Semana',
+		day : 'Dia',
+		allDayText : 'Todo o Dia'
+	};
+</script>
+<h:outputScript>
+jQuery(function($){     
+		   // $(".cpf").mask("999.999.999-99");
+		   $(".cpf").mask("99999999999");     
+		   
+		});  
+
+</h:outputScript>
+</html>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<!-- vsp test -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css">
+	</h:outputStylesheet>
+	<h:outputStylesheet library="css" name="custom.css">
+	</h:outputStylesheet>
+
+	<h:outputScript library="js" name="bootstrap.min.js"></h:outputScript>
+	<!-- vsp test -->
+	<title>Tomador-Abas</title>
+
+
+	<nav class="navbar navbartcc">
+	<div class="container-fluid">
+		<div class="navbar-header">
+
+			<a href="#" class="pull-left"><h:graphicImage library="images"
+					name="logo.png"
+					styleClass="img-responsive center-block img-rounded"></h:graphicImage></a>
+		</div>
+
+
+	</div>
+	</nav>
+</h:head>
+<h:body>
+	<p:panel>
+
+		<div class="well">
+
+			<!-- Abas -->
+			<ul class="nav nav-tabs" id="Abas">
+				<li><a href="#pessoal-tab" id="aba_pessoal-tab"
+					data-toggle="tab">Pessoal<i class="fa"></i>
+				</a></li>
+
+				<li><a href="#profissional-tab" id="aba_profissional-tab"
+					data-toggle="tab">Profissional <i class="fa"></i>
+				</a></li>
+
+				<li><a href="#renda-tab" id="aba_renda-tab" data-toggle="tab">Renda
+						<i class="fa"></i>
+				</a></li>
+
+				<li><a href="#divida-tab" id="aba_divida-tab" data-toggle="tab">Dívida
+						<i class="fa"></i>
+				</a></li>
+
+				<li><a href="#pendencia-tab" id="aba_pendencia-tab"
+					data-toggle="tab">Pendência <i class="fa"></i>
+				</a></li>
+
+				<li><a href="#ativo-tab" id="aba_ativo-tab" data-toggle="tab">Ativo
+						<i class="fa"></i>
+				</a></li>
+			</ul>
+
+
+
+
+			<div id="contentAba" class="tab-content">
+
+				<!-- INICIO CONTEÚDO ABAS-->
+				<div class="tab-pane fade active in " id="pessoal-tab">
+					<!-- ABA PESSOAIS -->
+					<h:form>
+
+						<ui:include src="editarTomador.xhtml"></ui:include>
+					</h:form>
+				</div>
+				<!-- FIM ABA PESSOAIS -->
+
+				<div class="tab-pane fade " id="profissional-tab">
+					<!-- ABA PROFISSIONAIS -->
+					<h:form>
+						<ui:include src="editarExercAtividade.xhtml"></ui:include>
+					</h:form>
+				</div>
+				<!-- FIM ABA PROFISSIONAIS -->
+
+				<div class="tab-pane fade " id="renda-tab">
+					<!-- ABA RENDAS -->
+					<h:form>
+						<ui:include src="editarRenda.xhtml"></ui:include>
+					</h:form>
+				</div>
+				<!-- FIM ABA RENDAS -->
+
+				<div class="tab-pane fade" id="divida-tab">
+					<!-- ABA DIVIDAS -->
+					<h:form>
+						<ui:include src="editarDivida.xhtml"></ui:include>
+					</h:form>
+				</div>
+				<!-- FIM ABA DIVIDAS -->
+
+				<div class="tab-pane fade" id="pendencia-tab">
+					<!-- ABA PENDENCIAS -->
+					<h:form>
+						<ui:include src="editarPendencia.xhtml"></ui:include>
+					</h:form>
+				</div>
+				<!-- FIM ABA PENDENCIAS -->
+
+				<div class="tab-pane fade" id="ativo-tab">
+					<!-- ABA ATIVOS -->
+					<h:form>
+						<ui:include src="TestAtivo.xhtml"></ui:include>
+					</h:form>
+				</div>
+				<!-- FIM ABA ATIVOS -->
+
+			</div>
+			<!-- FIM CONTEÚDO ABAS -->
+
+
+		</div>
+	</p:panel>
+
+
+</h:body>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+});
+
+//abas
+ $('#Abas a').click(function (e) {
+    e.preventDefault();
+    $(this).tab('show');
+});
+
+// store the currently selected tab in the hash value
+$("ul.nav-tabs > li > a").on("shown.bs.tab", function (e) {
+    var id = $(e.target).attr("href").substr(1);
+    window.location.hash = id;
+});
+
+// on load of the page: switch to the currently selected tab
+var hash = window.location.hash;
+$('#Abas a[href="' + hash + '"]').tab('show'); 
+</script>
+
+</html>

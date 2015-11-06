@@ -65,7 +65,7 @@ public class ControleAcessoDAOImpl implements ControleAcessoDAO{
 
 	@Override
 	public void inicializarTabelaTomador() throws SQLException {
-		String sql = "insert into Tomadores Values(?,?,?,?,?,?,?,?,?,?)";
+		String sql = "insert into Tomadores Values(?,?,?,?,?,?,?,?,?,?,?)";
 		PreparedStatement ps = conection.prepareStatement(sql);
 		ps.setString(1,"123456789");
 		ps.setString(2, "inicializada");
@@ -76,7 +76,8 @@ public class ControleAcessoDAOImpl implements ControleAcessoDAO{
 		ps.setInt(7, 1);
 		ps.setString(8, "inicializada");
 		ps.setInt(9, 1);
-		ps.setInt(10, 2);
+		ps.setString(10, "inicializada");
+		ps.setString(11, "inicializada");
 
 		ps.execute();
 		ps.close();

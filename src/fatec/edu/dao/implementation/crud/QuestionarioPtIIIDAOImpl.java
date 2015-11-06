@@ -36,6 +36,7 @@ public class QuestionarioPtIIIDAOImpl implements QuestionarioPtIIIDAO {
 		ControleAcessoDAO controleAcessoDAO = new ControleAcessoDAOImpl();
 
 		ps.setInt(4, controleAcessoDAO.retornaIdControleAcesso());
+		
 		ps.execute();
 		ps.close();
 
@@ -54,7 +55,7 @@ public class QuestionarioPtIIIDAOImpl implements QuestionarioPtIIIDAO {
 		while (rs.next()) {
 			QuestionarioPtIII questionarioPtIII = new QuestionarioPtIII();
 			questionarioPtIII.setId(rs.getInt("idRenda"));
-			questionarioPtIII.setTipoRenda("tipoRenda");
+			questionarioPtIII.setTipoRenda(rs.getString("tipoRenda"));
 			questionarioPtIII.setValor(rs.getDouble("valor"));
 			questionarioPtIII.setPeriodo(rs.getString("periodo"));
 			lista.add(questionarioPtIII);

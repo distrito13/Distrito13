@@ -2,7 +2,7 @@ package fatec.edu.enumeration;
 
 public enum TipoDivida {
 
-	a("Cartão de Crédito"), b("Alugel Atrasado"), c("Compra de Imóvel Atrasado");
+	a("Cartão de Crédito"), b("Aluguel Atrasado"), c("Compra de Imóvel Atrasado");
 
 	private final String tipoDivida;
 

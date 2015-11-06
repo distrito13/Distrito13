@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -14,98 +14,195 @@
 	<h:outputScript library="js" name="bootstrap.min.js"></h:outputScript>
 	<!-- vsp test -->
 
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+
 	<title>Profissionais</title>
 
 </h:head>
 <h:body>
 
-	<h:form>
-		<p:panel id="basic" header="ExerceAtividade">
-			<h:panelGrid styleClass="table table-responsive" columns="1"
-				cellpadding="10">
+	<h:form id="form">
 
-				<h:panelGroup styleClass="form-group">
-					<h:outputLabel styleClass="control-label col-xs-2" name=""
-						value="Carteira de Trabalho:">
-					</h:outputLabel>
-					<h:panelGroup styleClass="col-xs-10">
-						<h:inputText styleClass="form-control"
-							value="${questionarioPtIIMB.questionarioPtIIAtual.carteiraTrabalho}"></h:inputText>
-					</h:panelGroup>
+
+		
+
+			<h:form>
+			
+			<p:messages id="messages"  autoUpdate="true" closable="true" infoStyle="color:darkgreen" errorStyle="color:darkred"/>
+			
+				<p:panel>
+					<h:panelGrid styleClass="table table-responsive" columns="1"
+						cellpadding="10">
+
+						<h:panelGrid styleClass="table table-responsive" columns="1"
+							cellpadding="10" id="panelInterno">
+							<h:panelGroup styleClass="form-group">
+								<h:outputLabel styleClass="control-label col-xs-2" name=""
+									value="Atividade:">
+								</h:outputLabel>
+								<h:panelGroup styleClass="col-xs-10">
+									<h:inputText id="atividade" styleClass="form-control"
+										value="${questionarioPtIIMB.questionarioPtIIAtual.idAtividade}"
+										required="true" requiredMessage="*Preencha o campo Atividade." maxlength="100"></h:inputText>
+								<!-- 	<h:message id="m1" for="atividade" style="color:blue"></h:message> -->
+								</h:panelGroup>
+							</h:panelGroup>
+
+							<h:panelGroup styleClass="form-group">
+								<h:outputLabel styleClass="control-label col-xs-2" name=""
+									value="Empresa:">
+								</h:outputLabel>
+								<h:panelGroup styleClass="col-xs-10">
+									<h:inputText id="empresa" styleClass="form-control"
+										value="${questionarioPtIIMB.questionarioPtIIAtual.idEmpresa}"
+										required="true" requiredMessage="*Preencha o campo Empresa." maxlength="100"></h:inputText>
+									<!-- <h:message id="m2" for="empresa" style="color:blue"></h:message> -->
+								</h:panelGroup>
+							</h:panelGroup>
+
+							<h:panelGroup styleClass="form-group">
+								<h:outputLabel styleClass="control-label col-xs-2" name=""
+									value="Data de Admissão">
+								</h:outputLabel>
+								<h:panelGroup styleClass="col-xs-10">
+									<p:calendar id="dataAdmissao" locale="pt_BR"
+										pattern="dd/MM/yyyy" mask="true" maxlength="10" size="30"
+										value="${questionarioPtIIMB.questionarioPtIIAtual.dataAdmissao}"
+										required="true"
+										requiredMessage="*Preencha o campo Data de admissão." />
+									<!-- <h:message id="m3" for="dataAdmissao" style="color:blue"></h:message> -->
+								</h:panelGroup>
+							</h:panelGroup>
+
+							<h:panelGroup styleClass="form-group">
+								<h:outputLabel styleClass="control-label col-xs-2" name=""
+									value="Cargo:">
+								</h:outputLabel>
+								<h:panelGroup styleClass="col-xs-10">
+									<h:inputText id="cargo" styleClass="form-control"
+										value="${questionarioPtIIMB.questionarioPtIIAtual.idCargo}"
+										required="true" requiredMessage="*Preencha o campo Cargo." maxlength="100"></h:inputText>
+									<!-- <h:message id="m4" for="cargo" style="color:blue"></h:message> -->
+								</h:panelGroup>
+							</h:panelGroup>
+
+							<h:panelGroup styleClass="form-group">
+								<h:outputLabel styleClass="control-label col-xs-2" name=""
+									value="Salário">
+								</h:outputLabel>
+								<h:panelGroup styleClass="col-xs-10">
+									<h:inputText id="salario" styleClass="form-control"
+										value="${questionarioPtIIMB.questionarioPtIIAtual.salario}"
+										required="true" requiredMessage="*Preencha o campo Salário.">></h:inputText>
+									<!-- <h:message id="m5" for="salario" style="color:blue"></h:message> -->
+								</h:panelGroup>
+							</h:panelGroup>
+
+							<h:panelGroup styleClass="form-group">
+								<h:outputLabel styleClass="control-label col-xs-2"
+									name="lblEstabilidade" value="Estabilidade:">
+								</h:outputLabel>
+
+								<h:panelGroup styleClass="col-md-5 col-sm-5 col-xs-5">
+									<h:selectOneMenu styleClass="form-control"
+										value="#{questionarioPtIIMB.questionarioPtIIAtual.estabilidade}">
+										<f:selectItems value="#{questionarioPtIIMB.estabilidades}"
+											var="e" itemLabel="#{e}" itemValue="#{e.estabilidade}"></f:selectItems>
+									</h:selectOneMenu>
+								</h:panelGroup>
+							</h:panelGroup>
+
+						</h:panelGrid>
+
+						<h:panelGroup styleClass="form-group text-center">
+							<h:panelGroup styleClass="col-xs-offset-2 col-xs-8 ">
+								<h:commandButton styleClass="btn btn-sm btn-tccblue"
+									action="${questionarioPtIIMB.adicionar()}" value="Adiciona Profissão">
+									<!-- <f:ajax execute="@form" render="tabela" /> -->
+									<f:ajax execute="@form" render="@form" />
+								</h:commandButton>
+							</h:panelGroup>
+						</h:panelGroup>
+
+						<h:panelGroup>
+					<a class="btn btn-link btnPrevious pull-left"><h:graphicImage
+							library="images" name="1_esquerda.png"
+							styleClass="img-responsive center-block img-rounded" width="50" height="50"></h:graphicImage></a>
+					<a class="btn btn-link btnNext pull-right"><h:graphicImage
+							library="images" name="2_direita.png"
+							styleClass="img-responsive center-block img-rounded" width="50" height="50"></h:graphicImage></a> 
 				</h:panelGroup>
+				
+					</h:panelGrid>
 
-				<h:panelGroup styleClass="form-group">
-					<h:outputLabel styleClass="control-label col-xs-2" name=""
-						value="Atividade:">
-					</h:outputLabel>
-					<h:panelGroup styleClass="col-xs-10">
-						<h:inputText styleClass="form-control"
-							value="${questionarioPtIIMB.questionarioPtIIAtual.idAtividade}"></h:inputText>
-					</h:panelGroup>
-				</h:panelGroup>
+<p:dataTable id="tabela" value="${questionarioPtIIMB.profissoes}"
+				var="questionarioPtII" rendered="#{not empty questionarioPtIIMB.profissoes}">
+				<p:column headerText="id">
+		${questionarioPtII.id}
+		</p:column>
+		<p:column headerText="Atividade">
+		${questionarioPtII.idAtividade}
+		</p:column>
+		<p:column headerText="Empresa">
+		${questionarioPtII.idEmpresa}
+		</p:column>
+		<p:column headerText="Data de Admissão">
+		${questionarioPtII.dataAdmissao}
+		</p:column>
+		<p:column headerText="Cargo">
+		${questionarioPtII.idCargo}
+		</p:column>
+		<p:column headerText="Salário">
+		${questionarioPtII.salario}
+		</p:column>
+		<p:column headerText="Estabilidade">
+		${questionarioPtII.estabilidade}
+		</p:column>
+				
 
-				<h:panelGroup styleClass="form-group">
-					<h:outputLabel styleClass="control-label col-xs-2" name=""
-						value="Empresa:">
-					</h:outputLabel>
-					<h:panelGroup styleClass="col-xs-10">
-						<h:inputText styleClass="form-control"
-							value="${questionarioPtIIMB.questionarioPtIIAtual.idEmpresa}"></h:inputText>
-					</h:panelGroup>
-				</h:panelGroup>
+				<p:chart type="line" model="#{chartView.lineModel1}"
+					style="height:300px;" />
+			</p:dataTable>
 
-				<h:panelGroup styleClass="form-group">
-					<h:outputLabel styleClass="control-label col-xs-2" name=""
-						value="Data de Admiss�o">
-					</h:outputLabel>
-					<h:panelGroup styleClass="col-xs-10">
-						<p:calendar id="popup"
-							value="${questionarioPtIIMB.questionarioPtIIAtual.dataAdmissao}" />
-					</h:panelGroup>
-				</h:panelGroup>
-
-				<h:panelGroup styleClass="form-group">
-					<h:outputLabel styleClass="control-label col-xs-2" name=""
-						value="Cargo:">
-					</h:outputLabel>
-					<h:panelGroup styleClass="col-xs-10">
-						<h:inputText styleClass="form-control"
-							value="${questionarioPtIIMB.questionarioPtIIAtual.idCargo}"></h:inputText>
-					</h:panelGroup>
-				</h:panelGroup>
-
-				<h:panelGroup styleClass="form-group">
-					<h:outputLabel styleClass="control-label col-xs-2" name=""
-						value="Sal�rio">
-					</h:outputLabel>
-					<h:panelGroup styleClass="col-xs-10">
-						<h:inputText styleClass="form-control"
-							value="${questionarioPtIIMB.questionarioPtIIAtual.salario}"></h:inputText>
-					</h:panelGroup>
-				</h:panelGroup>
-
-
-
-				<h:panelGroup styleClass="form-group">
-					<h:commandButton styleClass="btn btn-sm btn-primary"
-						action="${questionarioPtIIMB.adicionar()}" value="Salvar">
-					</h:commandButton>
-				</h:panelGroup>
-
-			</h:panelGrid>
-
-
-		</p:panel>
-
+				</p:panel>
+			</h:form>
+		
+		
 
 	</h:form>
 
 
-
 </h:body>
-<h:outputScript>
 
-</h:outputScript>
-
+<script>
+	PrimeFaces.locales['pt_BR'] = {
+		closeText : 'Fechar',
+		prevText : 'Anterior',
+		nextText : 'Próximo',
+		currentText : 'Começo',
+		monthNames : [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio',
+				'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro',
+				'Dezembro' ],
+		monthNamesShort : [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul',
+				'Ago', 'Set', 'Out', 'Nov', 'Dez' ],
+		dayNames : [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta',
+				'Sexta', 'Sábado' ],
+		dayNamesShort : [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb' ],
+		dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
+		weekHeader : 'Semana',
+		firstDay : 0,
+		isRTL : false,
+		showMonthAfterYear : false,
+		yearSuffix : '',
+		timeOnlyTitle : 'Só Horas',
+		timeText : 'Tempo',
+		hourText : 'Hora',
+		minuteText : 'Minuto',
+		secondText : 'Segundo',
+		ampm : false,
+		month : 'Mês',
+		week : 'Semana',
+		day : 'Dia',
+		allDayText : 'Todo o Dia'
+	};
+</script>
 </html>

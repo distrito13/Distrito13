@@ -1,59 +1,59 @@
 package fatec.edu.mb;
 
+import java.io.Serializable;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
-import fatec.edu.dao.implementation.crud.CidadeDAOImpl;
 import fatec.edu.dao.implementation.crud.EstadoDAOImpl;
 import fatec.edu.dao.implementation.crud.QuestionarioPtIDAOImpl;
 import fatec.edu.dao.implementation.crud.SexoDAOImpl;
-import fatec.edu.dao.interfaces.crud.CidadeDAO;
 import fatec.edu.dao.interfaces.crud.EstadoDAO;
 import fatec.edu.dao.interfaces.crud.QuestionarioPtIDAO;
 import fatec.edu.dao.interfaces.crud.SexoDAO;
+import fatec.edu.enumeration.Escolaridade;
+import fatec.edu.enumeration.EstadoCivil;
 import fatec.edu.enumeration.RegimeCasamento;
-import fatec.edu.models.Cidade;
 import fatec.edu.models.Estado;
 import fatec.edu.models.QuestionarioPtI;
 import fatec.edu.models.Sexo;
 
 @ManagedBean
 @SessionScoped
-// @RequestScoped
 
-public class QuestionarioPtIMB {
+public class QuestionarioPtIMB  implements Serializable{
 
+	private static final long serialVersionUID = -9157355034999009316L;
 	private QuestionarioPtI questionarioPtIAtual;
 	private QuestionarioPtIDAO questionarioPtIDAO;
 	private List<Sexo> sexos;
 	private List<Estado> estados;
 	private SexoDAO sexoDAO;
-	private CidadeDAO cidadesDAO;
 	private EstadoDAO estadoDAO;
-	private List<Cidade> cidades;
 	private SelectItem[] regimeCasamento;
+	private SelectItem[] escolaridade;
 	
 	private List  regimesCasamento;
+	private List  estadosCivil;
+	private List escolaridades;
 
 	public QuestionarioPtIMB() {
 		questionarioPtIAtual = new QuestionarioPtI();
 		questionarioPtIDAO = new QuestionarioPtIDAOImpl();
 		sexoDAO = new SexoDAOImpl();
-		cidadesDAO = new CidadeDAOImpl();
 		estadoDAO = new EstadoDAOImpl();
 
 		try {
 			setSexos(sexoDAO.pesquisar());
 			setEstados(estadoDAO.pesquisar());
-			setCidades(cidadesDAO.pesquisar());
+			
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -65,17 +65,26 @@ public class QuestionarioPtIMB {
 	@PostConstruct
 	 public void init() {
 		regimesCasamento = Arrays.asList(RegimeCasamento.values());
-	 }
+		estadosCivil = Arrays.asList(EstadoCivil.values());
+		escolaridades = Arrays.asList(Escolaridade.values());
+				
+	}
 	 
 	
 	
 	public String adicionar() {
 		try {
 			questionarioPtIDAO.manter(getQuestionarioPtIAtual());
+			FacesContext fc = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Tomador atualizado com sucesso", null);
+			fc.addMessage("", msg);
 			questionarioPtIAtual = new QuestionarioPtI();
 			System.out.println("Esse é o id :D"+questionarioPtIDAO.pesquisarUltimoId());
 		} catch (SQLException e) {
 			e.printStackTrace();
+			FacesContext fc = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao inserir",      null);
+			fc.addMessage("", msg);
 		}
 		return "";
 	}
@@ -120,13 +129,7 @@ public class QuestionarioPtIMB {
 		this.estados = estados;
 	}
 
-	public CidadeDAO getCidadesDAO() {
-		return cidadesDAO;
-	}
 
-	public void setCidadesDAO(CidadeDAO cidadesDAO) {
-		this.cidadesDAO = cidadesDAO;
-	}
 
 	public EstadoDAO getEstadoDAO() {
 		return estadoDAO;
@@ -134,14 +137,6 @@ public class QuestionarioPtIMB {
 
 	public void setEstadoDAO(EstadoDAO estadoDAO) {
 		this.estadoDAO = estadoDAO;
-	}
-
-	public List<Cidade> getCidades() {
-		return cidades;
-	}
-
-	public void setCidades(List<Cidade> cidades) {
-		this.cidades = cidades;
 	}
 
 	public SelectItem[] getRegimeCasamento() {
@@ -165,5 +160,38 @@ public class QuestionarioPtIMB {
 	public void setRegimesCasamento(List regimesCasamento) {
 		this.regimesCasamento = regimesCasamento;
 	}
+
+	public List getEstadosCivil() {
+		return estadosCivil;
+	}
+
+
+	public void setEstadosCivil(List estadosCivil) {
+		this.estadosCivil = estadosCivil;
+	}
+	
+	public List getEscolaridades() {
+		return escolaridades;
+	}
+
+
+	public void setEscolaridades(List escolaridades) {
+		this.escolaridades = escolaridades;
+	}
+
+	public SelectItem[] getEscolaridade() {
+		SelectItem[] items = new SelectItem[Escolaridade.values().length];
+		int i = 0;
+		for (Escolaridade escolaridade : Escolaridade.values()) {
+			items[i++] = new SelectItem(escolaridade, escolaridade.name());
+		}
+		return items;
+
+	}
+	public void setEscolaridade(SelectItem[] escolaridade) {
+		this.escolaridade = escolaridade;
+	}
+
+	
 
 }

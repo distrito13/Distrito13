@@ -11,10 +11,12 @@ public class QuestionarioPtI {
 	private String filiacaoI;
 	private String filiacaoII;
 	private int sexo;
-	private int estadoCivil;
-	private String regismeCasamento;
+	private String estadoCivil;
+	private String regimeCasamento;
+
 	private int idEstado;
-	private int idCidade;
+	private String cidade;
+	private String escolaridade;
 
 	public int getId() {
 		return id;
@@ -64,13 +66,7 @@ public class QuestionarioPtI {
 		this.sexo = sexo;
 	}
 
-	public int getEstadoCivil() {
-		return estadoCivil;
-	}
 
-	public void setEstadoCivil(int estadoCivil) {
-		this.estadoCivil = estadoCivil;
-	}
 
 	public String getCpf() {
 		return cpf;
@@ -82,14 +78,6 @@ public class QuestionarioPtI {
 
 
 
-	public String getRegismeCasamento() {
-		return regismeCasamento;
-	}
-
-	public void setRegismeCasamento(String regismeCasamento) {
-		this.regismeCasamento = regismeCasamento;
-	}
-
 	public int getIdEstado() {
 		return idEstado;
 	}
@@ -98,12 +86,39 @@ public class QuestionarioPtI {
 		this.idEstado = idEstado;
 	}
 
-	public int getIdCidade() {
-		return idCidade;
+	public String getCidade() {
+		return cidade;
 	}
 
-	public void setIdCidade(int idCidade) {
-		this.idCidade = idCidade;
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
 	}
+
+	public String getEstadoCivil() {
+		return estadoCivil;
+	}
+
+	public void setEstadoCivil(String estadoCivil) {
+		this.estadoCivil = estadoCivil;
+	}
+
+	public String getEscolaridade() {
+		return escolaridade;
+	}
+
+	public void setEscolaridade(String escolaridade) {
+		this.escolaridade = escolaridade;
+	}
+
+	public String getRegimeCasamento() {
+		return regimeCasamento;
+	}
+
+	public void setRegimeCasamento(String regimeCasamento) {
+		this.regimeCasamento = regimeCasamento;
+	}
+
+	
+
 
 }

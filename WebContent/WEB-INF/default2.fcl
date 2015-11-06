@@ -1,0 +1,2515 @@
+// 
+
+// 
+
+
+
+
+FUNCTION_BLOCK EmprestimoTomador
+
+// Define input variables
+VAR_INPUT
+    Tomador: REAL;
+    Emprestimo : REAL ;
+END_VAR
+
+// Define output variable
+VAR_OUTPUT
+    scorePorcentagem : REAL;
+END_VAR
+
+FUZZIFY Tomador
+
+
+	TERM muitobaixo := (-1,0) (8,1) ( 20,0);
+    TERM baixo := (11,0) (35,1) (45,0) ;
+    TERM medio := (40,0) (55,1) (65,0);
+    TERM alto := (60,0) (75,1) ( 85,0);
+    TERM muitoalto :=(80,0) (100,1) (110,0);
+    
+    
+    
+END_FUZZIFY
+
+FUZZIFY Emprestimo
+
+	
+	TERM muitobaixo := (0.5,0) ( 2,1) (3.9,0);
+    TERM baixo := (2.1,0) (4,1) (7.9,0) ;
+    TERM medio := (4.1,0) (8,1) (11.9,0);
+    TERM alto := (8.1,0) (12,1) ( 15.9,0);
+    TERM muitoalto :=(12.1,0) (16,1) (20,0);
+    
+    
+    
+    
+END_FUZZIFY
+
+
+
+
+
+DEFUZZIFY scorePorcentagem
+	TERM inviavel := (-1,0) ( 0,1)  (1.2,0);
+	TERM extremobaixo := (2,0)  (5,1) (8,0);
+	TERM muitobaixo := (3,0) (10,1)(20,0);
+    TERM baixo := (15,0) (35,1) ( 45,0) ;
+    TERM medio := (40,0) (50,1) (60,0);
+    TERM alto := (55,0) (65,1) ( 75,0);
+    TERM muitoalto :=(70,0) (85,1 ) (92,0) ;
+    TERM extremoalto := (90,0 ) (100,1) (110.0561,0);
+    METHOD : COG;
+    DEFAULT := 0;
+END_DEFUZZIFY
+
+
+
+RULEBLOCK PontuacaoTomador
+    AND : MIN;
+    // Use 'min' activation method
+    ACT : MIN;
+    // Use 'max' accumulation method
+    ACCU : MAX;
+
+    RULE 1:	IF Tomador IS muitobaixo AND Emprestimo IS muitobaixo
+                THEN scorePorcentagem IS alto;
+
+    RULE 2:	IF Tomador IS muitobaixo AND Emprestimo IS baixo
+                THEN scorePorcentagem IS medio;
+
+    RULE 3:	IF Tomador IS muitobaixo AND Emprestimo IS medio
+                THEN scorePorcentagem IS muitobaixo;
+
+    RULE 4:	IF Tomador IS muitobaixo AND Emprestimo IS alto
+                THEN scorePorcentagem IS muitobaixo;
+                
+                
+    RULE 5:	IF Tomador IS muitobaixo AND Emprestimo IS muitoalto
+                THEN scorePorcentagem IS inviavel;
+
+
+
+    RULE 6:	IF Tomador IS baixo AND Emprestimo IS muitobaixo
+                THEN scorePorcentagem IS alto;
+
+    RULE 7:	IF Tomador IS baixo AND Emprestimo IS baixo
+                THEN scorePorcentagem IS medio;
+
+    RULE 8:	IF Tomador IS baixo AND Emprestimo IS medio
+                THEN scorePorcentagem IS medio;
+
+    RULE 9:	IF Tomador IS baixo AND Emprestimo IS alto
+                THEN scorePorcentagem IS baixo;
+                
+                
+    RULE 10:	IF Tomador IS baixo AND Emprestimo IS muitoalto
+                THEN scorePorcentagem IS baixo;
+
+
+    RULE 11:	IF Tomador IS medio AND Emprestimo IS muitobaixo
+                THEN scorePorcentagem IS muitoalto;
+
+    RULE 12:	IF Tomador IS medio AND Emprestimo IS baixo
+                THEN scorePorcentagem IS muitoalto;
+
+    RULE 13:	IF Tomador IS medio AND Emprestimo IS medio
+                THEN scorePorcentagem IS alto;
+
+    RULE 14:	IF Tomador IS medio AND Emprestimo IS alto
+                THEN scorePorcentagem IS medio;
+                
+                
+    RULE 15:	IF Tomador IS medio AND Emprestimo IS muitoalto
+                THEN scorePorcentagem IS baixo;
+
+
+
+    RULE 16:	IF Tomador IS alto AND Emprestimo IS muitobaixo
+                THEN scorePorcentagem IS muitoalto;
+
+    RULE 17:	IF Tomador IS alto AND Emprestimo IS baixo
+                THEN scorePorcentagem IS muitoalto;
+
+    RULE 18:	IF Tomador IS alto AND Emprestimo IS medio
+                THEN scorePorcentagem IS alto;
+
+    RULE 19:	IF Tomador IS alto AND Emprestimo IS alto
+                THEN scorePorcentagem IS medio;
+                
+                
+    RULE 20:	IF Tomador IS alto AND Emprestimo IS muitoalto
+                THEN scorePorcentagem IS baixo;
+
+
+
+    RULE 21:	IF Tomador IS muitoalto AND Emprestimo IS muitobaixo
+                THEN scorePorcentagem IS extremoalto;
+
+    RULE 22:	IF Tomador IS muitoalto AND Emprestimo IS baixo
+                THEN scorePorcentagem IS muitoalto;
+
+    RULE 23:	IF Tomador IS muitoalto AND Emprestimo IS medio
+                THEN scorePorcentagem IS muitoalto;
+
+    RULE 24:	IF Tomador IS muitoalto AND Emprestimo IS alto
+                THEN scorePorcentagem IS muitoalto;
+                
+                
+    RULE 25:	IF Tomador IS muitoalto AND Emprestimo IS muitoalto
+                THEN scorePorcentagem IS medio;
+
+
+ 
+                  
+                
+
+
+
+
+
+
+
+
+                
+              
+    
+    
+
+
+
+      
+
+
+    
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
+
+FUNCTION_BLOCK RendaTomador
+
+// Define input variables
+VAR_INPUT
+    renda: REAL;
+    periodo : REAL ;
+END_VAR
+
+// Define output variable
+VAR_OUTPUT
+   scorePorcentagem  : REAL;
+END_VAR
+
+FUZZIFY renda
+	
+	TERM muitobaixo := (0.5,0) ( 1.5,1) (2.4,0);
+    TERM baixo := (1.6,0) (2.5,1) (4.9,0) ;
+    TERM medio := (2.6,0) (5,1) (7.4,0);
+    TERM alto := (5.1,0) (7.5,1) ( 9.9,0);
+    TERM muitoalto :=(7.6,0) (10,1) (15,0);
+    
+    
+END_FUZZIFY
+
+
+FUZZIFY periodo
+    TERM  baixo := (0,0) (7,1) (30,0) ;
+    TERM  medio :=(15,0) ( 60.0,1) ( 120.0,0);
+    TERM  alto := (  90.0,0)  ( 180.0,1) (365.0,0);
+    TERM  muitoalto := (330,0)(720,1) (1825,0);
+END_FUZZIFY
+
+
+
+DEFUZZIFY scorePorcentagem
+	TERM extremobaixo := (0,0)  (5,1) (8,0);
+	TERM muitobaixo := (3,0) (10,1)(20,0);
+    TERM baixo := (15,0) (35,1) ( 45,0) ;
+    TERM medio := (40,0) (50,1) (60,0);
+    TERM alto := (55,0) (65,1) ( 75,0);
+    TERM muitoalto :=(70,0) (85,1 ) (92,0) ;
+    TERM extremoalto := (90,0 ) (100,1) (110.0561,0);
+    METHOD : COG;
+    DEFAULT := -1;
+END_DEFUZZIFY
+
+
+
+
+RULEBLOCK Renda
+    AND : MIN;
+    // Use 'min' activation method
+    ACT : MIN;
+    // Use 'max' accumulation method
+    ACCU : MAX;
+
+    RULE 1:	IF periodo IS muitoalto AND renda IS muitobaixo
+                THEN scorePorcentagem IS extremobaixo;
+                
+    RULE 2:	IF periodo IS muitoalto AND renda IS baixo
+                THEN scorePorcentagem IS muitobaixo;
+                
+    RULE 3:	IF periodo IS muitoalto AND renda IS medio
+                THEN scorePorcentagem IS muitobaixo;
+                
+    RULE 4:	IF periodo IS muitoalto AND renda IS alto
+                THEN scorePorcentagem IS muitobaixo;
+                
+    RULE 5:	IF periodo IS muitoalto AND renda IS muitoalto
+                THEN scorePorcentagem IS baixo;
+                
+    RULE 6:	IF periodo IS alto AND renda IS muitobaixo
+                THEN scorePorcentagem IS muitobaixo;
+                
+    RULE 7:	IF periodo IS alto AND renda IS baixo
+                THEN scorePorcentagem IS muitobaixo;
+                
+    RULE 8:	IF periodo IS alto AND renda IS medio
+                THEN scorePorcentagem IS baixo;
+                
+    RULE 9:	IF periodo IS alto AND renda IS alto
+                THEN scorePorcentagem IS baixo;
+                
+    RULE 10: IF periodo IS alto AND renda IS muitoalto
+                THEN scorePorcentagem IS medio;
+                
+    RULE 11:IF periodo IS medio AND renda IS muitobaixo
+                THEN scorePorcentagem IS baixo;
+                
+    RULE 12:IF periodo IS medio AND renda IS baixo
+                THEN scorePorcentagem IS baixo;
+                
+    RULE 13:	IF periodo IS medio AND renda IS medio
+                THEN scorePorcentagem IS medio;
+                
+    RULE 14:	IF periodo IS medio AND renda IS alto
+                THEN scorePorcentagem IS alto;
+                
+    RULE 15: IF periodo IS medio AND renda IS muitoalto
+                THEN scorePorcentagem IS muitoalto;
+                
+    RULE 16:IF periodo IS baixo AND renda IS muitobaixo
+                THEN scorePorcentagem IS baixo;
+                
+    RULE 17:IF periodo IS baixo AND renda IS baixo
+                THEN scorePorcentagem IS medio;
+                
+    RULE 18:IF periodo IS baixo AND renda IS medio
+                THEN scorePorcentagem IS alto;
+                
+    RULE 19:IF periodo IS baixo AND renda IS alto
+                THEN scorePorcentagem IS muitoalto;
+                
+    RULE 20: IF periodo IS baixo AND renda IS muitoalto
+                THEN scorePorcentagem IS extremoalto;
+                
+ 
+      
+
+
+    
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
+
+
+
+FUNCTION_BLOCK SalarioTomador
+
+// Define input variables
+VAR_INPUT
+    salario : REAL ;
+    estabilidade : REAL;
+    tempoTrabalhando: REAL ;
+END_VAR
+
+// Define output variable
+VAR_OUTPUT
+    scorePorcentagem : REAL;
+END_VAR
+
+
+
+FUZZIFY salario
+	
+	TERM muitobaixo := (0.5,0) ( 1.5,1) (2.4,0);
+    TERM baixo := (1.6,0) (2.5,1) (4.9,0) ;
+    TERM medio := (2.6,0) (5,1) (7.4,0);
+    TERM alto := (5.1,0) (7.5,1) ( 9.9,0);
+    TERM muitoalto :=(7.6,0) (10,1) (15,0);
+END_FUZZIFY
+
+FUZZIFY estabilidade
+    TERM  autonomo := (0,1);
+    TERM  privado := (1,1) ;
+    TERM  publico := ( 2 ,1) ;
+    
+END_FUZZIFY
+
+
+FUZZIFY tempoTrabalhando
+    TERM  baixo := (-1,0) (12,1) (23,0);
+    TERM   medio := (13,0) (24,1) (35,0) ;
+    TERM  alto  := ( 25 ,0) ( 36,1) ( 47,1)  ;
+    TERM muitoalto := (37,0) ( 50,1) ( 70,1)  (100,0);
+    
+END_FUZZIFY
+
+
+
+
+
+DEFUZZIFY scorePorcentagem
+	TERM extremobaixo := (0,0) (3,1) (6,0);
+	TERM muitobaixo := (2,0) (8,1)(20,0);
+    TERM baixo := (15,0) (35,1) ( 45,0) ;
+    TERM medio := (40,0) (50,1) (60,0);
+    TERM alto := (55,0) (65,1) ( 75,0);
+    TERM muitoalto :=(70,0) (85,1 ) (95,0) ;
+    TERM extremoalto := (93,0 ) (102,1) (131,0);
+    METHOD : COG;
+    DEFAULT := -1;
+END_DEFUZZIFY
+
+
+
+
+RULEBLOCK Salario
+    AND : MIN;
+    // Use 'min' activation method
+    ACT : MIN;
+    // Use 'max' accumulation method
+    ACCU : MAX;
+
+    RULE 1:	IF salario IS muitobaixo AND estabilidade IS autonomo AND tempoTrabalhando IS baixo 
+                THEN scorePorcentagem IS extremobaixo;
+                
+    RULE 2:	IF salario IS muitobaixo AND estabilidade IS autonomo AND tempoTrabalhando IS medio 
+                THEN scorePorcentagem IS muitobaixo;
+
+    RULE 3:	IF salario IS muitobaixo AND estabilidade IS autonomo AND tempoTrabalhando IS alto 
+                THEN scorePorcentagem IS muitobaixo;
+                
+    RULE 4:	IF salario IS muitobaixo AND estabilidade IS autonomo AND tempoTrabalhando IS muitoalto 
+                THEN scorePorcentagem IS baixo;
+
+    RULE 5:	IF salario IS muitobaixo AND estabilidade IS privado AND tempoTrabalhando IS baixo 
+                THEN scorePorcentagem IS extremobaixo;
+                
+    RULE 6:	IF salario IS muitobaixo AND estabilidade IS privado AND tempoTrabalhando IS medio 
+                THEN scorePorcentagem IS muitobaixo;
+
+    RULE 7:	IF salario IS muitobaixo AND estabilidade IS privado AND tempoTrabalhando IS alto 
+                THEN scorePorcentagem IS baixo;
+                
+    RULE 8:	IF salario IS muitobaixo AND estabilidade IS privado AND tempoTrabalhando IS muitoalto 
+                THEN scorePorcentagem IS baixo;
+
+    RULE 9:	IF salario IS muitobaixo AND estabilidade IS publico AND tempoTrabalhando IS baixo 
+                THEN scorePorcentagem IS extremobaixo;
+                
+    RULE 10:	IF salario IS muitobaixo AND estabilidade IS publico AND tempoTrabalhando IS medio 
+                THEN scorePorcentagem IS baixo;
+
+    RULE 11:	IF salario IS muitobaixo AND estabilidade IS publico AND tempoTrabalhando IS alto 
+                THEN scorePorcentagem IS baixo;
+                
+    RULE 12:	IF salario IS muitobaixo AND estabilidade IS publico AND tempoTrabalhando IS muitoalto 
+                THEN scorePorcentagem IS baixo;
+
+
+    RULE 13:	IF salario IS baixo AND estabilidade IS autonomo AND tempoTrabalhando IS baixo 
+                THEN scorePorcentagem IS muitobaixo;
+                
+    RULE 14:	IF salario IS baixo AND estabilidade IS autonomo AND tempoTrabalhando IS medio 
+                THEN scorePorcentagem IS baixo;
+
+    RULE 15:	IF salario IS baixo AND estabilidade IS autonomo AND tempoTrabalhando IS alto 
+                THEN scorePorcentagem IS baixo;
+                
+    RULE 16:	IF salario IS baixo AND estabilidade IS autonomo AND tempoTrabalhando IS muitoalto 
+                THEN scorePorcentagem IS medio;
+
+    RULE 17:	IF salario IS baixo AND estabilidade IS privado AND tempoTrabalhando IS baixo 
+                THEN scorePorcentagem IS baixo;
+                
+    RULE 18:	IF salario IS baixo AND estabilidade IS privado AND tempoTrabalhando IS medio 
+                THEN scorePorcentagem IS medio;
+
+    RULE 19:	IF salario IS baixo AND estabilidade IS privado AND tempoTrabalhando IS alto 
+                THEN scorePorcentagem IS medio;
+                
+    RULE 20:	IF salario IS baixo AND estabilidade IS privado AND tempoTrabalhando IS muitoalto 
+                THEN scorePorcentagem IS medio;
+
+    RULE 21:	IF salario IS baixo AND estabilidade IS publico AND tempoTrabalhando IS baixo 
+                THEN scorePorcentagem IS baixo;
+                
+    RULE 22:	IF salario IS baixo AND estabilidade IS publico AND tempoTrabalhando IS medio 
+                THEN scorePorcentagem IS medio;
+
+    RULE 23:	IF salario IS baixo AND estabilidade IS publico AND tempoTrabalhando IS alto 
+                THEN scorePorcentagem IS medio;
+                
+    RULE 24:	IF salario IS baixo AND estabilidade IS publico AND tempoTrabalhando IS muitoalto 
+                THEN scorePorcentagem IS medio;
+                
+                
+                
+
+    RULE 25:	IF salario IS medio AND estabilidade IS autonomo AND tempoTrabalhando IS baixo 
+                THEN scorePorcentagem IS baixo;
+                
+    RULE 26:	IF salario IS medio AND estabilidade IS autonomo AND tempoTrabalhando IS medio 
+                THEN scorePorcentagem IS medio;
+
+    RULE 27:	IF salario IS medio	 AND estabilidade IS autonomo AND tempoTrabalhando IS alto 
+                THEN scorePorcentagem IS medio;
+                
+    RULE 28:	IF salario IS medio AND estabilidade IS autonomo AND tempoTrabalhando IS muitoalto 
+                THEN scorePorcentagem IS alto;
+
+    RULE 29:	IF salario IS medio AND estabilidade IS privado AND tempoTrabalhando IS baixo 
+                THEN scorePorcentagem IS baixo;
+                
+    RULE 30:	IF salario IS medio AND estabilidade IS privado AND tempoTrabalhando IS medio 
+                THEN scorePorcentagem IS medio;
+
+    RULE 31:	IF salario IS medio AND estabilidade IS privado AND tempoTrabalhando IS alto 
+                THEN scorePorcentagem IS medio;
+                
+    RULE 32:	IF salario IS medio AND estabilidade IS privado AND tempoTrabalhando IS muitoalto 
+                THEN scorePorcentagem IS alto;
+
+    RULE 33:	IF salario IS medio AND estabilidade IS publico AND tempoTrabalhando IS baixo 
+                THEN scorePorcentagem IS medio;
+                
+    RULE 34:	IF salario IS medio AND estabilidade IS publico AND tempoTrabalhando IS medio 
+                THEN scorePorcentagem IS medio;
+
+    RULE 35:	IF salario IS medio	 AND estabilidade IS publico AND tempoTrabalhando IS alto 
+                THEN scorePorcentagem IS alto;
+                
+    RULE 36:	IF salario IS medio AND estabilidade IS publico AND tempoTrabalhando IS muitoalto 
+                THEN scorePorcentagem IS muitoalto;
+
+
+    RULE 37:	IF salario IS alto AND estabilidade IS autonomo AND tempoTrabalhando IS baixo 
+                THEN scorePorcentagem IS medio;
+                
+    RULE 38:	IF salario IS alto AND estabilidade IS autonomo AND tempoTrabalhando IS medio 
+                THEN scorePorcentagem IS alto;
+
+    RULE 39:	IF salario IS alto AND estabilidade IS autonomo AND tempoTrabalhando IS alto 
+                THEN scorePorcentagem IS alto;
+                
+    RULE 40:	IF salario IS alto AND estabilidade IS autonomo AND tempoTrabalhando IS muitoalto 
+                THEN scorePorcentagem IS muitoalto;
+
+    RULE 41:	IF salario IS alto AND estabilidade IS privado AND tempoTrabalhando IS baixo 
+                THEN scorePorcentagem IS medio;
+                
+    RULE 42:	IF salario IS alto AND estabilidade IS privado AND tempoTrabalhando IS medio 
+                THEN scorePorcentagem IS alto;
+
+    RULE 43:	IF salario IS alto AND estabilidade IS privado AND tempoTrabalhando IS alto 
+                THEN scorePorcentagem IS alto;
+                
+    RULE 44:	IF salario IS alto AND estabilidade IS privado AND tempoTrabalhando IS muitoalto 
+                THEN scorePorcentagem IS muitoalto;
+
+    RULE 45:	IF salario IS alto AND estabilidade IS publico AND tempoTrabalhando IS baixo 
+                THEN scorePorcentagem IS medio;
+                
+    RULE 46:	IF salario IS alto AND estabilidade IS publico AND tempoTrabalhando IS medio 
+                THEN scorePorcentagem IS alto;
+
+    RULE 47:	IF salario IS alto AND estabilidade IS publico AND tempoTrabalhando IS alto 
+                THEN scorePorcentagem IS muitoalto;
+                
+    RULE 48:	IF salario IS alto AND estabilidade IS publico AND tempoTrabalhando IS muitoalto 
+                THEN scorePorcentagem IS extremoalto;
+
+
+    RULE 49:	IF salario IS muitoalto AND estabilidade IS autonomo AND tempoTrabalhando IS baixo 
+                THEN scorePorcentagem IS alto;
+                
+    RULE 50:	IF salario IS muitoalto AND estabilidade IS autonomo AND tempoTrabalhando IS medio 
+                THEN scorePorcentagem IS alto;
+
+    RULE 51:	IF salario IS muitoalto AND estabilidade IS autonomo AND tempoTrabalhando IS alto 
+                THEN scorePorcentagem IS muitoalto;
+                
+    RULE 52:	IF salario IS muitoalto AND estabilidade IS autonomo AND tempoTrabalhando IS muitoalto 
+                THEN scorePorcentagem IS extremoalto;
+
+    RULE 53:	IF salario IS muitoalto AND estabilidade IS privado AND tempoTrabalhando IS baixo 
+                THEN scorePorcentagem IS alto;
+                
+    RULE 54:	IF salario IS muitoalto AND estabilidade IS privado AND tempoTrabalhando IS medio 
+                THEN scorePorcentagem IS muitoalto;
+
+    RULE 55:	IF salario IS muitoalto AND estabilidade IS privado AND tempoTrabalhando IS alto 
+                THEN scorePorcentagem IS muitoalto;
+                
+    RULE 56:	IF salario IS muitoalto AND estabilidade IS privado AND tempoTrabalhando IS muitoalto 
+                THEN scorePorcentagem IS extremoalto;
+
+    RULE 57:	IF salario IS muitoalto AND estabilidade IS publico AND tempoTrabalhando IS baixo 
+                THEN scorePorcentagem IS alto;
+                
+    RULE 58:	IF salario IS muitoalto AND estabilidade IS publico AND tempoTrabalhando IS medio 
+                THEN scorePorcentagem IS muitoalto;
+
+    RULE 59:	IF salario IS muitoalto AND estabilidade IS publico AND tempoTrabalhando IS alto 
+                THEN scorePorcentagem IS muitoalto;
+                
+    RULE 60:	IF salario IS muitoalto AND estabilidade IS publico AND tempoTrabalhando IS muitoalto 
+                THEN scorePorcentagem IS extremoalto;
+
+                                 
+                
+                
+                
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
+
+
+
+
+
+
+
+
+
+FUNCTION_BLOCK CapitalTomador
+
+// Define input variables
+VAR_INPUT
+    renda: REAL;
+    salario : REAL ;
+
+END_VAR
+
+// Define output variable
+VAR_OUTPUT
+    scorePorcentagem : REAL;
+END_VAR
+
+FUZZIFY renda
+
+	TERM nd := (-10,0) (-1,1) (0,0);
+	TERM muitobaixo := (1,0) (15,1) ( 25,0);
+    TERM baixo := (20,0) (35,1) (45,0) ;
+    TERM medio := (40,0) (55,1) (65,0);
+    TERM alto := (60,0) (75,1) ( 90,0);
+    TERM muitoalto :=(80,0) (95,1) (101,0);
+    
+    
+    
+END_FUZZIFY
+
+
+FUZZIFY salario
+
+	TERM nd := (-10,0) (-1,1) (0,0);
+	TERM muitobaixo := (1,0) (15,1) ( 25,0);
+    TERM baixo := (20,0) (35,1) (45,0) ;
+    TERM medio := (40,0) (55,1) (65,0);
+    TERM alto := (60,0) (75,1) ( 90,0);
+    TERM muitoalto :=(80,0) (95,1) (101,0);
+END_FUZZIFY
+
+    
+
+
+
+DEFUZZIFY scorePorcentagem
+	TERM nd := (-10,0) (-1,1) (0,0);
+
+	TERM extremobaixo := (0,0)  (5,1) (8,0);
+	TERM muitobaixo := (3,0) (10,1)(20,0);
+    TERM baixo := (15,0) (35,1) ( 45,0) ;
+    TERM medio := (40,0) (50,1) (60,0);
+    TERM alto := (55,0) (65,1) ( 75,0);
+    TERM muitoalto :=(70,0) (85,1 ) (92,0) ;
+    TERM extremoalto := (90,0 ) (100,1) (110.0561,0);
+
+    METHOD : COG;
+    DEFAULT := 0;
+END_DEFUZZIFY
+
+
+
+
+RULEBLOCK Capital
+    AND : MIN;
+    // Use 'min' activation method
+    ACT : MIN;
+    // Use 'max' accumulation method
+    ACCU : MAX;
+
+    RULE 1:	IF salario IS muitobaixo AND renda IS muitobaixo
+                THEN scorePorcentagem IS extremobaixo;
+                
+    RULE 2:	IF salario IS muitobaixo AND renda IS baixo
+                THEN scorePorcentagem IS muitobaixo;
+                
+    RULE 3:	IF salario IS muitobaixo AND renda IS medio
+                THEN scorePorcentagem IS baixo;
+    
+    RULE 4:	IF salario IS muitobaixo AND renda IS alto
+                THEN scorePorcentagem IS medio;
+                
+    RULE 5:	IF salario IS muitobaixo AND renda IS muitoalto
+                THEN scorePorcentagem IS medio;
+                
+    RULE 6:	IF salario IS baixo AND renda IS muitobaixo
+                THEN scorePorcentagem IS muitobaixo;
+                
+    RULE 7:	IF salario IS baixo AND renda IS baixo
+                THEN scorePorcentagem IS baixo;
+                
+    RULE 8:	IF salario IS baixo AND renda IS medio
+                THEN scorePorcentagem IS baixo;
+    
+    RULE 9:	IF salario IS baixo AND renda IS alto
+                THEN scorePorcentagem IS medio;
+                
+    RULE 10:	IF salario IS baixo AND renda IS muitoalto
+                THEN scorePorcentagem IS alto;
+
+    RULE 11:	IF salario IS medio AND renda IS muitobaixo
+                THEN scorePorcentagem IS baixo;
+                
+    RULE 12:	IF salario IS medio  AND renda IS baixo
+                THEN scorePorcentagem IS medio;
+                
+    RULE 13:	IF salario IS medio AND renda IS medio
+                THEN scorePorcentagem IS medio;
+    
+    RULE 14:	IF salario IS medio AND renda IS alto
+                THEN scorePorcentagem IS alto;
+                
+    RULE 15:	IF salario IS medio  AND renda IS muitoalto
+                THEN scorePorcentagem IS alto;
+                
+    RULE 16:	IF salario IS alto AND renda IS muitobaixo
+                THEN scorePorcentagem IS baixo;
+                
+    RULE 17:	IF salario IS alto AND renda IS baixo
+                THEN scorePorcentagem IS medio;
+                
+    RULE 18:	IF salario IS alto AND renda IS medio
+                THEN scorePorcentagem IS alto;
+    
+    RULE 19:	IF salario IS alto AND renda IS alto
+                THEN scorePorcentagem IS alto;
+                
+    RULE 20:	IF salario IS alto AND renda IS muitoalto
+                THEN scorePorcentagem IS muitoalto;
+
+    RULE 21:	IF salario IS muitoalto  AND renda IS muitobaixo
+                THEN scorePorcentagem IS medio;
+                
+    RULE 22:	IF salario IS muitoalto  AND renda IS baixo
+                THEN scorePorcentagem IS alto;
+                
+    RULE 23:	IF salario IS muitoalto  AND renda IS medio
+                THEN scorePorcentagem IS alto;
+    
+    RULE 24:	IF salario IS muitoalto  AND renda IS alto
+                THEN scorePorcentagem IS muitoalto;
+                
+    RULE 25:	IF salario IS  muitoalto  AND renda IS muitoalto
+                THEN scorePorcentagem IS extremoalto;
+                
+    RULE 26:	IF salario IS  muitoalto  AND renda IS nd
+                THEN scorePorcentagem IS alto;  
+                
+    RULE 27:	IF salario IS  alto  AND renda IS nd
+                THEN scorePorcentagem IS medio;        
+                   
+    RULE 28:	IF salario IS  medio  AND renda IS nd
+                THEN scorePorcentagem IS baixo;  
+                
+    RULE 29:	IF salario IS  baixo  AND renda IS nd
+                THEN scorePorcentagem IS muitobaixo;           
+                
+    RULE 30:	IF salario IS  muitobaixo  AND renda IS nd
+                THEN scorePorcentagem IS muitobaixo;  
+          
+    RULE 31:	IF salario IS nd  AND renda IS muitobaixo
+                THEN scorePorcentagem IS muitobaixo;
+                
+    RULE 32:	IF salario IS nd  AND renda IS baixo
+                THEN scorePorcentagem IS muitobaixo;
+                
+    RULE 33:	IF salario IS nd  AND renda IS medio
+                THEN scorePorcentagem IS baixo;
+    
+    RULE 34:	IF salario IS nd AND renda IS alto
+                THEN scorePorcentagem IS medio;
+                
+    RULE 35:	IF salario IS  nd AND renda IS muitoalto
+                THEN scorePorcentagem IS alto;                
+                
+    RULE 36:	IF salario IS  nd AND renda IS nd
+                THEN scorePorcentagem IS nd;                  
+    
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
+
+
+
+
+FUNCTION_BLOCK DividaTomador
+
+// Define input variables
+VAR_INPUT
+    divida: REAL;
+END_VAR
+
+// Define output variable
+VAR_OUTPUT
+    scorePorcentagem : REAL;
+END_VAR
+
+FUZZIFY divida
+
+
+	TERM muitobaixo := (0.1,0) ( 2,1) (3.9,0);
+    TERM baixo := (2.1,0) (4,1) (7.9,0) ;
+    TERM medio := (4.1,0) (9,1) (12.9,0);
+    TERM alto := (9.1,0) (13,1) ( 16.9,0);
+    TERM muitoalto :=(13.1,0) (17,1) (25,0);
+    
+    
+    
+END_FUZZIFY
+
+
+
+
+DEFUZZIFY scorePorcentagem
+	TERM muitobaixo := (0,0)  (5,1) (10,1)(20,0);
+    TERM baixo := (15,0) (35,1) ( 45,0) ;
+    TERM medio := (40,0) (50,1) (60,0);
+    TERM alto := (55,0) (65,1) ( 75,0);
+    TERM muitoalto :=(70,0) (90,1) (121,1) (121.0561,0);
+    METHOD : COG;
+    DEFAULT := -1;
+END_DEFUZZIFY
+
+
+
+
+RULEBLOCK Divida
+    AND : MIN;
+    // Use 'min' activation method
+    ACT : MIN;
+    // Use 'max' accumulation method
+    ACCU : MAX;
+
+    RULE 1:	IF divida IS muitobaixo
+                THEN scorePorcentagem IS muitobaixo;
+    
+    
+    RULE 2:	IF divida IS baixo
+                THEN scorePorcentagem IS baixo;
+    
+    
+    RULE 3:	IF divida IS medio
+                THEN scorePorcentagem IS medio;
+    
+    
+    RULE 4:	IF divida IS alto
+                THEN scorePorcentagem IS alto;            
+
+    RULE 5:	IF divida IS muitoalto
+                THEN scorePorcentagem IS muitoalto;
+                
+ 
+      
+
+
+    
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
+
+
+
+FUNCTION_BLOCK PendenciaTomador
+
+// Define input variables
+VAR_INPUT
+    pendencia: REAL;
+    periodo : REAL ;
+    atraso: REAL;
+END_VAR
+
+// Define output variable
+VAR_OUTPUT
+   scorePorcentagem  : REAL;
+END_VAR
+
+FUZZIFY pendencia
+
+	TERM muitobaixo := (0.1,0) ( 2,1) (3.9,0);
+    TERM baixo := (2.1,0) (4,1) (7.9,0) ;
+    TERM medio := (4.1,0) (9,1) (12.9,0);
+    TERM alto := (9.1,0) (13,1) ( 16.9,0);
+    TERM muitoalto :=(13.1,0) (17,1) (25,0);
+    
+    
+END_FUZZIFY
+
+
+FUZZIFY periodo
+    TERM  muitobaixo := (0,0) (7,1) (15,0);
+    TERM  baixo := (10,0) (30,1) (45,0) ;
+    TERM  medio :=(40,0) ( 60.0,1) ( 120.0,0);
+    TERM  alto := (  90.0,0)  ( 180.0,1) (365.0,1);
+    TERM  muitoalto := (330,0)(720,1) (720,0);
+END_FUZZIFY
+
+
+
+FUZZIFY atraso
+    TERM  muitobaixo := (0,0) (7,1) (15,0);
+    TERM  baixo := (10,0) (30,1) (45,0) ;
+    TERM  medio :=(40,0) ( 60.0,1) ( 120.0,0);
+    TERM  alto := (  90.0,0)  ( 180.0,1) (365.0,1);
+    TERM  muitoalto := (330,0)(720,1) (720,0);
+END_FUZZIFY
+
+
+DEFUZZIFY scorePorcentagem
+	TERM extremobaixo := (0,0)  (5,1) (8,0);
+	TERM muitobaixo := (3,0) (10,1)(20,0);
+    TERM baixo := (15,0) (35,1) ( 45,0) ;
+    TERM medio := (40,0) (50,1) (60,0);
+    TERM alto := (55,0) (65,1) ( 75,0);
+    TERM muitoalto :=(70,0) (85,1 ) (92,0) ;
+    TERM extremoalto := (90,0 ) (100,1) (110.0561,0);
+    METHOD : COG;
+    DEFAULT := -1;
+END_DEFUZZIFY
+
+
+
+
+
+
+
+RULEBLOCK pendencia
+    AND : MIN;
+    // Use 'min' activation method
+    ACT : MIN;
+    // Use 'max' accumulation method
+    ACCU : MAX;
+
+    RULE 1:	IF periodo IS muitoalto AND pendencia IS muitobaixo  AND atraso IS muitobaixo
+                THEN scorePorcentagem IS extremobaixo;
+ 
+    RULE 2:	IF periodo IS muitoalto AND pendencia IS muitobaixo  AND atraso IS baixo
+                THEN scorePorcentagem IS extremobaixo;                
+
+    RULE 3:	IF periodo IS muitoalto AND pendencia IS muitobaixo  AND atraso IS medio
+                THEN scorePorcentagem IS muitobaixo; 
+
+    RULE 4:	IF periodo IS muitoalto AND pendencia IS muitobaixo  AND atraso IS alto
+                THEN scorePorcentagem IS baixo;
+ 
+    RULE 5:	IF periodo IS muitoalto AND pendencia IS muitobaixo  AND atraso IS muitoalto
+                THEN scorePorcentagem IS baixo;                
+
+    RULE 6:	IF periodo IS muitoalto AND pendencia IS baixo  AND atraso IS muitobaixo
+                THEN scorePorcentagem IS extremobaixo;
+ 
+    RULE 7:	IF periodo IS muitoalto AND pendencia IS baixo  AND atraso IS baixo
+                THEN scorePorcentagem IS muitobaixo;                
+
+    RULE 8:	IF periodo IS muitoalto AND pendencia IS baixo  AND atraso IS medio
+                THEN scorePorcentagem IS baixo; 
+
+    RULE 9:	IF periodo IS muitoalto AND pendencia IS baixo  AND atraso IS alto
+                THEN scorePorcentagem IS baixo;
+ 
+    RULE 10:	IF periodo IS muitoalto AND pendencia IS baixo  AND atraso IS muitoalto
+                THEN scorePorcentagem IS baixo;                
+
+    RULE 11:	IF periodo IS muitoalto AND pendencia IS medio  AND atraso IS muitobaixo
+                THEN scorePorcentagem IS muitobaixo;
+ 
+    RULE 12:	IF periodo IS muitoalto AND pendencia IS medio  AND atraso IS baixo
+                THEN scorePorcentagem IS muitobaixo;                
+
+    RULE 13:	IF periodo IS muitoalto AND pendencia IS medio  AND atraso IS medio
+                THEN scorePorcentagem IS baixo; 
+
+    RULE 14:	IF periodo IS muitoalto AND pendencia IS medio  AND atraso IS alto
+                THEN scorePorcentagem IS baixo;
+ 
+    RULE 15:	IF periodo IS muitoalto AND pendencia IS medio  AND atraso IS muitoalto
+                THEN scorePorcentagem IS medio;                
+
+    RULE 16:	IF periodo IS muitoalto AND pendencia IS alto  AND atraso IS muitobaixo
+                THEN scorePorcentagem IS muitobaixo;
+ 
+    RULE 17:	IF periodo IS muitoalto AND pendencia IS alto  AND atraso IS baixo
+                THEN scorePorcentagem IS muitobaixo;                
+
+    RULE 18:	IF periodo IS muitoalto AND pendencia IS alto  AND atraso IS medio
+                THEN scorePorcentagem IS baixo; 
+
+    RULE 19:	IF periodo IS muitoalto AND pendencia IS alto  AND atraso IS alto
+                THEN scorePorcentagem IS medio;
+ 
+    RULE 20:	IF periodo IS muitoalto AND pendencia IS alto  AND atraso IS muitoalto
+                THEN scorePorcentagem IS alto;                
+
+    RULE 21:	IF periodo IS muitoalto AND pendencia IS muitoalto  AND atraso IS muitobaixo
+                THEN scorePorcentagem IS baixo;
+ 
+    RULE 22:	IF periodo IS muitoalto AND pendencia IS muitoalto  AND atraso IS baixo
+                THEN scorePorcentagem IS medio;                
+
+    RULE 23:	IF periodo IS muitoalto AND pendencia IS muitoalto  AND atraso IS medio
+                THEN scorePorcentagem IS medio; 
+
+    RULE 24:	IF periodo IS muitoalto AND pendencia IS muitoalto  AND atraso IS alto
+                THEN scorePorcentagem IS alto;
+ 
+    RULE 25:	IF periodo IS muitoalto AND pendencia IS muitoalto  AND atraso IS muitoalto
+                THEN scorePorcentagem IS muitoalto; 
+                
+                               
+
+    RULE 26:	IF periodo IS alto AND pendencia IS muitobaixo  AND atraso IS muitobaixo
+                THEN scorePorcentagem IS muitobaixo;
+ 
+    RULE 27:	IF periodo IS alto AND pendencia IS muitobaixo  AND atraso IS baixo
+                THEN scorePorcentagem IS muitobaixo;                
+
+    RULE 28:	IF periodo IS alto AND pendencia IS muitobaixo  AND atraso IS medio
+                THEN scorePorcentagem IS baixo; 
+
+    RULE 29:	IF periodo IS alto AND pendencia IS muitobaixo  AND atraso IS alto
+                THEN scorePorcentagem IS baixo;
+ 
+    RULE 30:	IF periodo IS alto AND pendencia IS muitobaixo  AND atraso IS muitoalto
+                THEN scorePorcentagem IS baixo;                
+
+    RULE 31:	IF periodo IS alto AND pendencia IS baixo  AND atraso IS muitobaixo
+                THEN scorePorcentagem IS muitobaixo;
+ 
+    RULE 32:	IF periodo IS alto AND pendencia IS baixo  AND atraso IS baixo
+                THEN scorePorcentagem IS muitobaixo;                
+
+    RULE 33:	IF periodo IS alto AND pendencia IS baixo  AND atraso IS medio
+                THEN scorePorcentagem IS baixo; 
+
+    RULE 34:	IF periodo IS alto AND pendencia IS baixo  AND atraso IS alto
+                THEN scorePorcentagem IS baixo;
+ 
+    RULE 35:	IF periodo IS alto AND pendencia IS baixo  AND atraso IS muitoalto
+                THEN scorePorcentagem IS  medio;                
+
+    RULE 36:	IF periodo IS alto AND pendencia IS medio  AND atraso IS muitobaixo
+                THEN scorePorcentagem IS muitobaixo;
+ 
+    RULE 37:	IF periodo IS alto AND pendencia IS medio  AND atraso IS baixo
+                THEN scorePorcentagem IS muitobaixo;                
+
+    RULE 38:	IF periodo IS alto AND pendencia IS medio  AND atraso IS medio
+                THEN scorePorcentagem IS baixo; 
+
+    RULE 39:	IF periodo IS alto AND pendencia IS medio  AND atraso IS alto
+                THEN scorePorcentagem IS medio;
+ 
+    RULE 40:	IF periodo IS alto AND pendencia IS medio  AND atraso IS muitoalto
+                THEN scorePorcentagem IS medio;                
+
+    RULE 41:	IF periodo IS alto AND pendencia IS alto  AND atraso IS muitobaixo
+                THEN scorePorcentagem IS muitobaixo;
+ 
+    RULE 42:	IF periodo IS alto AND pendencia IS alto  AND atraso IS baixo
+                THEN scorePorcentagem IS baixo;                
+
+    RULE 43:	IF periodo IS alto AND pendencia IS alto  AND atraso IS medio
+                THEN scorePorcentagem IS medio; 
+
+    RULE 44:	IF periodo IS alto AND pendencia IS alto  AND atraso IS alto
+                THEN scorePorcentagem IS medio;
+ 
+    RULE 45:	IF periodo IS alto AND pendencia IS alto  AND atraso IS muitoalto
+                THEN scorePorcentagem IS alto;                
+
+    RULE 46:	IF periodo IS alto AND pendencia IS muitoalto  AND atraso IS muitobaixo
+                THEN scorePorcentagem IS baixo;
+ 
+    RULE 47:	IF periodo IS alto AND pendencia IS muitoalto  AND atraso IS baixo
+                THEN scorePorcentagem IS baixo;                
+
+    RULE 48:	IF periodo IS alto AND pendencia IS muitoalto  AND atraso IS medio
+                THEN scorePorcentagem IS medio; 
+
+    RULE 49:	IF periodo IS alto AND pendencia IS muitoalto  AND atraso IS alto
+                THEN scorePorcentagem IS alto;
+ 
+    RULE 50:	IF periodo IS alto AND pendencia IS muitoalto  AND atraso IS muitoalto
+                THEN scorePorcentagem IS alto;         
+/*parei aqui
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
+
+    RULE 51:	IF periodo IS medio AND pendencia IS muitobaixo  AND atraso IS muitobaixo
+                THEN scorePorcentagem IS muitobaixo;
+ 
+    RULE 52:	IF periodo IS medio AND pendencia IS muitobaixo  AND atraso IS baixo
+                THEN scorePorcentagem IS baixo;                
+
+    RULE 53:	IF periodo IS medio AND pendencia IS muitobaixo  AND atraso IS medio
+                THEN scorePorcentagem IS baixo; 
+
+    RULE 54:	IF periodo IS medio AND pendencia IS muitobaixo  AND atraso IS alto
+                THEN scorePorcentagem IS medio;
+ 
+    RULE 55:	IF periodo IS medio AND pendencia IS muitobaixo  AND atraso IS muitoalto
+                THEN scorePorcentagem IS medio;                
+
+    RULE 56:	IF periodo IS medio AND pendencia IS baixo  AND atraso IS muitobaixo
+                THEN scorePorcentagem IS muitobaixo;
+ 
+    RULE 57:	IF periodo IS medio AND pendencia IS baixo  AND atraso IS baixo
+                THEN scorePorcentagem IS baixo;                
+
+    RULE 58:	IF periodo IS medio AND pendencia IS baixo  AND atraso IS medio
+                THEN scorePorcentagem IS medio; 
+
+    RULE 59:	IF periodo IS medio AND pendencia IS baixo  AND atraso IS alto
+                THEN scorePorcentagem IS medio;
+ 
+    RULE 60:	IF periodo IS medio AND pendencia IS baixo  AND atraso IS muitoalto
+                THEN scorePorcentagem IS alto;                
+
+    RULE 61:	IF periodo IS medio AND pendencia IS medio  AND atraso IS muitobaixo
+                THEN scorePorcentagem IS muitobaixo;
+ 
+    RULE 62:	IF periodo IS medio AND pendencia IS medio  AND atraso IS baixo
+                THEN scorePorcentagem IS baixo;                
+
+    RULE 63:	IF periodo IS medio AND pendencia IS medio  AND atraso IS medio
+                THEN scorePorcentagem IS medio; 
+
+    RULE 64:	IF periodo IS medio AND pendencia IS medio  AND atraso IS alto
+                THEN scorePorcentagem IS alto;
+ 
+    RULE 65:	IF periodo IS medio AND pendencia IS medio  AND atraso IS muitoalto
+                THEN scorePorcentagem IS alto;                
+
+    RULE 66:	IF periodo IS medio AND pendencia IS alto  AND atraso IS muitobaixo
+                THEN scorePorcentagem IS muitobaixo;
+ 
+    RULE 67:	IF periodo IS medio AND pendencia IS alto  AND atraso IS baixo
+                THEN scorePorcentagem IS  baixo;                
+
+    RULE 68:	IF periodo IS medio AND pendencia IS alto  AND atraso IS medio
+                THEN scorePorcentagem IS medio; 
+
+    RULE 69:	IF periodo IS medio AND pendencia IS alto  AND atraso IS alto
+                THEN scorePorcentagem IS alto;
+ 
+    RULE 60:	IF periodo IS medio AND pendencia IS alto  AND atraso IS muitoalto
+                THEN scorePorcentagem IS alto;                
+
+    RULE 71:	IF periodo IS medio AND pendencia IS muitoalto  AND atraso IS muitobaixo
+                THEN scorePorcentagem IS baixo;
+ 
+    RULE 72:	IF periodo IS medio AND pendencia IS muitoalto  AND atraso IS baixo
+                THEN scorePorcentagem IS baixo;                
+
+    RULE 73:	IF periodo IS medio AND pendencia IS muitoalto  AND atraso IS medio
+                THEN scorePorcentagem IS medio; 
+
+    RULE 74:	IF periodo IS medio AND pendencia IS muitoalto  AND atraso IS alto
+                THEN scorePorcentagem IS alto;
+ 
+    RULE 75:	IF periodo IS medio AND pendencia IS muitoalto  AND atraso IS muitoalto
+                THEN scorePorcentagem IS alto; 
+                
+                               
+
+    RULE 76:	IF periodo IS baixo AND pendencia IS muitobaixo  AND atraso IS muitobaixo
+                THEN scorePorcentagem IS muitobaixo;
+ 
+    RULE 77:	IF periodo IS baixo AND pendencia IS muitobaixo  AND atraso IS baixo
+                THEN scorePorcentagem IS baixo;                
+
+    RULE 78:	IF periodo IS baixo AND pendencia IS muitobaixo  AND atraso IS medio
+                THEN scorePorcentagem IS medio; 
+
+    RULE 79:	IF periodo IS baixo AND pendencia IS muitobaixo  AND atraso IS alto
+                THEN scorePorcentagem IS medio;
+ 
+    RULE 80:	IF periodo IS baixo AND pendencia IS muitobaixo  AND atraso IS muitoalto
+                THEN scorePorcentagem IS medio;                
+
+    RULE 81:	IF periodo IS baixo AND pendencia IS baixo  AND atraso IS muitobaixo
+                THEN scorePorcentagem IS baixo;
+ 
+    RULE 82:	IF periodo IS baixo AND pendencia IS baixo  AND atraso IS baixo
+                THEN scorePorcentagem IS baixo;                
+
+    RULE 83:	IF periodo IS baixo AND pendencia IS baixo  AND atraso IS medio
+                THEN scorePorcentagem IS medio; 
+
+    RULE 84:	IF periodo IS baixo AND pendencia IS baixo  AND atraso IS alto
+                THEN scorePorcentagem IS alto;
+ 
+    RULE 85:	IF periodo IS baixo AND pendencia IS baixo  AND atraso IS muitoalto
+                THEN scorePorcentagem IS alto;                
+
+    RULE 86:	IF periodo IS baixo AND pendencia IS medio  AND atraso IS muitobaixo
+                THEN scorePorcentagem IS baixo;
+ 
+    RULE 87:	IF periodo IS baixo AND pendencia IS medio  AND atraso IS baixo
+                THEN scorePorcentagem IS baixo;                
+
+    RULE 88:	IF periodo IS baixo AND pendencia IS medio  AND atraso IS medio
+                THEN scorePorcentagem IS medio; 
+
+    RULE 89:	IF periodo IS baixo AND pendencia IS medio  AND atraso IS alto
+                THEN scorePorcentagem IS alto;
+ 
+    RULE 90:	IF periodo IS baixo AND pendencia IS medio  AND atraso IS muitoalto
+                THEN scorePorcentagem IS alto;                
+
+    RULE 91:	IF periodo IS baixo AND pendencia IS alto  AND atraso IS muitobaixo
+                THEN scorePorcentagem IS baixo;
+ 
+    RULE 92:	IF periodo IS baixo AND pendencia IS alto  AND atraso IS baixo
+                THEN scorePorcentagem IS medio;                
+
+    RULE 93:	IF periodo IS baixo AND pendencia IS alto  AND atraso IS medio
+                THEN scorePorcentagem IS medio; 
+
+    RULE 94:	IF periodo IS baixo AND pendencia IS alto  AND atraso IS alto
+                THEN scorePorcentagem IS alto;
+ 
+    RULE 95:	IF periodo IS baixo AND pendencia IS alto  AND atraso IS muitoalto
+                THEN scorePorcentagem IS muitoalto;                
+
+    RULE 96:	IF periodo IS baixo AND pendencia IS muitoalto  AND atraso IS muitobaixo
+                THEN scorePorcentagem IS baixo;
+ 
+    RULE 97:	IF periodo IS baixo AND pendencia IS muitoalto  AND atraso IS baixo
+                THEN scorePorcentagem IS medio;                
+
+    RULE 98:	IF periodo IS baixo AND pendencia IS muitoalto  AND atraso IS medio
+                THEN scorePorcentagem IS alto; 
+
+    RULE 99:	IF periodo IS baixo  AND pendencia IS muitoalto  AND atraso IS alto
+                THEN scorePorcentagem IS muitoalto;
+ 
+    RULE 100:	IF periodo IS baixo AND pendencia IS muitoalto  AND atraso IS muitoalto
+                THEN scorePorcentagem IS extremoalto; 
+                
+                
+                      
+    RULE 101:	IF periodo IS muitobaixo AND pendencia IS muitobaixo  AND atraso IS muitobaixo
+                THEN scorePorcentagem IS muitobaixo;
+ 
+    RULE 102:	IF periodo IS muitobaixo AND pendencia IS muitobaixo  AND atraso IS baixo
+                THEN scorePorcentagem IS baixo;                
+
+    RULE 103:	IF periodo IS muitobaixo AND pendencia IS muitobaixo  AND atraso IS medio
+                THEN scorePorcentagem IS baixo; 
+
+    RULE 104:	IF periodo IS muitobaixo AND pendencia IS muitobaixo  AND atraso IS alto
+                THEN scorePorcentagem IS baixo;
+ 
+    RULE 105:	IF periodo IS muitobaixo AND pendencia IS muitobaixo  AND atraso IS muitoalto
+                THEN scorePorcentagem IS medio;                
+
+    RULE 106:	IF periodo IS muitobaixo AND pendencia IS baixo  AND atraso IS muitobaixo
+                THEN scorePorcentagem IS baixo;
+ 
+    RULE 107:	IF periodo IS muitobaixo AND pendencia IS baixo  AND atraso IS baixo
+                THEN scorePorcentagem IS medio;                
+
+    RULE 108:	IF periodo IS muitobaixo AND pendencia IS baixo  AND atraso IS medio
+                THEN scorePorcentagem IS medio; 
+
+    RULE 109:	IF periodo IS muitobaixo AND pendencia IS baixo  AND atraso IS alto
+                THEN scorePorcentagem IS alto;
+ 
+    RULE 110:	IF periodo IS muitobaixo AND pendencia IS baixo  AND atraso IS muitoalto
+                THEN scorePorcentagem IS alto;                
+
+    RULE 111:	IF periodo IS muitobaixo AND pendencia IS medio  AND atraso IS muitobaixo
+                THEN scorePorcentagem IS medio;
+ 
+    RULE 112:	IF periodo IS muitobaixo AND pendencia IS medio  AND atraso IS baixo
+                THEN scorePorcentagem IS medio;                
+
+    RULE 113:	IF periodo IS muitobaixo AND pendencia IS medio  AND atraso IS medio
+                THEN scorePorcentagem IS medio; 
+
+    RULE 114:	IF periodo IS muitobaixo AND pendencia IS medio  AND atraso IS alto
+                THEN scorePorcentagem IS alto;
+ 
+    RULE 115:	IF periodo IS muitobaixo AND pendencia IS medio  AND atraso IS muitoalto
+                THEN scorePorcentagem IS alto;                
+
+    RULE 116:	IF periodo IS muitobaixo AND pendencia IS alto  AND atraso IS muitobaixo
+                THEN scorePorcentagem IS baixo;
+ 
+    RULE 117:	IF periodo IS muitobaixo AND pendencia IS alto  AND atraso IS baixo
+                THEN scorePorcentagem IS medio;                
+
+    RULE 118:	IF periodo IS muitobaixo AND pendencia IS alto  AND atraso IS medio
+                THEN scorePorcentagem IS alto; 
+
+    RULE 119:	IF periodo IS muitobaixo AND pendencia IS alto  AND atraso IS alto
+                THEN scorePorcentagem IS muitoalto;
+ 
+    RULE 120:	IF periodo IS muitobaixo AND pendencia IS alto  AND atraso IS muitoalto
+                THEN scorePorcentagem IS muitoalto;                
+
+    RULE 121:	IF periodo IS muitobaixo AND pendencia IS muitoalto  AND atraso IS muitobaixo
+                THEN scorePorcentagem IS medio;
+ 
+    RULE 122:	IF periodo IS muitobaixo AND pendencia IS muitoalto  AND atraso IS baixo
+                THEN scorePorcentagem IS alto;                
+
+    RULE 123:	IF periodo IS muitobaixo AND pendencia IS muitoalto  AND atraso IS medio
+                THEN scorePorcentagem IS muitoalto; 
+
+    RULE 124:	IF periodo IS muitobaixo AND pendencia IS muitoalto  AND atraso IS alto
+                THEN scorePorcentagem IS extremoalto;
+ 
+    RULE 125:	IF periodo IS muitobaixo AND pendencia IS muitoalto  AND atraso IS muitoalto
+                THEN scorePorcentagem IS extremoalto; 
+
+
+    
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
+
+
+
+FUNCTION_BLOCK GastosTomador
+
+// Define input variables
+VAR_INPUT
+    divida: REAL;
+    pendencia : REAL ;
+END_VAR
+
+// Define output variable
+VAR_OUTPUT
+    scorePorcentagem : REAL;
+END_VAR
+
+FUZZIFY divida
+
+
+	TERM nd := (-10,0) (-1,1) (0,0);
+	TERM muitobaixo := (1,0) (15,1) ( 25,0);
+    TERM baixo := (20,0) (35,1) (45,0) ;
+    TERM medio := (40,0) (55,1) (65,0);
+    TERM alto := (60,0) (75,1) ( 90,0);
+    TERM muitoalto :=(80,0) (95,1) (101,0);
+    
+    
+    
+END_FUZZIFY
+
+FUZZIFY pendencia
+
+
+	TERM nd := (-10,0) (-1,1) (0,0);
+	TERM muitobaixo := (1,0) (15,1) ( 25,0);
+    TERM baixo := (20,0) (35,1) (45,0) ;
+    TERM medio := (40,0) (55,1) (65,0);
+    TERM alto := (60,0) (75,1) ( 90,0);
+    TERM muitoalto :=(80,0) (95,1) (101,0);
+    
+    
+END_FUZZIFY
+
+
+
+
+DEFUZZIFY scorePorcentagem
+	TERM nd := (-10,0) (-1,1) (0,0);
+
+	TERM extremobaixo := (0,0)  (5,1) (8,0);
+	TERM muitobaixo := (3,0) (10,1)(20,0);
+    TERM baixo := (15,0) (35,1) ( 45,0) ;
+    TERM medio := (40,0) (50,1) (60,0);
+    TERM alto := (55,0) (65,1) ( 75,0);
+    TERM muitoalto :=(70,0) (85,1 ) (95,0) ;
+    TERM extremoalto := (90,0 ) (100,1) (110.0561,0);
+
+    METHOD : COG;
+    DEFAULT := 0;
+END_DEFUZZIFY
+
+
+
+
+RULEBLOCK Gastos
+    AND : MIN;
+    // Use 'min' activation method
+    ACT : MIN;
+    // Use 'max' accumulation method
+    ACCU : MAX;
+
+    RULE 1:	IF divida IS muitobaixo AND pendencia IS muitobaixo
+                THEN scorePorcentagem IS extremobaixo;
+    
+    
+    RULE 2:	IF divida IS muitobaixo AND pendencia IS baixo
+                THEN scorePorcentagem IS extremobaixo;
+    
+    
+    RULE 3:	IF divida IS muitobaixo AND pendencia IS medio
+                THEN scorePorcentagem IS baixo;
+
+
+    RULE 4:	IF divida IS muitobaixo AND pendencia IS alto
+                THEN scorePorcentagem IS medio;
+
+
+    RULE 5:	IF divida IS muitobaixo AND pendencia IS muitoalto
+                THEN scorePorcentagem IS alto;
+                
+                
+
+    RULE 6:	IF divida IS baixo AND pendencia IS muitobaixo
+                THEN scorePorcentagem IS extremobaixo;
+    
+    
+    RULE 7:	IF divida IS baixo AND pendencia IS baixo
+                THEN scorePorcentagem IS baixo;
+    
+    
+    RULE 8:	IF divida IS baixo AND pendencia IS medio
+                THEN scorePorcentagem IS baixo;
+
+
+    RULE 9:	IF divida IS baixo AND pendencia IS alto
+                THEN scorePorcentagem IS medio;
+
+
+    RULE 10:	IF divida IS baixo AND pendencia IS muitoalto
+                THEN scorePorcentagem IS alto;
+                
+                
+ 
+    RULE 11:	IF divida IS medio AND pendencia IS muitobaixo
+               THEN scorePorcentagem IS baixo;
+    
+    
+    RULE 12:	IF divida IS medio AND pendencia IS baixo
+                THEN scorePorcentagem IS baixo;
+    
+    
+    RULE 13:	IF divida IS medio AND pendencia IS medio
+                THEN scorePorcentagem IS medio;
+
+
+    RULE 14:	IF divida IS medio AND pendencia IS alto
+                THEN scorePorcentagem IS alto;
+
+
+    RULE 15:	IF divida IS medio AND pendencia IS muitoalto
+                THEN scorePorcentagem IS alto;
+                
+                
+
+    RULE 16:	IF divida IS alto AND pendencia IS muitobaixo
+                THEN scorePorcentagem IS medio;
+    
+    
+    RULE 17:	IF divida IS alto AND pendencia IS baixo
+                THEN scorePorcentagem IS medio;
+    
+    
+    RULE 18:	IF divida IS alto AND pendencia IS medio
+                THEN scorePorcentagem IS alto;
+
+
+    RULE 19:	IF divida IS alto AND pendencia IS alto
+                THEN scorePorcentagem IS muitoalto;
+
+
+    RULE 20:	IF divida IS alto AND pendencia IS muitoalto
+                THEN scorePorcentagem IS extremoalto;
+                
+ 
+    RULE 21:	IF divida IS muitoalto AND pendencia IS muitobaixo
+                THEN scorePorcentagem IS medio;
+    
+    
+    RULE 22:	IF divida IS muitoalto AND pendencia IS baixo
+                THEN scorePorcentagem IS alto;
+    
+    
+    RULE 23:	IF divida IS muitoalto AND pendencia IS medio
+                THEN scorePorcentagem IS muitoalto;
+
+
+    RULE 24:	IF divida IS muitoalto AND pendencia IS alto
+                THEN scorePorcentagem IS muitoalto;
+
+
+    RULE 25:	IF divida IS muitoalto AND pendencia IS muitoalto
+                THEN scorePorcentagem IS extremoalto;
+                
+                
+ 
+    RULE 26:	IF divida IS muitoalto AND pendencia IS nd
+                THEN scorePorcentagem IS alto;
+    
+    
+    RULE 27:	IF divida IS alto AND pendencia IS nd
+                THEN scorePorcentagem IS medio;
+    
+    
+    RULE 28:	IF divida IS medio AND pendencia IS nd
+                THEN scorePorcentagem IS baixo;
+
+
+    RULE 29:	IF divida IS baixo AND pendencia IS nd
+                THEN scorePorcentagem IS muitobaixo;
+
+
+    RULE 30:	IF divida IS muitobaixo AND pendencia IS nd
+                THEN scorePorcentagem IS muitobaixo;
+                
+ 
+    RULE 31:	IF divida IS nd AND pendencia IS muitobaixo
+                THEN scorePorcentagem IS medio;
+    
+    
+    RULE 32:	IF divida IS nd AND pendencia IS baixo
+                THEN scorePorcentagem IS alto;
+    
+    
+    RULE 33:	IF divida IS nd AND pendencia IS medio
+                THEN scorePorcentagem IS alto;
+
+
+    RULE 34:	IF divida IS nd AND pendencia IS alto
+                THEN scorePorcentagem IS muitoalto;
+
+
+    RULE 35:	IF divida IS nd AND pendencia IS muitoalto
+                THEN scorePorcentagem IS muitoalto;      
+
+    RULE 36:	IF divida IS nd AND pendencia IS nd
+                THEN scorePorcentagem IS nd;  
+
+
+      
+
+
+    
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
+
+
+FUNCTION_BLOCK ScoreTomador1
+
+// Define input variables
+VAR_INPUT
+    capital: REAL;
+    gastos : REAL ;
+END_VAR
+
+// Define output variable
+VAR_OUTPUT
+    scorePorcentagem : REAL;
+END_VAR
+
+FUZZIFY capital
+
+
+
+	TERM muitobaixo := (-1,0) (15,1) ( 25,0);
+    TERM baixo := (20,0) (35,1) (45,0) ;
+    TERM medio := (40,0) (55,1) (65,0);
+    TERM alto := (60,0) (75,1) ( 85,0);
+    TERM muitoalto :=(80,0) (90,1) (101,0);
+    
+    
+    
+END_FUZZIFY
+
+FUZZIFY gastos
+
+
+	TERM muitobaixo := (-1,0) (15,1) ( 25,0);
+    TERM baixo := (20,0) (35,1) (45,0) ;
+    TERM medio := (40,0) (55,1) (65,0);
+    TERM alto := (60,0) (75,1) ( 85,0);
+    TERM muitoalto :=(80,0) (90,1) (101,0);
+    
+    
+    
+    
+END_FUZZIFY
+
+
+
+
+
+DEFUZZIFY scorePorcentagem
+	TERM extremobaixo := (0,0)  (5,1) (8,0);
+	TERM muitobaixo := (3,0) (10,1)(20,0);
+    TERM baixo := (15,0) (35,1) ( 45,0) ;
+    TERM medio := (40,0) (50,1) (60,0);
+    TERM alto := (55,0) (65,1) ( 75,0);
+    TERM muitoalto :=(70,0) (85,1 ) (92,0) ;
+    TERM extremoalto := (90,0 ) (100,1) (110.0561,0);
+    METHOD : COG;
+    DEFAULT := 0;
+END_DEFUZZIFY
+
+
+
+RULEBLOCK PontuacaoTomador
+    AND : MIN;
+    // Use 'min' activation method
+    ACT : MIN;
+    // Use 'max' accumulation method
+    ACCU : MAX;
+
+    RULE 1:	IF capital IS muitobaixo AND gastos IS muitobaixo
+                THEN scorePorcentagem IS medio;
+                
+                
+    RULE 2:	IF capital IS muitobaixo AND gastos IS baixo
+                THEN scorePorcentagem IS baixo;
+
+
+    RULE 3:	IF capital IS muitobaixo AND gastos IS medio
+                THEN scorePorcentagem IS muitobaixo;
+
+    RULE 4:	IF capital IS muitobaixo AND gastos IS alto
+                THEN scorePorcentagem IS extremobaixo;
+
+
+    RULE 5:	IF capital IS muitobaixo AND gastos IS muitoalto
+                THEN scorePorcentagem IS extremobaixo;
+
+
+    RULE 6:	IF capital IS baixo AND gastos IS muitobaixo
+                THEN scorePorcentagem IS baixo;
+                
+                
+    RULE 7:	IF capital IS baixo AND gastos IS baixo
+                THEN scorePorcentagem IS baixo;
+
+
+    RULE 8:	IF capital IS baixo AND gastos IS medio
+                THEN scorePorcentagem IS muitobaixo;
+
+    RULE 9:	IF capital IS baixo AND gastos IS alto
+                THEN scorePorcentagem IS muitobaixo;
+
+
+    RULE 10:	IF capital IS baixo AND gastos IS muitoalto
+                THEN scorePorcentagem IS extremobaixo;
+
+
+    RULE 11:	IF capital IS medio AND gastos IS muitobaixo
+                THEN scorePorcentagem IS alto;
+                
+                
+    RULE 12:	IF capital IS medio AND gastos IS baixo
+                THEN scorePorcentagem IS medio;
+
+
+    RULE 13:	IF capital IS medio  AND gastos IS medio
+                THEN scorePorcentagem IS baixo;
+
+    RULE 14:	IF capital IS medio AND gastos IS alto
+                THEN scorePorcentagem IS baixo;
+
+
+    RULE 15:	IF capital IS medio AND gastos IS muitoalto
+                THEN scorePorcentagem IS muitobaixo;
+
+    RULE 16:	IF capital IS alto AND gastos IS muitobaixo
+                THEN scorePorcentagem IS muitoalto;
+                
+                
+    RULE 17:	IF capital IS alto AND gastos IS baixo
+                THEN scorePorcentagem IS alto;
+
+
+    RULE 18:	IF capital IS alto AND gastos IS medio
+                THEN scorePorcentagem IS medio;
+
+    RULE 19:	IF capital IS alto AND gastos IS alto
+                THEN scorePorcentagem IS baixo;
+
+
+    RULE 20:	IF capital IS alto AND gastos IS muitoalto
+                THEN scorePorcentagem IS baixo;
+                
+                
+    RULE 21:	IF capital IS muitoalto AND gastos IS muitobaixo
+                THEN scorePorcentagem IS extremoalto;
+                
+                
+    RULE 22:	IF capital IS muitoalto AND gastos IS baixo
+                THEN scorePorcentagem IS extremoalto;
+
+
+    RULE 23:	IF capital IS muitoalto AND gastos IS medio
+                THEN scorePorcentagem IS muitoalto;
+
+    RULE 24:	IF capital IS muitoalto AND gastos IS alto
+                THEN scorePorcentagem IS medio;
+
+
+    RULE 25:	IF capital IS muitoalto AND gastos IS muitoalto
+                THEN scorePorcentagem IS baixo;
+
+
+
+
+
+
+
+                
+              
+    
+    
+
+
+
+      
+
+
+    
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
+
+
+
+
+
+FUNCTION_BLOCK AtivosTomador
+
+// Define input variables
+VAR_INPUT
+    veiculos: REAL;
+    imoveis : REAL;
+    terrenos :REAL ;
+    
+END_VAR
+
+// Define output variable
+VAR_OUTPUT
+    scorePorcentagem : REAL;
+END_VAR
+
+FUZZIFY veiculos
+
+
+	TERM nenhum := (-1,0) ( 0,1) (0.1,0);
+	TERM pouco := (0.9,0) (1,1) (3,0 );
+	TERM muitos := (2,0) ( 4 , 1) ( 10,1);
+
+    
+    
+    
+END_FUZZIFY
+
+FUZZIFY imoveis
+
+
+	TERM nenhum := (-1,0) ( 0,1) (0.1,0);
+	TERM pouco := (0.9,0) (1,1) (3,0 );
+	TERM muitos := (2,0) ( 4 , 1) ( 10,1);
+
+    
+    
+    
+END_FUZZIFY
+FUZZIFY terrenos
+
+
+	TERM nenhum := (-1,0) ( 0,1) (0.1,0);
+	TERM pouco := (0.9,0) (1,1) (3,0 );
+	TERM muitos := (2,0) ( 4 , 1) ( 10,1);
+
+    
+    
+    
+END_FUZZIFY
+
+
+
+
+DEFUZZIFY scorePorcentagem
+
+	TERM muitobaixo := (0,0)  (1,1) (3,1)(8,0);
+    TERM baixo := (4,0) (10,1) ( 39,0) ;
+    TERM medio := (11,0) (40,1) (60,0);
+    TERM alto := (41,0) (65,1) ( 75,0);
+    TERM muitoalto :=(70,0) (90,1) (121,1) (121.0561,0);
+    METHOD : COG;
+    DEFAULT := -1;
+END_DEFUZZIFY
+
+
+
+
+RULEBLOCK ativoTomadorRegras
+    AND : MIN;
+    // Use 'min' activation method
+    ACT : MIN;
+    // Use 'max' accumulation method
+    ACCU : MAX;
+
+    RULE 1:	IF imoveis IS nenhum AND terrenos IS nenhum AND veiculos IS nenhum
+    		 THEN scorePorcentagem IS  muitobaixo; 
+    		 
+    RULE 2:	IF imoveis IS nenhum AND terrenos IS nenhum AND veiculos IS pouco
+    		 THEN scorePorcentagem IS  baixo; 
+    		  
+    RULE 3:	IF imoveis IS nenhum AND terrenos IS nenhum AND veiculos IS muitos
+    		 THEN scorePorcentagem IS  medio;
+    		  
+    RULE 4:	IF imoveis IS nenhum AND terrenos IS pouco AND veiculos IS nenhum
+    		 THEN scorePorcentagem IS  medio; 
+    		    		   		 
+    RULE 5:	IF imoveis IS nenhum AND terrenos IS pouco AND veiculos IS pouco
+    		 THEN scorePorcentagem IS  alto;
+    		 
+    RULE 6:	IF imoveis IS nenhum AND terrenos IS pouco AND veiculos IS muitos
+    		 THEN scorePorcentagem IS  alto; 
+    		 		                  
+    RULE 7:	IF imoveis IS nenhum AND terrenos IS muitos AND veiculos IS nenhum
+    		 THEN scorePorcentagem IS  medio; 
+    		 
+    RULE 8:	IF imoveis IS nenhum AND terrenos IS muitos AND veiculos IS pouco
+    		 THEN scorePorcentagem IS  medio; 
+    		  
+    RULE 9:	IF imoveis IS nenhum AND terrenos IS muitos AND veiculos IS muitos
+    		 THEN scorePorcentagem IS  medio;
+    		 
+    
+    RULE 10:	IF imoveis IS pouco AND terrenos IS nenhum AND veiculos IS nenhum
+    		 THEN scorePorcentagem IS  medio; 
+    		 
+    RULE 11:	IF imoveis IS pouco AND terrenos IS nenhum AND veiculos IS pouco
+    		 THEN scorePorcentagem IS  alto; 
+    		  
+    RULE 12:	IF imoveis IS pouco AND terrenos IS nenhum AND veiculos IS muitos
+    		 THEN scorePorcentagem IS  alto;
+    		  
+    RULE 13:	IF imoveis IS pouco AND terrenos IS pouco AND veiculos IS nenhum
+    		 THEN scorePorcentagem IS  medio; 
+    		    		   		 
+    RULE 14:	IF imoveis IS pouco AND terrenos IS pouco AND veiculos IS pouco
+    		 THEN scorePorcentagem IS  alto;
+    		 
+    RULE 15:	IF imoveis IS pouco AND terrenos IS pouco AND veiculos IS muitos
+    		 THEN scorePorcentagem IS  alto; 
+    		 		                  
+    RULE 16:	IF imoveis IS pouco AND terrenos IS muitos AND veiculos IS nenhum
+    		 THEN scorePorcentagem IS  muitobaixo; 
+    		 
+    RULE 17:	IF imoveis IS pouco AND terrenos IS muitos AND veiculos IS pouco
+    		 THEN scorePorcentagem IS  muitoalto; 
+    		  
+    RULE 18:	IF imoveis IS pouco AND terrenos IS muitos AND veiculos IS muitos
+    		 THEN scorePorcentagem IS  muitoalto;
+    		 
+    		 
+    		 
+    RULE 19:	IF imoveis IS muitos AND terrenos IS nenhum AND veiculos IS nenhum
+    		 THEN scorePorcentagem IS  medio; 
+    		 
+    RULE 20:	IF imoveis IS muitos AND terrenos IS nenhum AND veiculos IS pouco
+    		 THEN scorePorcentagem IS  baixo; 
+    		  
+    RULE 21:	IF imoveis IS muitos AND terrenos IS nenhum AND veiculos IS muitos
+    		 THEN scorePorcentagem IS  medio;
+    		  
+    RULE 22:	IF imoveis IS muitos AND terrenos IS pouco AND veiculos IS nenhum
+    		 THEN scorePorcentagem IS  medio; 
+    		    		   		 
+    RULE 23:	IF imoveis IS muitos AND terrenos IS pouco AND veiculos IS pouco
+    		 THEN scorePorcentagem IS  alto;
+    		 
+    RULE 24:	IF imoveis IS muitos AND terrenos IS pouco AND veiculos IS muitos
+    		 THEN scorePorcentagem IS  alto; 
+    		 		                  
+    RULE 25:	IF imoveis IS muitos AND terrenos IS muitos AND veiculos IS nenhum
+    		 THEN scorePorcentagem IS  alto; 
+    		 
+    RULE 26:	IF imoveis IS muitos AND terrenos IS muitos AND veiculos IS pouco
+    		 THEN scorePorcentagem IS  muitoalto; 
+    		  
+    RULE 27:	IF imoveis IS muitos AND terrenos IS muitos AND veiculos IS muitos
+    		 THEN scorePorcentagem IS  muitoalto;    		    		  
+
+      
+
+
+    
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
+
+
+
+
+FUNCTION_BLOCK CapitalAtivos
+// Define input variables
+VAR_INPUT
+    SomaAtivo: REAL;
+    salario : REAL;
+
+    
+END_VAR
+
+// Define output variable
+VAR_OUTPUT
+    scorePorcentagem : REAL;
+END_VAR
+
+FUZZIFY SomaAtivo
+
+	TERM muitobaixo := (-1,0) ( 1.5,1) (2.4,0);
+    TERM baixo := (1.6,0) (2.5,1) (4.9,0) ;
+    TERM medio := (2.6,0) (5,1) (7.4,0);
+    TERM alto := (5.1,0) (7.5,1) ( 9.9,0);
+    TERM muitoalto :=(7.6,0) (10,1) (15,0);
+END_FUZZIFY
+
+
+
+    
+    
+    
+
+FUZZIFY salario
+	
+	TERM muitobaixo := (-1,0) ( 1.5,1) (2.4,0);
+    TERM baixo := (1.6,0) (3,1) (5.9,0) ;
+    TERM medio := (3.1,0) (6,1) (8.9,0);
+    TERM alto := (6.1,0) (9,1) ( 11.9,0);
+    TERM muitoalto :=(9.1,0) (12,1) (15,0);
+END_FUZZIFY
+
+
+
+
+
+
+DEFUZZIFY scorePorcentagem
+
+
+    TERM baixo := (0,1) (30,1) ( 39,0) ;
+    TERM medio := (35,0) (60,1) (99,0);
+    TERM alto := (76,0) (100,1) ( 110,0);
+
+    METHOD : COG;
+    DEFAULT := -1;
+END_DEFUZZIFY
+
+
+
+
+RULEBLOCK RegrasCapitalAtivos
+    AND : MIN;
+    // Use 'min' activation method
+    ACT : MIN;
+    // Use 'max' accumulation method
+    ACCU : MAX;
+
+    RULE 1:	IF SomaAtivo IS muitobaixo AND salario IS muitobaixo 
+    		 THEN scorePorcentagem IS  alto; 
+
+    RULE 2:	IF SomaAtivo IS muitobaixo AND salario IS baixo
+    		 THEN scorePorcentagem IS  medio; 
+ 
+    RULE 3:	IF SomaAtivo IS muitobaixo AND salario IS medio 
+    		 THEN scorePorcentagem IS  baixo; 
+
+    RULE 4:	IF SomaAtivo IS muitobaixo AND salario IS alto 
+    		 THEN scorePorcentagem IS  baixo; 
+  
+    RULE 5:	IF SomaAtivo IS muitobaixo AND salario IS muitoalto 
+    		 THEN scorePorcentagem IS  baixo; 
+
+    RULE 6:	IF SomaAtivo IS baixo AND salario IS muitobaixo 
+    		 THEN scorePorcentagem IS  alto; 
+
+    RULE 7:	IF SomaAtivo IS baixo AND salario IS baixo
+    		 THEN scorePorcentagem IS  alto; 
+ 
+    RULE 8:	IF SomaAtivo IS baixo AND salario IS medio 
+    		 THEN scorePorcentagem IS  alto; 
+
+    RULE 9:	IF SomaAtivo IS baixo AND salario IS alto 
+    		 THEN scorePorcentagem IS  medio; 
+  
+    RULE 10:	IF SomaAtivo IS baixo AND salario IS muitoalto 
+    		 THEN scorePorcentagem IS  baixo; 
+      
+
+    RULE 11:	IF SomaAtivo IS medio AND salario IS muitobaixo 
+    		 THEN scorePorcentagem IS  alto; 
+
+    RULE 12:	IF SomaAtivo IS medio AND salario IS baixo
+    		 THEN scorePorcentagem IS  alto; 
+ 
+    RULE 13:	IF SomaAtivo IS medio AND salario IS medio 
+    		 THEN scorePorcentagem IS  alto; 
+
+    RULE 14:	IF SomaAtivo IS medio AND salario IS alto 
+    		 THEN scorePorcentagem IS  medio; 
+  
+    RULE 15:	IF SomaAtivo IS medio AND salario IS muitoalto 
+    		 THEN scorePorcentagem IS  baixo; 
+
+    RULE 16:	IF SomaAtivo IS alto AND salario IS muitobaixo 
+    		 THEN scorePorcentagem IS  alto; 
+
+    RULE 17:	IF SomaAtivo IS alto AND salario IS baixo
+    		 THEN scorePorcentagem IS  alto; 
+ 
+    RULE 18:	IF SomaAtivo IS alto AND salario IS medio 
+    		 THEN scorePorcentagem IS  alto; 
+
+    RULE 19:	IF SomaAtivo IS alto AND salario IS alto 
+    		 THEN scorePorcentagem IS  alto; 
+  
+    RULE 20:	IF SomaAtivo IS alto AND salario IS muitoalto 
+    		 THEN scorePorcentagem IS  medio; 
+ 
+ 
+     RULE 21:	IF SomaAtivo IS muitoalto AND salario IS muitobaixo 
+    		 THEN scorePorcentagem IS  alto; 
+
+    RULE 22:	IF SomaAtivo IS muitoalto AND salario IS baixo
+    		 THEN scorePorcentagem IS  alto; 
+ 
+    RULE 23:	IF SomaAtivo IS muitoalto AND salario IS medio 
+    		 THEN scorePorcentagem IS  alto; 
+
+    RULE 24:	IF SomaAtivo IS muitoalto AND salario IS alto 
+    		 THEN scorePorcentagem IS alto; 
+  
+    RULE 25:	IF SomaAtivo IS muitoalto AND salario IS muitoalto 
+    		 THEN scorePorcentagem IS  alto;   
+    		 
+    		 
+    		  
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FUNCTION_BLOCK ScoreTomador2
+
+// Define input variables
+VAR_INPUT
+    scoreCapitalAtivos : REAL ;
+    scoreAtivosTomador : REAL ;
+    
+END_VAR
+
+// Define output variable
+VAR_OUTPUT
+    scorePorcentagem : REAL;
+END_VAR
+
+FUZZIFY scoreCapitalAtivos
+
+    TERM baixo := (-1,0) (30,1) ( 39,0) ;
+    TERM medio := (35,0) (75,1) (99,0);
+    TERM alto := (76,0) (90,1) (100,1) ( 110,0);
+    
+END_FUZZIFY    
+    
+
+
+FUZZIFY scoreAtivosTomador
+	TERM muitobaixo := (-1,0)  (1,1) (3,1)(8,0);
+    TERM baixo := (4,0) (10,1) ( 39,0) ;
+    TERM medio := (11,0) (40,1) (60,0);
+    TERM alto := (41,0) (65,1) ( 75,0);
+    TERM muitoalto :=(70,0) (90,1) (121,1) (121.0561,0);
+END_FUZZIFY
+
+
+
+DEFUZZIFY scorePorcentagem
+	TERM extremobaixo := (0,0)  (5,1) (8,0);
+	TERM muitobaixo := (3,0) (10,1)(20,0);
+    TERM baixo := (15,0) (35,1) ( 45,0) ;
+    TERM medio := (40,0) (50,1) (60,0);
+    TERM alto := (55,0) (65,1) ( 75,0);
+    TERM muitoalto :=(70,0) (85,1 ) (99,0) ;
+    TERM extremoalto := (90,0 ) (100,1) (112.0561,0);
+    METHOD : COG;
+    DEFAULT := -1;
+END_DEFUZZIFY
+
+
+
+
+RULEBLOCK regrasScoreTomador2
+    AND : MIN;
+    // Use 'min' activation method
+    ACT : MIN;
+    // Use 'max' accumulation method
+    ACCU : MAX;
+
+    RULE 1:	IF scoreAtivosTomador IS muitobaixo AND scoreCapitalAtivos IS baixo
+                THEN scorePorcentagem IS extremobaixo;
+    
+    RULE 2:	IF scoreAtivosTomador IS muitobaixo AND scoreCapitalAtivos IS medio
+                THEN scorePorcentagem IS muitobaixo;
+
+    RULE 3:	IF scoreAtivosTomador IS muitobaixo AND scoreCapitalAtivos IS alto
+                THEN scorePorcentagem IS baixo;               
+
+    RULE 4:	IF scoreAtivosTomador IS baixo AND scoreCapitalAtivos IS baixo
+                THEN scorePorcentagem IS baixo;
+    
+    RULE 5:	IF scoreAtivosTomador IS baixo AND scoreCapitalAtivos IS medio
+                THEN scorePorcentagem IS medio;
+
+    RULE 6:	IF scoreAtivosTomador IS baixo AND scoreCapitalAtivos IS alto
+                THEN scorePorcentagem IS medio;               
+
+    RULE 7:	IF scoreAtivosTomador IS medio AND scoreCapitalAtivos IS baixo
+                THEN scorePorcentagem IS baixo;
+    
+    RULE 8:	IF scoreAtivosTomador IS medio AND scoreCapitalAtivos IS medio
+                THEN scorePorcentagem IS medio;
+
+    RULE 9:	IF scoreAtivosTomador IS medio AND scoreCapitalAtivos IS alto
+                THEN scorePorcentagem IS alto;   
+                            
+    RULE 10:	IF scoreAtivosTomador IS alto AND scoreCapitalAtivos IS baixo
+                THEN scorePorcentagem IS medio;
+    
+    RULE 11:	IF scoreAtivosTomador IS alto AND scoreCapitalAtivos IS medio
+                THEN scorePorcentagem IS alto;
+
+    RULE 12:	IF scoreAtivosTomador IS alto AND scoreCapitalAtivos IS alto
+                THEN scorePorcentagem IS muitoalto;               
+
+    RULE 13:	IF scoreAtivosTomador IS muitoalto AND scoreCapitalAtivos IS baixo
+                THEN scorePorcentagem IS medio;
+    
+    RULE 14:	IF scoreAtivosTomador IS muitoalto AND scoreCapitalAtivos IS medio
+                THEN scorePorcentagem IS alto;
+
+    RULE 15:	IF scoreAtivosTomador IS muitoalto AND scoreCapitalAtivos IS alto
+                THEN scorePorcentagem IS extremoalto;               
+
+
+    
+        
+
+
+
+      
+
+
+    
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
+
+
+
+FUNCTION_BLOCK ScoreTomador3
+
+// Define input variables
+VAR_INPUT
+    scoreTomador2 : REAL ;
+    escolaridade : REAL ;
+    
+END_VAR
+
+// Define output variable
+VAR_OUTPUT
+    scorePorcentagem : REAL;
+END_VAR
+
+FUZZIFY scoreTomador2
+
+	TERM muitobaixo := (-1,0)  (5,1) (10,1)(20,0);
+    TERM baixo := (15,0) (35,1) ( 45,0) ;
+    TERM medio := (40,0) (50,1) (60,0);
+    TERM alto := (55,0) (65,1) ( 75,0);
+    TERM muitoalto :=(70,0) (90,1) (121,1) (121.0561,0);
+    
+END_FUZZIFY    
+    
+
+
+FUZZIFY escolaridade
+	TERM analfabeto := (-1,0) ( 0,1) ( 2,0);
+	TERM ensinofundamental := (1,0) ( 3,1) (4.9,0);
+    TERM ensinoMedio := (4,0) (5,1) (7,0) ;
+    TERM ensinoSuperior := (6,0) (8,1) (9,1);
+END_FUZZIFY
+
+
+
+DEFUZZIFY scorePorcentagem
+	TERM extremobaixo := (0,0)  (1,1) (8,0);
+	TERM muitobaixo := (3,0) (10,1)(20,0);
+    TERM baixo := (15,0) (35,1) ( 45,0) ;
+    TERM medio := (40,0) (50,1) (60,0);
+    TERM alto := (55,0) (65,1) ( 75,0);
+    TERM muitoalto :=(70,0) (85,1 ) (99,0) ;
+    TERM extremoalto := (90,0 ) (100,1) (110.0561,0);
+    METHOD : COG;
+    DEFAULT := -1;
+END_DEFUZZIFY
+
+
+
+
+RULEBLOCK Divida
+    AND : MIN;
+    // Use 'min' activation method
+    ACT : MIN;
+    // Use 'max' accumulation method
+    ACCU : MAX;
+
+
+    
+
+                
+	RULE 1:	IF scoreTomador2 IS muitobaixo AND  escolaridade IS analfabeto 
+    		 THEN scorePorcentagem IS  extremobaixo; 
+
+
+                
+	RULE 2:	IF scoreTomador2 IS muitobaixo AND  escolaridade IS ensinofundamental
+    		 THEN scorePorcentagem IS  extremobaixo; 
+
+
+                
+	RULE 3:	IF scoreTomador2 IS muitobaixo AND  escolaridade IS ensinoMedio 
+    		 THEN scorePorcentagem IS  baixo; 
+
+
+                
+	RULE 4:	IF scoreTomador2 IS muitobaixo AND  escolaridade IS ensinoSuperior
+    		 THEN scorePorcentagem IS  baixo; 
+
+
+
+	
+	RULE 5:	IF scoreTomador2 IS baixo AND  escolaridade IS analfabeto 
+    		 THEN scorePorcentagem IS  extremobaixo; 
+
+
+                
+	RULE 6:	IF scoreTomador2 IS baixo AND  escolaridade IS ensinofundamental
+    		 THEN scorePorcentagem IS  muitobaixo; 
+
+
+                
+	RULE 7:	IF scoreTomador2 IS baixo AND  escolaridade IS ensinoMedio 
+    		 THEN scorePorcentagem IS  baixo; 
+
+
+                
+	RULE 8:	IF scoreTomador2 IS baixo AND  escolaridade IS ensinoSuperior
+    		 THEN scorePorcentagem IS  medio; 
+
+
+
+
+	RULE 9:	IF scoreTomador2 IS medio AND  escolaridade IS analfabeto 
+    		 THEN scorePorcentagem IS baixo; 
+
+
+                
+	RULE 10:	IF scoreTomador2 IS medio AND  escolaridade IS ensinofundamental
+    		 THEN scorePorcentagem IS  baixo; 
+
+
+                
+	RULE 11:	IF scoreTomador2 IS medio AND  escolaridade IS ensinoMedio 
+    		 THEN scorePorcentagem IS  medio; 
+
+
+                
+	RULE 12:	IF scoreTomador2 IS medio AND  escolaridade IS ensinoSuperior
+    		 THEN scorePorcentagem IS  alto;
+    		  
+
+
+
+	RULE 13:	IF scoreTomador2 IS alto AND  escolaridade IS analfabeto 
+    		 THEN scorePorcentagem IS  medio; 
+
+
+                
+	RULE 14:	IF scoreTomador2 IS alto AND  escolaridade IS ensinofundamental
+    		 THEN scorePorcentagem IS  medio; 
+
+
+                
+	RULE 15:	IF scoreTomador2 IS alto AND  escolaridade IS ensinoMedio 
+    		 THEN scorePorcentagem IS  alto; 
+
+
+                
+	RULE 16:	IF scoreTomador2 IS alto AND  escolaridade IS ensinoSuperior
+    		 THEN scorePorcentagem IS  muitoalto; 
+
+
+	RULE 17:	IF scoreTomador2 IS muitoalto AND  escolaridade IS analfabeto 
+    		 THEN scorePorcentagem IS  medio; 
+
+
+                
+	RULE 18:	IF scoreTomador2 IS muitoalto AND  escolaridade IS ensinofundamental
+    		 THEN scorePorcentagem IS  alto; 
+
+
+                
+	RULE 19:	IF scoreTomador2 IS muitoalto AND  escolaridade IS ensinoMedio 
+    		 THEN scorePorcentagem IS  muitoalto; 
+
+
+                
+	RULE 20:	IF scoreTomador2 IS muitoalto AND  escolaridade IS ensinoSuperior
+    		 THEN scorePorcentagem IS  extremoalto; 
+
+
+	RULE 21:	IF  escolaridade IS analfabeto 
+    		 THEN scorePorcentagem IS  extremobaixo; 
+
+
+                
+	RULE 23:	IF  escolaridade IS ensinoMedio 
+    		 THEN scorePorcentagem IS  medio; 
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+
+
+    
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
+
+
+
+
+
+
+FUNCTION_BLOCK ScoreTomadorFinal
+
+// Define input variables
+VAR_INPUT
+    scoreTomador3 : REAL ;
+    scoreTomador1 : REAL ;
+    
+END_VAR
+
+// Define output variable
+VAR_OUTPUT
+    scorePorcentagem : REAL;
+END_VAR
+
+FUZZIFY scoreTomador3
+
+	TERM muitobaixo := (-1,0) (8,1) ( 20,0);
+    TERM baixo := (11,0) (35,1) (45,0) ;
+    TERM medio := (40,0) (55,1) (65,0);
+    TERM alto := (60,0) (75,1) ( 85,0);
+    TERM muitoalto :=(80,0) (100,1) (110,0);
+END_FUZZIFY    
+    
+
+
+FUZZIFY   scoreTomador1
+
+	TERM muitobaixo := (-1,0) (8,1) ( 20,0);
+    TERM baixo := (11,0) (35,1) (45,0) ;
+    TERM medio := (40,0) (55,1) (65,0);
+    TERM alto := (60,0) (75,1) ( 85,0);
+    TERM muitoalto :=(80,0) (100,1) (110,0);
+END_FUZZIFY
+
+
+
+DEFUZZIFY scorePorcentagem
+	TERM extremobaixo := (0,0)  (5,1) (8,0);
+	TERM muitobaixo := (3,0) (10,1)(20,0);
+    TERM baixo := (15,0) (35,1) ( 45,0) ;
+    TERM medio := (40,0) (50,1) (60,0);
+    TERM alto := (55,0) (65,1) ( 75,0);
+    TERM muitoalto :=(70,0) (85,1 ) (92,0) ;
+    TERM extremoalto := (90,0 ) (100,1) (110.0561,0);
+    METHOD : COG;
+    DEFAULT := -1;
+END_DEFUZZIFY
+
+
+
+
+RULEBLOCK Divida
+    AND : MIN;
+    // Use 'min' activation method
+    ACT : MIN;
+    // Use 'max' accumulation method
+    ACCU : MAX;
+
+
+    
+
+                
+	RULE 1:	IF scoreTomador3 IS muitobaixo AND   scoreTomador1 IS muitobaixo
+    		 THEN scorePorcentagem IS  extremobaixo; 
+
+	RULE 2:	IF scoreTomador3 IS muitobaixo AND   scoreTomador1 IS baixo
+    		 THEN scorePorcentagem IS  muitobaixo; 
+
+	RULE 3:	IF scoreTomador3 IS muitobaixo AND   scoreTomador1 IS medio
+    		 THEN scorePorcentagem IS  baixo; 
+
+	RULE 4:	IF scoreTomador3 IS muitobaixo AND   scoreTomador1 IS alto
+    		 THEN scorePorcentagem IS  medio; 
+
+	RULE 5:	IF scoreTomador3 IS muitobaixo AND   scoreTomador1 IS muitoalto
+    		 THEN scorePorcentagem IS  alto; 
+
+ 	RULE 6:	IF scoreTomador3 IS baixo AND   scoreTomador1 IS muitobaixo
+    		 THEN scorePorcentagem IS  muitobaixo; 
+
+	RULE 7:	IF scoreTomador3 IS baixo AND   scoreTomador1 IS baixo
+    		 THEN scorePorcentagem IS  baixo; 
+
+	RULE 8:	IF scoreTomador3 IS baixo AND   scoreTomador1 IS medio
+    		 THEN scorePorcentagem IS  medio; 
+
+	RULE 9:	IF scoreTomador3 IS baixo AND   scoreTomador1 IS alto
+    		 THEN scorePorcentagem IS  medio; 
+
+	RULE 10:	IF scoreTomador3 IS baixo AND   scoreTomador1 IS muitoalto
+    		 THEN scorePorcentagem IS  alto;                
+
+	RULE 11:	IF scoreTomador3 IS medio AND   scoreTomador1 IS muitobaixo
+    		 THEN scorePorcentagem IS  baixo; 
+
+	RULE 12:	IF scoreTomador3 IS medio AND   scoreTomador1 IS baixo
+    		 THEN scorePorcentagem IS  baixo; 
+
+	RULE 13:	IF scoreTomador3 IS medio AND   scoreTomador1 IS medio
+    		 THEN scorePorcentagem IS  medio; 
+
+	RULE 14:	IF scoreTomador3 IS medio AND   scoreTomador1 IS alto
+    		 THEN scorePorcentagem IS  alto; 
+
+	RULE 15:	IF scoreTomador3 IS medio AND   scoreTomador1 IS muitoalto
+    		 THEN scorePorcentagem IS  alto; 
+
+ 	RULE 16:	IF scoreTomador3 IS alto AND   scoreTomador1 IS muitobaixo
+    		 THEN scorePorcentagem IS  baixo; 
+
+	RULE 17:	IF scoreTomador3 IS alto AND   scoreTomador1 IS baixo
+    		 THEN scorePorcentagem IS  medio; 
+
+	RULE 18:	IF scoreTomador3 IS alto AND   scoreTomador1 IS medio
+    		 THEN scorePorcentagem IS  alto; 
+
+	RULE 19:	IF scoreTomador3 IS alto AND   scoreTomador1 IS alto
+    		 THEN scorePorcentagem IS  muitoalto; 
+
+	RULE 20:	IF scoreTomador3 IS alto AND   scoreTomador1 IS muitoalto
+    		 THEN scorePorcentagem IS  extremoalto;                
+
+	RULE 21:	IF scoreTomador3 IS muitoalto AND   scoreTomador1 IS muitobaixo
+    		 THEN scorePorcentagem IS  medio; 
+
+	RULE 22:	IF scoreTomador3 IS muitoalto AND   scoreTomador1 IS baixo
+    		 THEN scorePorcentagem IS  medio; 
+
+	RULE 23:	IF scoreTomador3 IS muitoalto AND   scoreTomador1 IS medio
+    		 THEN scorePorcentagem IS  alto; 
+
+	RULE 24:	IF scoreTomador3 IS muitoalto AND   scoreTomador1 IS alto
+    		 THEN scorePorcentagem IS  extremoalto; 
+
+	RULE 25:	IF scoreTomador3 IS muitoalto AND   scoreTomador1 IS muitoalto
+    		 THEN scorePorcentagem IS  extremoalto; 
+
+ 
+
+
+
+     
+
+
+    
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
+
+
+
+
+
+
+
+

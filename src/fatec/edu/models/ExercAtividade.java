@@ -6,10 +6,10 @@ public class ExercAtividade {
 
 	private int idExercAtividade;
 	private int carteiraTrabalho;
-	private Atividade atividade;
-	private Empresa empresa;
+	private Atividade_vaisair atividade;
+	private Empresa_vaisair empresa;
 	private Date dataAdmissao;
-	private Cargo cargo;
+	private Cargo_vaisair cargo;
 	private double salario;
 	private Tomador tomador;
 
@@ -29,11 +29,11 @@ public class ExercAtividade {
 		return salario;
 	}
 
-	public void setCargo(Cargo cargo) {
+	public void setCargo(Cargo_vaisair cargo) {
 		this.cargo = cargo;
 	}
 
-	public Cargo getCargo() {
+	public Cargo_vaisair getCargo() {
 		return cargo;
 	}
 
@@ -45,19 +45,19 @@ public class ExercAtividade {
 		return dataAdmissao;
 	}
 
-	public void setEmpresa(Empresa empresa) {
+	public void setEmpresa(Empresa_vaisair empresa) {
 		this.empresa = empresa;
 	}
 
-	public Empresa getEmpresa() {
+	public Empresa_vaisair getEmpresa() {
 		return empresa;
 	}
 
-	public void setAtividade(Atividade atividade) {
+	public void setAtividade(Atividade_vaisair atividade) {
 		this.atividade = atividade;
 	}
 
-	public Atividade getAtividade() {
+	public Atividade_vaisair getAtividade() {
 		return atividade;
 	}
 

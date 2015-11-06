@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -7,7 +7,7 @@
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 <h:head>
 	<!-- vsp test -->
-	<meta charset="utf-8" />
+
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -16,30 +16,35 @@
 	<h:outputScript library="js" name="bootstrap.min.js"></h:outputScript>
 
 	<!-- vsp test -->
-
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<title>Pessoais</title>
 
 </h:head>
 <h:body>
 
 	<h:form>
-		<p:panel id="basic" header="Dados Pessoais">
-			<h:panelGrid styleClass="table table-responsive" columns="1"
+	
+	<p:messages id="messages"  autoUpdate="true" closable="true" infoStyle="color:darkgreen" errorStyle="color:darkred"/>
+			
+	
+		<p:panel>
+
+			<!-- 			<h:messages /> -->
+
+			<h:panelGrid styleClass="table " columns="1"
 				cellpadding="10">
 
 				<h:panelGroup styleClass="form-group">
 					<h:outputLabel styleClass="control-label col-xs-2" name="lblCPF"
 						value="CPF:">
 					</h:outputLabel>
-					<h:panelGroup styleClass="col-md-3 col-sm-6">
-						<h:inputText id="cpf" styleClass="form-control cpf"  type="text"
-							size="11" maxLength="11"
+					<h:panelGroup styleClass="col-md-3 col-sm-3 col-xs-3">
+						<h:inputText id="cpf" styleClass="form-control" type="text"
+							size="11" maxLength="11" onchange="VerificaCPF();"
 							value="${questionarioPtIMB.questionarioPtIAtual.cpf}"
-							required="true" requiredMessage="*CPF � OBRIGAT�RIO.">
-																
+							required="true" requiredMessage="*Preencha o campo CPF." maxlength="11">
+							<f:validator validatorId="converter.CpfValidator" />
 						</h:inputText>
-						<h:message id="m1" for="cpf" style="color:red"></h:message>
+					<!-- 	<h:message id="m1" for="cpf" style="color:red"></h:message> -->
 					</h:panelGroup>
 				</h:panelGroup>
 
@@ -48,8 +53,10 @@
 						value="Nome:">
 					</h:outputLabel>
 					<h:panelGroup styleClass=" col-xs-12 col-sm-5">
-						<h:inputText styleClass="form-control"
-							value="${questionarioPtIMB.questionarioPtIAtual.nome}"></h:inputText>
+						<h:inputText id="nome" styleClass="form-control"
+							value="${questionarioPtIMB.questionarioPtIAtual.nome}"
+							required="true" requiredMessage="*Preencha o campo Nome." maxlength="60"></h:inputText>
+					<!-- 	<h:message id="m2" for="nome" style="color:red"></h:message> -->
 					</h:panelGroup>
 				</h:panelGroup>
 
@@ -58,29 +65,37 @@
 						name="lblDataNascimento" value="Data de Nascimento:">
 					</h:outputLabel>
 					<h:panelGroup styleClass="col-xs-12 col-sm-2 col-md-2 col-lg-2">
-						<p:calendar  id="popup"
-							value="${questionarioPtIMB.questionarioPtIAtual.data}" />
+						<p:calendar id="datanasc" locale="pt_BR" pattern="dd/MM/yyyy"
+							mask="true" maxlength="10" size="30"
+							value="${questionarioPtIMB.questionarioPtIAtual.data}"
+							required="true"
+							requiredMessage="*Preencha o campo Data de nascimento." />
+					<!-- 	<h:message id="m3" for="datanasc" style="color:red"></h:message> -->
 					</h:panelGroup>
 				</h:panelGroup>
 
 
 				<h:panelGroup styleClass="form-group">
 					<h:outputLabel styleClass="control-label col-xs-2"
-						name="lblFiliacao1" value="Filia��o 1 :">
+						name="lblFiliacao1" value="Filiação I :">
 					</h:outputLabel>
 					<h:panelGroup styleClass=" col-xs-12 col-sm-5">
-						<h:inputText styleClass="form-control"
-							value="${questionarioPtIMB.questionarioPtIAtual.filiacaoI}"></h:inputText>
+						<h:inputText id="filiacao1" styleClass="form-control"
+							value="${questionarioPtIMB.questionarioPtIAtual.filiacaoI}"
+							required="true" requiredMessage="*Preencha o campo Filiação I." maxlength="60"></h:inputText>
+					<!-- 	<h:message id="m4" for="filiacao1" style="color:red"></h:message> -->
 					</h:panelGroup>
 				</h:panelGroup>
 
 				<h:panelGroup styleClass="form-group">
 					<h:outputLabel styleClass="control-label col-xs-2"
-						name="lblFiliacao2" value="Filia��o 2 :">
+						name="lblFiliacao2" value="Filiação II :">
 					</h:outputLabel>
 					<h:panelGroup styleClass="col-xs-12 col-sm-5">
-						<h:inputText styleClass="form-control"
-							value="${questionarioPtIMB.questionarioPtIAtual.filiacaoII}"></h:inputText>
+						<h:inputText id="filiacao2" styleClass="form-control"
+							value="${questionarioPtIMB.questionarioPtIAtual.filiacaoII}"
+							required="true" requiredMessage="*Preencha o campo Filiação II." maxlength="60"></h:inputText>
+						<!-- <h:message id="m5" for="filiacao2" style="color:red"></h:message> -->
 					</h:panelGroup>
 				</h:panelGroup>
 
@@ -91,53 +106,56 @@
 					<h:panelGroup styleClass="col-md-2 col-sm-3">
 						<h:selectOneMenu styleClass="form-control"
 							value="${questionarioPtIMB.questionarioPtIAtual.sexo}">
-							<!-- <c:forEach var="#{sexos}"  > -->
+
 							<f:selectItems value="#{questionarioPtIMB.sexos}" var="s"
 								itemValue="#{s.idSexo}" itemLabel="#{s.sexo}"></f:selectItems>
-							<!-- </c:forEach> -->
 						</h:selectOneMenu>
 
 					</h:panelGroup>
 				</h:panelGroup>
 
+
 				<h:panelGroup styleClass="form-group">
-					<h:outputLabel styleClass="control-label col-xs-2"
-						name="lblEstadoCivil" value="Estado Civil:">
+					<h:outputLabel styleClass="control-label col-xs-2" name=""
+						value="Estado Civil">
 					</h:outputLabel>
-					<h:panelGroup styleClass="col-md-2 col-sm-2">
+
+					<h:panelGroup id="selectEstadoCivil" styleClass="col-md-3 col-sm-4">
 						<h:selectOneMenu styleClass="form-control"
-							value="${questionarioPtIMB.questionarioPtIAtual.estadoCivil}">
-							<f:selectItem itemValue="1" itemLabel="Solteiro" />
-							<f:selectItem itemValue="2" itemLabel="Casado" />
-							<f:selectItem itemValue="3" itemLabel="Separado" />
-							<f:selectItem itemValue="4" itemLabel="Divorciado" />
-							<f:selectItem itemValue="5" itemLabel="Vi�vo" />
+							value="#{questionarioPtIMB.questionarioPtIAtual.estadoCivil}">
+							<f:selectItems value="#{questionarioPtIMB.estadosCivil}" var="e"
+								itemLabel="#{e}" itemValue="#{e.estadoCivil}"></f:selectItems>
+								<f:ajax  render="regimeCombo"  />
 						</h:selectOneMenu>
 					</h:panelGroup>
+
 				</h:panelGroup>
 
-				<h:panelGroup styleClass="form-group">
+
+				<h:panelGroup id="regimeCombo"  >
+					<h:panelGroup styleClass="form-group" rendered="#{questionarioPtIMB.questionarioPtIAtual.estadoCivil == 'Casado'}">
 					<h:outputLabel styleClass="control-label col-xs-2"
 						name="lblRegimeCasamento" value="Regime de Casamento:">
 					</h:outputLabel>
-					
-					
-					
-					<h:panelGroup styleClass="col-md-3 col-sm-4">
-						<h:selectOneMenu styleClass="form-control"
-							value="#{questionarioPtIMB.questionarioPtIAtual.regismeCasamento}">
+
+					<h:panelGroup styleClass="col-md-5 col-sm-5 col-xs-5">
+						<h:selectOneMenu  styleClass="form-control"
+							value="#{questionarioPtIMB.questionarioPtIAtual.regimeCasamento}">
+							
 							<f:selectItems value="#{questionarioPtIMB.regimesCasamento}"
-								var="r" itemLabel="#{r}" itemValue="#{r}"></f:selectItems>
+								var="r" itemLabel="#{r}" itemValue="#{r.regimeCasamento}"></f:selectItems>
 						</h:selectOneMenu>
 
 					</h:panelGroup>
+					</h:panelGroup>
 				</h:panelGroup>
+				
 
 				<h:panelGroup styleClass="form-group">
 					<h:outputLabel styleClass="control-label col-xs-2"
 						name="lblIdEstado" value="Estado:">
 					</h:outputLabel>
-					<h:panelGroup styleClass="col-xs-10">
+					<h:panelGroup styleClass="col-md-4 col-sm-4 col-xs-4">
 						<h:selectOneMenu styleClass="form-control"
 							value="${questionarioPtIMB.questionarioPtIAtual.idEstado}">
 
@@ -149,34 +167,50 @@
 				</h:panelGroup>
 
 				<h:panelGroup styleClass="form-group">
-					<h:outputLabel styleClass="control-label col-xs-2"
-						name="lblIdCidade" value="Cidade:">
+					<h:outputLabel styleClass="control-label col-xs-2" name="lblCidade"
+						value="Cidade">
 					</h:outputLabel>
-					<h:panelGroup styleClass="col-xs-10">
-						
+					<h:panelGroup styleClass=" col-xs-12 col-sm-5">
+						<h:inputText id="cidade" styleClass="form-control"
+							value="${questionarioPtIMB.questionarioPtIAtual.cidade}"
+							required="true" requiredMessage="*Preencha o campo Cidade." 
+							maxlength="45"
+							></h:inputText>
+						<!-- <h:message id="m6" for="cidade" style="color:red"></h:message> -->
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2"
+						name="lblEscolaridade" value="Escolaridade:">
+					</h:outputLabel>
+
+					<h:panelGroup styleClass="col-md-5 col-sm-5 col-xs-5">
 						<h:selectOneMenu styleClass="form-control"
-							value="${questionarioPtIMB.questionarioPtIAtual.idCidade}">
-
-							<f:selectItems value="#{questionarioPtIMB.cidades}" var="c"
-								itemValue="#{c.idCidade}" itemLabel="#{c.cidade}"></f:selectItems>
-
+							value="#{questionarioPtIMB.questionarioPtIAtual.escolaridade}">
+							<f:selectItems value="#{questionarioPtIMB.escolaridades}" var="e"
+								itemLabel="#{e}" itemValue="#{e.escolaridade}"></f:selectItems>
 						</h:selectOneMenu>
-						
-						
+
 					</h:panelGroup>
 				</h:panelGroup>
 
 				<h:panelGroup styleClass="form-group text-center">
 					<h:panelGroup styleClass="col-xs-offset-2 col-xs-8 ">
-						<h:commandButton styleClass="btn btn-xs btn-primary"
+						<h:commandButton styleClass="btn btn-sm btn-tccblue"
 							action="${questionarioPtIMB.adicionar()}" value="Salvar">
+							<f:ajax execute="@form" render="@form" />
 						</h:commandButton>
-
-
 					</h:panelGroup>
 				</h:panelGroup>
+				
+				<h:panelGroup>
+					<a class="btn btn-link btnNext pull-right"><h:graphicImage
+							library="images" name="2_direita.png"
+							styleClass="img-responsive center-block img-rounded" width="50" height="50"></h:graphicImage></a> 
+				</h:panelGroup>
+				
 			</h:panelGrid>
-
 
 		</p:panel>
 
@@ -188,39 +222,77 @@
 
 </h:body>
 
-<h:outputScript>
-PrimeFaces.locales['pt'] = {
-    closeText: 'Fechar',
-    prevText: 'Anterior',
-    nextText: 'Pr�ximo',
-    currentText: 'Come�o',
-    monthNames: ['Janeiro','Fevereiro','Mar�o','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun', 'Jul','Ago','Set','Out','Nov','Dez'],
-    dayNames: ['Domingo','Segunda','Ter�a','Quarta','Quinta','Sexta','S�bado'],
-    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','S�b'],
-    dayNamesMin: ['D','S','T','Q','Q','S','S'],
-    weekHeader: 'Semana',
-    firstDay: 0,
-    isRTL: false,
-    showMonthAfterYear: false,
-    yearSuffix: '',
-    timeOnlyTitle: 'S� Horas',
-    timeText: 'Tempo',
-    hourText: 'Hora',
-    minuteText: 'Minuto',
-    secondText: 'Segundo',
-    ampm: false,
-    month: 'M�s',
-    week: 'Semana',
-    day: 'Dia',
-    allDayText : 'Todo o Dia'
-};
+<script>
+	PrimeFaces.locales['pt_BR'] = {
+		closeText : 'Fechar',
+		prevText : 'Anterior',
+		nextText : 'Próximo',
+		currentText : 'Começo',
+		monthNames : [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio',
+				'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro',
+				'Dezembro' ],
+		monthNamesShort : [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul',
+				'Ago', 'Set', 'Out', 'Nov', 'Dez' ],
+		dayNames : [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta',
+				'Sexta', 'Sábado' ],
+		dayNamesShort : [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb' ],
+		dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
+		weekHeader : 'Semana',
+		firstDay : 0,
+		isRTL : false,
+		showMonthAfterYear : false,
+		yearSuffix : '',
+		timeOnlyTitle : 'Só Horas',
+		timeText : 'Tempo',
+		hourText : 'Hora',
+		minuteText : 'Minuto',
+		secondText : 'Segundo',
+		ampm : false,
+		month : 'Mês',
+		week : 'Semana',
+		day : 'Dia',
+		allDayText : 'Todo o Dia'
+	};
+	
+</script>
 
+<!-- <script type="text/javascript"> 
+function VerificaCPF () {
+	<![CDATA[		
+	if (vercpf(document.frmcpf.cpf.value)) 
+		{document.frmcpf.submit();}else 
+		{errors="1";if (errors) alert('CPF NÃO VÁLIDO');
+		document.retorno = (errors == '');}}
+		function vercpf (cpf) 
+		{if (cpf.length != 11 || cpf == "00000000000" || cpf == "11111111111" || cpf == "22222222222" || cpf == "33333333333" || cpf == "44444444444" || cpf == "55555555555" || cpf == "66666666666" || cpf == "77777777777" || cpf == "88888888888" || cpf == "99999999999")
+		return false;
+		add = 0;
+		for (i=0; i &lt; 9; i ++)
+		add += parseInt(cpf.charAt(i)) * (10 - i);
+		rev = 11 - (add % 11);
+		if (rev == 10 || rev == 11)
+		rev = 0;
+		if (rev != parseInt(cpf.charAt(9)))
+		return false;
+		add = 0;
+		for (i = 0; i < 10; i ++)
+		add += parseInt(cpf.charAt(i)) * (11 - i);
+		rev = 11 - (add % 11);
+		if (rev == 10 || rev == 11)
+		rev = 0;
+		if (rev != parseInt(cpf.charAt(10)))
+		return false;
+		alert('O CPF INFORMADO É VÁLIDO.');return true;}	
+		]]>
+		</script> -->
+
+<h:outputScript>
 jQuery(function($){     
-   // $(".cpf").mask("999.999.999-99");
-   $(".cpf").mask("99999999999");     
-   
-});  
+		   // $(".cpf").mask("999.999.999-99");
+		   $(".cpf").mask("99999999999");     
+		   
+		});  
+
 </h:outputScript>
 
 

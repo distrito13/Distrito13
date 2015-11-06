@@ -2,7 +2,7 @@ package fatec.edu.models;
 
 public class QuestionarioPtIV {
 	private int id;
-	private float valor;
+	private double valor;
 	private String tipoDivida;
 	private int idTomador;
 	public int getId() {
@@ -11,12 +11,7 @@ public class QuestionarioPtIV {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public float getValor() {
-		return valor;
-	}
-	public void setValor(float valor) {
-		this.valor = valor;
-	}
+	
 	public String getTipoDivida() {
 		return tipoDivida;
 	}
@@ -30,5 +25,12 @@ public class QuestionarioPtIV {
 		this.idTomador = idTomador;
 	}
 	
+	public double getValor(){
+		return valor;
+	}
+	
+	public void setValor(double valor){
+		this.valor = valor;
+	}
 	
 }

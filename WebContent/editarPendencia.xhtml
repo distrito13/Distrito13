@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<!-- vsp test -->
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css">
+	</h:outputStylesheet>
+	<h:outputScript library="js" name="bootstrap.min.js"></h:outputScript>
+	<!-- vsp test -->
+	<title>Pendências</title>
+
+
+
+</h:head>
+<h:body>
+	<h:form>
+		<p:panel>
+			<h:panelGrid styleClass="table table-responsive" columns="1"
+				cellpadding="10">
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2" name=""
+						value="Data de Atraso:">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-xs-10">
+						<p:calendar id="dataAtraso" locale="pt_BR" pattern="dd/MM/yyyy"
+							mask="true" maxlength="10" size="30"
+							value="#{questionarioPtVMB.questionarioPtVAtual.dataAtraso}"
+							required="true"
+							requiredMessage="*Preencha o campo Data de atraso." />
+						<h:message id="m1" for="dataAtraso" style="color:blue"></h:message>
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2" name=""
+						value="Período">
+					</h:outputLabel>
+
+					<h:panelGroup styleClass="col-md-3 col-sm-4">
+						<h:selectOneMenu styleClass="form-control"
+							value="#{questionarioPtVMB.questionarioPtVAtual.periodo}">
+							<f:selectItems value="#{questionarioPtVMB.periodo}" var="p"
+								itemLabel="#{p}" itemValue="#{p}"></f:selectItems>
+						</h:selectOneMenu>
+					</h:panelGroup>
+
+				</h:panelGroup>
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2" name=""
+						value="Valor:">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-xs-10">
+						<h:inputText id="valor" styleClass="form-control"
+							value="${questionarioPtVMB.questionarioPtVAtual.valor}"
+							required="true" requiredMessage="*Preencha o campo Valor."></h:inputText>
+						<h:message id="m2" for="valor" style="color:blue"></h:message>
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2" name=""
+						value="Tipo de Pendência">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-xs-10">
+						<h:inputText id="tipoPendencia" styleClass="form-control"
+							value="${questionarioPtVMB.questionarioPtVAtual.tipoPendencia}"
+							required="true"
+							requiredMessage="*Preencha o campo Tipo de pendência."></h:inputText>
+						<h:message id="m3" for="tipoPendencia" style="color:blue"></h:message>
+					</h:panelGroup>
+				</h:panelGroup>
+
+
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2" name=""
+						value="Orgao:">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-xs-10">
+						<h:inputText styleClass="form-control"
+							value="${questionarioPtVMB.questionarioPtVAtual.idOrgao}"></h:inputText>
+					</h:panelGroup>
+				</h:panelGroup>
+				<h:panelGroup styleClass="form-group text-center">
+					<h:panelGroup styleClass="col-xs-offset-2 col-xs-8 ">
+						<h:commandButton styleClass="btn btn-sm btn-tccblue"
+							action="${questionarioPtVMB.adicionar()}" value="Adiciona Pendência">
+							<f:ajax execute="@form" render="tabela" />
+						</h:commandButton>
+					</h:panelGroup>
+				</h:panelGroup>
+
+
+				<h:panelGroup styleClass="form-group text-right">
+					<h:panelGroup styleClass=" col-xs-12">
+						<a href="#" data-toggle="tooltip" data-placement="left"
+							title="ATENÇÃO! Ao preencher os dados, clique para realizar análise">
+							<h:commandButton styleClass="btn btn-lg btn-warning"
+								action="${controladorFuzzyManagedBean.realizaSomaTotal()}"
+								value="Realizar análise">
+							</h:commandButton>
+						</a>
+					</h:panelGroup>
+				</h:panelGroup>
+			</h:panelGrid>
+
+			<p:dataTable id="tabela" value="${questionarioPtVMB.pendencias}"
+				var="questionarioPtIII"
+				rendered="#{not empty questionarioPtVMB.pendencias}">
+				<p:column headerText="id">
+		${questionarioPtIII.id}
+		</p:column>
+				<p:column headerText="Data">
+		${questionarioPtIII.dataAtraso}
+		</p:column>
+				<p:column headerText="Tipo de Pendencia">
+		${questionarioPtIII.tipoPendencia}
+		</p:column>
+				<p:column headerText="Valor">
+		${questionarioPtIII.valor}
+		</p:column>
+				<p:column headerText="Período">
+		${questionarioPtIII.periodo}
+		</p:column>
+				<p:column headerText="Orgão">
+		${questionarioPtIII.idOrgao}
+		</p:column>
+
+				<p:chart type="line" model="#{chartView.lineModel1}"
+					style="height:300px;" />
+			</p:dataTable>
+
+
+		</p:panel>
+
+
+	</h:form>
+
+
+</h:body>
+
+<script>
+	PrimeFaces.locales['pt_BR'] = {
+		closeText : 'Fechar',
+		prevText : 'Anterior',
+		nextText : 'Próximo',
+		currentText : 'Começo',
+		monthNames : [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio',
+				'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro',
+				'Dezembro' ],
+		monthNamesShort : [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul',
+				'Ago', 'Set', 'Out', 'Nov', 'Dez' ],
+		dayNames : [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta',
+				'Sexta', 'Sábado' ],
+		dayNamesShort : [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb' ],
+		dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
+		weekHeader : 'Semana',
+		firstDay : 0,
+		isRTL : false,
+		showMonthAfterYear : false,
+		yearSuffix : '',
+		timeOnlyTitle : 'Só Horas',
+		timeText : 'Tempo',
+		hourText : 'Hora',
+		minuteText : 'Minuto',
+		secondText : 'Segundo',
+		ampm : false,
+		month : 'Mês',
+		week : 'Semana',
+		day : 'Dia',
+		allDayText : 'Todo o Dia'
+	};
+</script>
+
+
+</html>

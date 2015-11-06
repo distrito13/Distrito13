@@ -1,5 +1,6 @@
 package fatec.edu.dao.implementation.crud;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,8 +12,9 @@ import fatec.edu.dao.generic.GenericDAO;
 import fatec.edu.dao.interfaces.crud.EstadoDAO;
 import fatec.edu.models.Estado;
 
-public class EstadoDAOImpl implements EstadoDAO{
+public class EstadoDAOImpl implements EstadoDAO,Serializable{
 
+	private static final long serialVersionUID = 6338753609705563851L;
 	Connection conection;
 	
 	public EstadoDAOImpl(){

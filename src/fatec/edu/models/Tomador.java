@@ -14,7 +14,7 @@ public class Tomador {
 	private String estadoCivil;
 	private String regimeCasamento;
 	private Estado estado;
-	private Cidade cidade;
+	private Cidade_vaisair cidade;
 
 	public void setIdTomador(int idTomador) {
 		this.idTomador = idTomador;
@@ -96,11 +96,11 @@ public class Tomador {
 		return estado;
 	}
 
-	public void setCidade(Cidade cidade) {
+	public void setCidade(Cidade_vaisair cidade) {
 		this.cidade = cidade;
 	}
 
-	public Cidade getCidade() {
+	public Cidade_vaisair getCidade() {
 		return cidade;
 	}
 

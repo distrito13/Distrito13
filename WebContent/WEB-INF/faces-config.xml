@@ -1,9 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<faces-config
-    xmlns="http://java.sun.com/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
-    version="2.0">
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+	version="2.0">
+	<converter>
+		<converter-id>converter.CpfConverter</converter-id>
+		<converter-class>fatec.edu.conversao.CpfConverter</converter-class>
+	</converter>
+	<validator>
+		<validator-id>converter.CpfValidator</validator-id>
+		<validator-class>fatec.edu.conversao.CpfValidator</validator-class>
+	</validator>
+
+
+	<application>
+		<resource-bundle>
+			<base-name>messages</base-name>
+			<var>msgs</var>
+		</resource-bundle>
+		<message-bundle>messages_pt_BR</message-bundle>
+		<locale-config>
+			<default-locale>pt_BR</default-locale>
+		</locale-config>
+	</application>
+
+	<converter>
+		<converter-id>converter.CnpjConverter</converter-id>
+		<converter-class>fatec.edu.conversao.CnpjConverter</converter-class>
+	</converter>
+
+
+	<validator>
+		<validator-id>converter.CnpjValidator</validator-id>
+		<validator-class>fatec.edu.conversao.CnpjValidator</validator-class>
+	</validator>
+
 
 </faces-config>

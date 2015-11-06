@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+        <title>TCC-Home</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="description" content="Awesome Bubble Navigation with jQuery" />
+        <meta name="keywords" content="jquery, circular menu, navigation, round, bubble"/>
+        <link rel="stylesheet" href="cssIndex/IndexStyle.css" type="text/css" media="screen"/>
+        <style>
+            *{
+                margin:0;
+                padding:0;
+            }
+            body{
+                font-family:Arial;
+                background:#fff url(imagesIndex/bg.png) no-repeat top left;
+            }
+            .title{
+                width:548px;
+                height:119px;
+                position:absolute;
+                top:400px;
+                left:150px;
+                background:transparent url(LOGO-MENU.png) no-repeat top left;
+            }
+            a.back{
+                background:transparent url() no-repeat top left;
+                position:fixed;
+                width:150px;
+                height:27px;
+                outline:none;
+                bottom:0px;
+                left:0px;
+            }
+            #content{
+                margin:0 auto;
+            }
+
+
+        </style>
+    </h:head>
+
+    <h:body>
+        <div id="content">
+            <a class="back" href="http://tympanus.net/codrops/2010/04/29/awesome-bubble-navigation-with-jquery"></a>
+            <div class="title"></div>
+
+            <div class="navigation" id="nav">
+                <div class="item user">
+                    <img src="imagesIndex/bg_user.png" alt="" width="199" height="199" class="circle"/>
+                    <a href="#" class="icon"></a>
+                    <h2>Análise</h2>
+                    <ul>
+                        <li><a href="http://localhost:8080/Distrito13/faces/CredorQuestionario.xhtml">Realizar análise</a></li>
+                          <!-- <li><a href="#">Consultar análise</a></li> -->
+                    </ul>
+                </div>
+                <div class="item home">
+                    <img src="imagesIndex/bg_home.png" alt="" width="199" height="199" class="circle"/>
+                    <a href="#" class="icon"></a>
+                     <h2>Equipe</h2>
+                    <ul>
+                        <li></li>
+                        <li><a href="http://localhost:8080/Distrito13/faces/Equipe.xhtml">Desenvolvedores</a></li>
+                    </ul>
+                </div>
+               <!--  <div class="item shop">
+                    <img src="imagesIndex/bg_shop.png" alt="" width="199" height="199" class="circle"/>
+                    <a href="#" class="icon"></a>
+                     <h2>Credor</h2>
+                    <ul>
+                        <li><a href="#">Manter Credor</a></li>
+                       
+                      
+                    </ul>
+                </div> -->
+              <!--   <div class="item camera">
+                    <img src="imagesIndex/bg_camera.png" alt="" width="199" height="199" class="circle"/>
+                    <a href="#" class="icon"></a>
+                    <h2>Configurações</h2>
+                    <ul>
+                        <li><a href="#">Manter Itens</a></li>
+                      
+                    </ul>
+                </div> -->
+                <!-- <div class="item fav">
+                    <img src="imagesIndex/bg_fav.png" alt="" width="199" height="199" class="circle"/>
+                    <a href="#" class="icon"></a>
+                    <h2>Equipe</h2>
+                    <ul>
+                        <li><a href="http://localhost:8080/Distrito13/faces/Equipe.xhtml">Desenvolvedores</a></li>
+                    </ul>
+                </div> -->
+            </div>
+        </div>
+        <!-- The JavaScript -->
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+        <script type="text/javascript" src="jquery.easing.1.3.js"></script>
+        <script type="text/javascript">
+            $(function() {
+                $('#nav > div').hover(
+                function () {
+                    var $this = $(this);
+                    $this.find('img').stop().animate({
+                        'width'     :'199px',
+                        'height'    :'199px',
+                        'top'       :'-25px',
+                        'left'      :'-25px',
+                        'opacity'   :'1.0'
+                    },500,'easeOutBack',function(){
+                        $(this).parent().find('ul').fadeIn(700);
+                    });
+
+                    $this.find('a:first,h2').addClass('active');
+                },
+                function () {
+                    var $this = $(this);
+                    $this.find('ul').fadeOut(500);
+                    $this.find('img').stop().animate({
+                        'width'     :'52px',
+                        'height'    :'52px',
+                        'top'       :'0px',
+                        'left'      :'0px',
+                        'opacity'   :'0.1'
+                    },5000,'easeOutBack');
+
+                    $this.find('a:first,h2').removeClass('active');
+                }
+            );
+            });
+        </script>
+    </h:body>
+</html>

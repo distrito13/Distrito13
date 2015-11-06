@@ -6,7 +6,7 @@ public class QuestionarioPtV {
 		private int id;
 		private Date dataAtraso;
 		private String tipoPendencia;
-		private float valor;
+		private double valor;
 		private String periodo;
 		private int idOrgao;
 		private int idTomador;
@@ -28,10 +28,10 @@ public class QuestionarioPtV {
 		public void setTipoPendencia(String tipoPendencia) {
 			this.tipoPendencia = tipoPendencia;
 		}
-		public float getValor() {
+		public double getValor() {
 			return valor;
 		}
-		public void setValor(float valor) {
+		public void setValor(double valor) {
 			this.valor = valor;
 		}
 		public String getPeriodo() {

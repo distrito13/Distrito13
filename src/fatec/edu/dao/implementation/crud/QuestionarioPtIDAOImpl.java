@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import fatec.edu.dao.generic.GenericDAO;
 import fatec.edu.dao.interfaces.crud.QuestionarioPtIDAO;
@@ -30,7 +32,8 @@ public class QuestionarioPtIDAOImpl implements QuestionarioPtIDAO {
 				+ "estadoCivil = ?,"
 				+ "regimeCasamento = ?,"
 				+ "idEstado = ?,"
-				+ "idCidade = ? WHERE idTomador = (SELECT  MAX(ControleAcesso.idControle) FROM ControleAcesso)";
+				+ "cidade = ?,"
+				+ "escolaridade = ? WHERE idTomador = (SELECT MAX(ControleAcesso.idControle) FROM ControleAcesso)";
 		
 		PreparedStatement ps = conection.prepareStatement(sql);
 		ps.setString(1, questionarioPtI.getCpf());
@@ -39,10 +42,11 @@ public class QuestionarioPtIDAOImpl implements QuestionarioPtIDAO {
 		ps.setString(4, questionarioPtI.getFiliacaoI());
 		ps.setString(5, questionarioPtI.getFiliacaoII());
 		ps.setInt(6, questionarioPtI.getSexo());
-		ps.setInt(7, questionarioPtI.getEstadoCivil());
-		ps.setString(8, questionarioPtI.getRegismeCasamento());
+		ps.setString(7, questionarioPtI.getEstadoCivil());
+		ps.setString(8, questionarioPtI.getRegimeCasamento());
 		ps.setInt(9, questionarioPtI.getIdEstado());
-		ps.setInt(10, questionarioPtI.getIdCidade());
+		ps.setString(10, questionarioPtI.getCidade());
+		ps.setString(11, questionarioPtI.getEscolaridade());
 
 		ps.execute();
 		ps.close();
@@ -60,6 +64,24 @@ public class QuestionarioPtIDAOImpl implements QuestionarioPtIDAO {
 			i = rs.getInt("idTomador");
 		}
 		return i;
+	}
+
+	@Override
+	public List<QuestionarioPtI> pesquisar() throws SQLException {
+		List<QuestionarioPtI> lista = new ArrayList<QuestionarioPtI>();
+		String sql = "SELECT * FROM Tomadores";
+		PreparedStatement ps = conection.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		while (rs.next()) {
+			QuestionarioPtI tomador = new QuestionarioPtI();
+			tomador.setId(rs.getInt("idTomador"));
+			tomador.setNome(rs.getString("nome"));
+			lista.add(tomador);
+		}
+		ps.close();
+		rs.close();
+		return lista;
+	
 	}
 
 }

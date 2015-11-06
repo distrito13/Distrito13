@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css">
+	</h:outputStylesheet>
+	<h:outputStylesheet library="css" name="custom.css">
+	</h:outputStylesheet>
+
+	<h:outputScript library="js" name="bootstrap.min.js"></h:outputScript>
+	<!-- vsp test -->
+	<title>EmpresaUser</title>
+
+	<nav class="navbar navbartcc">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+				aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a href="#" class="pull-left"><h:graphicImage library="images"
+					name="logo.png"
+					styleClass="img-responsive center-block img-rounded"></h:graphicImage></a>
+		</div>
+
+
+	</div>
+	</nav>
+
+
+</h:head>
+<h:body>
+	<h:form id="empresaUser">
+	
+	<p:messages id="messages"  autoUpdate="true" closable="true" infoStyle="color:darkgreen" errorStyle="color:darkred"/>
+	
+		<p:panel>
+			<h:panelGrid styleClass="table table-responsive" columns="1"
+				cellpadding="10">
+
+				
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2" name=""
+						value="Cnpj:">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-xs-10">
+						<h:inputText id="cnpj" styleClass="form-control"
+							value="#{loginEmpresaManagedBean.credorAtual.cnpj}"
+							required="true" requiredMessage="*Cnpj Inválido." maxlength="14">
+							     <f:validator validatorId="converter.CnpjValidator"/>
+							</h:inputText>
+							     <converter converterId="converter.CnpjConverter" />
+						<!-- <h:message id="m1" for="cnpj" style="color:red"></h:message> -->
+					</h:panelGroup>
+				</h:panelGroup>
+				
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2" name=""
+						value="Razão Social:">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-xs-10">
+						<h:inputText id="razaoSocial" styleClass="form-control"
+							value="#{loginEmpresaManagedBean.credorAtual.empresa}"
+							required="true" requiredMessage="*Preencha o campo Razão Social." maxlength="75"></h:inputText>
+					<!-- 	<h:message id="m2" for="razaoSocial" style="color:red"></h:message> -->
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2" name=""
+						value="E-mail:">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-xs-10">
+						<h:inputText id="email" styleClass="form-control"
+							value="#{loginEmpresaManagedBean.credorAtual.email}"
+							required="true" requiredMessage="*Preencha o campo E-mail." maxlength="75" validatorMessage="E-mail incorreto">
+							
+							    <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+							
+							
+							</h:inputText>
+						<!-- <h:message id="m3" for="email" style="color:red"></h:message> -->
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2" name=""
+						value="Usuário:">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-xs-10">
+						<h:inputText id="usuario" styleClass="form-control"
+							value="#{loginEmpresaManagedBean.credorAtual.usuario}"
+							required="true" requiredMessage="*Preencha o campo Usuário." maxlength="75"></h:inputText>
+					<!-- 	<h:message id="m4" for="usuario" style="color:red"></h:message> -->
+					</h:panelGroup>
+				</h:panelGroup>
+
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2" name="senha"
+						value="Senha:"></h:outputLabel>
+					<h:panelGroup styleClass="col-xs-10">
+						<h:inputSecret id="senha" styleClass="form-control"
+							name="password"
+							value="#{loginEmpresaManagedBean.credorAtual.senha}"
+							required="true" requiredMessage="*Preencha o campo Senha." maxlength="10"
+							type="password">
+						</h:inputSecret>
+						<!-- <h:message id="m5" for="senha" style="color:red"></h:message> -->
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2"
+						name="confirmaSenha" value="Confirmar Senha:"></h:outputLabel>
+					<h:panelGroup styleClass="col-xs-10">
+						<h:inputSecret id="confirmaSenha" styleClass="form-control"
+							name="password" onblur="validaSenha();" required="true"
+							requiredMessage="*Preencha o campo Confirmar Senha." maxlength="10"
+							type="password">
+						</h:inputSecret>
+						<!-- <h:message id="m6" for="confirmaSenha" style="color:red"></h:message> -->
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup styleClass="form-group text-center">
+					<h:panelGroup styleClass="col-xs-offset-2 col-xs-8 ">
+						<h:commandButton styleClass="btn btn-sm btn-tccblue"
+							value="Cadastrar Empresa"
+							action="#{loginEmpresaManagedBean.adicionarEmpresa()}">
+							<f:ajax execute="@form" render="@form" />
+
+						</h:commandButton>
+					</h:panelGroup>
+				</h:panelGroup>
+
+
+			</h:panelGrid>
+
+
+
+		</p:panel>
+
+	</h:form>
+
+</h:body>
+<script>
+	function validaSenha() {
+		var senha = document.getElementById('empresaUser:senha').value;
+		var confirmaSenha = document
+				.getElementById('empresaUser:confirmaSenha').value;
+		if (senha != confirmaSenha) {
+			alert("Erro na confirmação da senha. Senhas diferentes.");
+		}
+	}
+</script>
+<h:outputScript>
+jQuery(function($){     
+		   // $(".cnpj").mask("99.999.999/9999-99");
+		   $(".cnpj").mask("99999999999999");     
+		   
+		});  
+
+</h:outputScript>
+
+</html>

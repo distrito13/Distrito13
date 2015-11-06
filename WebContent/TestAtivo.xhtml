@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<!-- vsp test -->
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css">
+	</h:outputStylesheet>
+	<h:outputScript library="js" name="bootstrap.min.js"></h:outputScript>
+	<!-- vsp test -->
+
+	
+	<title>Ativos</title>
+
+</h:head>
+<h:body>
+	<h:form>
+	
+	<p:messages id="messages"  autoUpdate="true" closable="true" infoStyle="color:darkgreen" errorStyle="color:darkred"/>
+	
+		<p:panel >
+			<h:panelGrid styleClass="table table-responsive" columns="1"
+				cellpadding="10">
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2" name=""
+						value="Valor:">
+					</h:outputLabel>
+					<h:panelGroup styleClass="col-xs-10">
+						<h:inputText id="valor" styleClass="form-control"
+							value="#{questionarioPtVIMB.questionarioPtVIAtual.valor}" required="true" requiredMessage="*Preencha o campo VALOR."></h:inputText>
+					</h:panelGroup>
+						<!-- <h:message id="m1" for="valor" style="color:blue"></h:message> -->
+				</h:panelGroup>
+
+				<h:panelGroup styleClass="form-group">
+					<h:outputLabel styleClass="control-label col-xs-2" name=""
+						value="Tipo de Ativo:">
+					</h:outputLabel>
+					
+					<h:panelGroup styleClass="col-md-3 col-sm-4">
+						<h:selectOneMenu styleClass="form-control"
+							value="#{questionarioPtVIMB.questionarioPtVIAtual.tipoAtivo}">
+							<f:selectItems value="#{questionarioPtVIMB.tipoAtivo}" var="p"
+								itemLabel="#{p}" itemValue="#{p}"></f:selectItems>
+						</h:selectOneMenu>
+					</h:panelGroup>
+					
+				</h:panelGroup>
+				
+				<h:panelGroup styleClass="form-group text-center">
+					<h:panelGroup styleClass="col-xs-offset-2 col-xs-8 " >
+						<h:commandButton styleClass="btn btn-sm btn-tccblue"
+							 action="${questionarioPtVIMB.adicionar()}" value="Adicionar Ativo" >
+							<!--  <f:ajax execute="@form" render="tabela"/> -->
+							<f:ajax execute="@form" render="@form" />
+						</h:commandButton>
+					</h:panelGroup>
+				</h:panelGroup>
+				
+				<h:panelGroup>
+					<a class="btn btn-link btnPrevious pull-left"><h:graphicImage
+							library="images" name="1_esquerda.png"
+							styleClass="img-responsive center-block img-rounded" width="50" height="50"></h:graphicImage></a>  
+				</h:panelGroup>
+				
+			</h:panelGrid>
+			
+			<p:dataTable id="tabela" value="${questionarioPtVIMB.ativos}"
+				var="questionarioPtVI"
+				rendered="#{not empty questionarioPtVIMB.ativos}">
+				<p:column headerText="id">
+				${questionarioPtVI.id}
+				</p:column>
+				<p:column headerText="valor">
+				${questionarioPtVI.valor}
+				</p:column>
+				<p:column headerText="Tipo de Ativo">
+				${questionarioPtVI.tipoAtivo}
+				</p:column>
+				<p:column headerText="id Tomador">
+				${questionarioPtVI.idTomador}
+				</p:column>
+			
+
+				<p:chart type="line" model="#{chartView.lineModel1}"
+					style="height:300px;" />
+			</p:dataTable>
+			
+			
+			
+		
+
+		</p:panel>
+
+	</h:form>
+
+</h:body>
+
+
+</html>

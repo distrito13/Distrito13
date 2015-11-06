@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css">
+	</h:outputStylesheet>
+	<h:outputScript library="js" name="bootstrap.min.js"></h:outputScript>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>test negativado</title>
+</h:head>
+<h:body>
+	<h:form id="formX">
+		<p:panel>
+
+			<p:dataTable value="${buscaEditarTomadorManagedBean.buscarTomadores}"
+				var="questionarioPtIAtual" id="table" selectionMode="single"
+				rowKey="#{questionarioPtIAtual.id}"
+				filteredValue="${buscaEditarTomadorManagedBean.filtrobuscarTomadores}"
+				widgetVar="pessoasTable"
+				selection="#{buscaEditarTomadorManagedBean.questionarioPtIAtual}">
+
+				<p:ajax event="rowSelect" update=":formX:out1" />
+				<p:ajax event="rowSelect" update=":formX:out2" />
+				<p:ajax event="rowSelect" update=":formX:out3" />
+				<p:ajax event="rowSelect" update=":formX:out4" />
+				<p:ajax event="rowSelect" update=":formX:out5" />
+				<p:ajax event="rowSelect" update=":formX:out6" />
+				<p:ajax event="rowSelect" update=":formX:out7" />
+				<p:ajax event="rowSelect" update=":formX:out8" />
+
+
+				<f:facet name="header">
+					<p:outputPanel>
+						<h:outputText value="Search all fields:" />
+						<p:inputText id="globalFilter"
+							onkeyup="PF('pessoasTable').filter()" style="width:150px"
+							placeholder="Enter keyword" />
+					</p:outputPanel>
+				</f:facet>
+
+				<p:column filterBy="#{questionarioPtIAtual.id}" headerText="Id"
+					filterStyle="display:none" filterMatchMode="contains"
+					style="display:none">
+		${questionarioPtIAtual.id}
+		</p:column>
+				<p:column filterBy="#{questionarioPtIAtual.cpf}" headerText="cpf"
+					filterStyle="display:none" filterMatchMode="contains">
+		${questionarioPtIAtual.cpf}
+		</p:column>
+				<p:column filterBy="#{questionarioPtIAtual.nome}" headerText="nome"
+					filterStyle="display:none" filterMatchMode="contains">
+		${questionarioPtIAtual.nome}
+		</p:column>
+				<p:column filterBy="#{questionarioPtIAtual.data}" headerText="data"
+					filterStyle="display:none" filterMatchMode="contains">
+		${questionarioPtIAtual.data}
+		</p:column>
+				<p:column filterBy="#{questionarioPtIAtual.filiacaoI}"
+					headerText="filiacaoI" filterStyle="display:none"
+					filterMatchMode="contains">
+		${questionarioPtIAtual.filiacaoI}
+		</p:column>
+				<p:column filterBy="#{questionarioPtIAtual.filiacaoII}"
+					headerText="filiacaoII" filterStyle="display:none"
+					filterMatchMode="contains" style="display:none">
+		${questionarioPtIAtual.filiacaoII}
+		</p:column>
+				<p:column filterBy="#{questionarioPtIAtual.estadoCivil}"
+					headerText="estadoCivil" filterStyle="display:none"
+					filterMatchMode="contains" style="display:none">
+		${questionarioPtIAtual.estadoCivil}
+		</p:column>
+				<p:column filterBy="#{questionarioPtIAtual.regimeCasamento}"
+					headerText="regimeCasamento" filterStyle="display:none"
+					filterMatchMode="contains" style="display:none">
+		${questionarioPtIAtual.regimeCasamento}
+		</p:column>
+				<p:column filterBy="#{questionarioPtIAtual.idEstado}"
+					headerText="idEstado" filterStyle="display:none"
+					filterMatchMode="contains" style="display:none">
+		${questionarioPtIAtual.idEstado}
+		</p:column>
+				<p:column filterBy="#{questionarioPtIAtual.cidade}"
+					headerText="cidade" filterMatchMode="contains"
+					filterStyle="display:none" style="display:none">
+		${questionarioPtIAtual.cidade}
+		</p:column>
+
+			</p:dataTable>
+
+		</p:panel>
+
+
+
+
+	</h:form>
+
+		<h:form>
+			<h:commandButton action="#{buscaEditarTomadorManagedBean.editarAE()}"
+				value="Editar"></h:commandButton>
+		</h:form>
+
+</h:body>
+
+</html>

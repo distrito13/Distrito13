@@ -5,8 +5,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import fatec.edu.dao.implementation.crud.QuestionarioPtIIIDAOImpl;
@@ -50,10 +52,16 @@ public class QuestionarioPtIIIMB {
 	public String adicionar(){
 		try {
 			questionarioPtIIIDAO.manter(getQuestionarioPtIIIAtual());
+			FacesContext fc = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Renda inserida com sucesso", null);
+			fc.addMessage("", msg);
 			questionarioPtIIIAtual = new QuestionarioPtIII();
 			setRendas(questionarioPtIIIDAO.listarRendas());
 		} catch (SQLException e) {
 			e.printStackTrace();
+			FacesContext fc = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao inserir",      null);
+			fc.addMessage("", msg);
 		}
 			return "";
 	}
