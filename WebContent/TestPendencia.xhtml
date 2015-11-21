@@ -17,9 +17,10 @@
 </h:head>
 <h:body>
 	<h:form>
-	
-	<p:messages id="messages"  autoUpdate="true" closable="true" infoStyle="color:darkgreen" errorStyle="color:darkred"/>
-	
+
+		<!-- <p:messages id="messages" autoUpdate="true" closable="true"
+			infoStyle="color:darkgreen" errorStyle="color:darkred" />
+ -->
 		<p:panel>
 			<h:panelGrid styleClass="table table-responsive" columns="1"
 				cellpadding="10">
@@ -32,8 +33,7 @@
 						<p:calendar id="dataAtraso" locale="pt_BR" pattern="dd/MM/yyyy"
 							mask="true" maxlength="10" size="30"
 							value="#{questionarioPtVMB.questionarioPtVAtual.dataAtraso}"
-							required="true"
-							requiredMessage="*Preencha o campo Data de atraso." />
+							 /> 
 						<!-- <h:message id="m1" for="dataAtraso" style="color:blue"></h:message> -->
 					</h:panelGroup>
 				</h:panelGroup>
@@ -59,8 +59,7 @@
 					</h:outputLabel>
 					<h:panelGroup styleClass="col-xs-10">
 						<h:inputText id="valor" styleClass="form-control"
-							value="${questionarioPtVMB.questionarioPtVAtual.valor}"
-							required="true" requiredMessage="*Preencha o campo Valor."></h:inputText>
+							value="${questionarioPtVMB.questionarioPtVAtual.valor}"></h:inputText>
 						<!-- <h:message id="m2" for="valor" style="color:blue"></h:message> -->
 					</h:panelGroup>
 				</h:panelGroup>
@@ -72,8 +71,7 @@
 					<h:panelGroup styleClass="col-xs-10">
 						<h:inputText id="tipoPendencia" styleClass="form-control"
 							value="${questionarioPtVMB.questionarioPtVAtual.tipoPendencia}"
-							required="true"
-							requiredMessage="*Preencha o campo Tipo de pendência." maxlength="40"></h:inputText>
+							maxlength="40"></h:inputText>
 						<!-- <h:message id="m3" for="tipoPendencia" style="color:blue"></h:message> -->
 					</h:panelGroup>
 				</h:panelGroup>
@@ -89,50 +87,81 @@
 				</h:panelGroup>
 				<h:panelGroup styleClass="form-group text-center">
 					<h:panelGroup styleClass="col-xs-offset-2 col-xs-8 ">
-						<h:commandButton styleClass="btn btn-sm btn-tccblue"
+						<h:commandButton styleClass="btn btn-sm btn-tccblue" rendered="#{questionarioPtVMB.ocultar == true}"
 							action="${questionarioPtVMB.adicionar()}"
 							value="Adiciona Pendência">
 							<!-- <f:ajax execute="@form" render="tabela" /> -->
 							<f:ajax execute="@form" render="@form" />
 						</h:commandButton>
+						
+						<h:panelGroup layout="block"  id="atualizar">
+						<h:commandButton styleClass="btn btn-sm btn-tccblue" rendered="#{questionarioPtVMB.ocultar == false}"
+							action="${questionarioPtVMB.atualizar()}" value="Atualizar">
+							<!-- 	<f:ajax execute="@form" render="tabela" /> -->
+							<f:ajax execute="@form" render="@form" />
+						</h:commandButton>
+						</h:panelGroup>
+						
+
+
 					</h:panelGroup>
 				</h:panelGroup>
 
 
-			
-				
+
+
+
+
 				<h:panelGroup>
 					<a class="btn btn-link btnPrevious pull-left"><h:graphicImage
 							library="images" name="1_esquerda.png"
-							styleClass="img-responsive center-block img-rounded" width="50" height="50"></h:graphicImage></a>
+							styleClass="img-responsive center-block img-rounded" width="50"
+							height="50"></h:graphicImage></a>
 					<a class="btn btn-link btnNext pull-right"><h:graphicImage
 							library="images" name="2_direita.png"
-							styleClass="img-responsive center-block img-rounded" width="50" height="50"></h:graphicImage></a> 
+							styleClass="img-responsive center-block img-rounded" width="50"
+							height="50"></h:graphicImage></a>
 				</h:panelGroup>
-				
+
 			</h:panelGrid>
 
 			<p:dataTable id="tabela" value="${questionarioPtVMB.pendencias}"
-				var="questionarioPtIII"
+				var="questionarioPtV"
 				rendered="#{not empty questionarioPtVMB.pendencias}">
-				<p:column headerText="id">
-		${questionarioPtIII.id}
-		</p:column>
-				<p:column headerText="Data">
-		${questionarioPtIII.dataAtraso}
-		</p:column>
+				<p:column headerText="Data de Atraso">
+					<h:outputText value="#{questionarioPtV.dataAtraso}">  
+        				<f:convertDateTime pattern="dd/MM/yyyy" />  
+    				</h:outputText>  
+    			</p:column>
 				<p:column headerText="Tipo de Pendencia">
-		${questionarioPtIII.tipoPendencia}
-		</p:column>
+					${questionarioPtV.tipoPendencia}
+				</p:column>
 				<p:column headerText="Valor">
-		${questionarioPtIII.valor}
-		</p:column>
+					${questionarioPtV.valor}
+				</p:column>
 				<p:column headerText="Período">
-		${questionarioPtIII.periodo}
-		</p:column>
+					${questionarioPtV.periodo}
+				</p:column>
 				<p:column headerText="Orgão">
-		${questionarioPtIII.idOrgao}
-		</p:column>
+					${questionarioPtV.idOrgao}
+				</p:column>
+				<p:column headerText="Editar">
+					<h:commandButton
+						action="${questionarioPtVMB.editar(questionarioPtV)}"
+						value="Editar">
+						<f:ajax execute="@form" render="@form" />
+						<f:ajax  render="atualizar"></f:ajax>
+
+					</h:commandButton>
+				</p:column>
+				<p:column headerText="Deletar">
+					<h:commandButton
+						action="${questionarioPtVMB.deletar(questionarioPtV)}"
+						value="Deletar">
+						<f:ajax execute="@form" render="@form" />
+					</h:commandButton>
+
+				</p:column>
 
 				<p:chart type="line" model="#{chartView.lineModel1}"
 					style="height:300px;" />
@@ -145,17 +174,17 @@
 	</h:form>
 
 	<h:form>
-	<h:panelGroup styleClass="form-group text-right">
-					<h:panelGroup styleClass=" col-xs-12">
-						<a href="#" data-toggle="tooltip" data-placement="left"
-							title="ATENÇÃO! Ao preencher os dados, clique para realizar análise">
-							<h:commandButton styleClass="btn btn-lg btn-warning"
-								action="${controladorFuzzyManagedBean.realizaSomaTotal()}"
-								value="Realizar análise">
-							</h:commandButton>
-						</a>
-					</h:panelGroup>
-				</h:panelGroup>
+		<h:panelGroup styleClass="form-group text-right">
+			<h:panelGroup styleClass=" col-xs-12">
+				<a href="#" data-toggle="tooltip" data-placement="left"
+					title="ATENÇÃO! Ao preencher os dados, clique para realizar análise">
+					<h:commandButton styleClass="btn btn-lg btn-warning"
+						action="${controladorFuzzyManagedBean.realizaSomaTotal()}"
+						value="Realizar análise">
+					</h:commandButton>
+				</a>
+			</h:panelGroup>
+		</h:panelGroup>
 	</h:form>
 
 </h:body>

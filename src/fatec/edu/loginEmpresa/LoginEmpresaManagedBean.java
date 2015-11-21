@@ -8,7 +8,13 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
+
+import fatec.edu.verificarExistencia.ValidaExistenciaDAO;
+import fatec.edu.verificarExistencia.ValidaExistenciaDAOImpl;
+
+/*
+ * ManagedBean para o cadastro da empresa
+ */
 
 @ManagedBean
 @SessionScoped
@@ -17,20 +23,31 @@ public class LoginEmpresaManagedBean {
 	private Credor credorAtual;
 	private LoginEmpresaDAO loginEmpresaDAO;
 	private List<Credor> credores;
+	private ValidaExistenciaDAO validaExistenciaDAO;
 	public static int usuarioLogado;
 	
 	public LoginEmpresaManagedBean() throws SQLException {
 		credorAtual = new Credor();
 		loginEmpresaDAO = new LoginEmpresaDAOImpl();
+		validaExistenciaDAO = new ValidaExistenciaDAOImpl();
 	}
 
 	public String adicionarEmpresa() {
 		try {
+			boolean pega = validaExistenciaDAO.verificaExistenciaCnpj(credorAtual.getCnpj());
+			if (pega){
+			FacesContext fc = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cnpj já cadastrado", null);
+			fc.addMessage("", msg);
+
+			}else {
+			
 			loginEmpresaDAO.inserirEmpresa(getCredorAtual());
 			FacesContext fc = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário inserido com sucesso", null);
 			fc.addMessage("", msg);
 			credorAtual = new Credor();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			FacesContext fc = FacesContext.getCurrentInstance();
@@ -56,7 +73,6 @@ public class LoginEmpresaManagedBean {
 		}
 
 
-		System.out.println("o usuário logado é :" + usuarioLogado);
 		return "";
 	}
 

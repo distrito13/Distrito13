@@ -14,20 +14,16 @@
 	<h:outputScript library="js" name="bootstrap.min.js"></h:outputScript>
 	<!-- vsp test -->
 
-
 	<title>Rendas</title>
 
 </h:head>
 <h:body>
 
-	
-	
-
 	<h:form id="renda">
-	
-	
-	<p:messages id="messages"  autoUpdate="true" closable="true" infoStyle="color:darkgreen" errorStyle="color:darkred"/>
-		<p:panel >
+
+		<!-- <p:messages id="messages" autoUpdate="true" closable="true"
+			infoStyle="color:darkgreen" errorStyle="color:darkred" />
+ -->		<p:panel>
 			<h:panelGrid styleClass="table table-responsive" columns="1"
 				cellpadding="10">
 
@@ -38,9 +34,10 @@
 					</h:outputLabel>
 					<h:panelGroup styleClass="col-xs-10">
 						<h:inputText id="valor" styleClass="form-control"
-							value="${questionarioPtIIIMB.questionarioPtIIIAtual.valor}" required="true" requiredMessage="*Preencha o campo Valor."></h:inputText>
+							value="${questionarioPtIIIMB.questionarioPtIIIAtual.valor}"
+							></h:inputText>
 						<!-- <h:message id="m1" for="valor" style="color:blue"></h:message> -->
-						
+
 					</h:panelGroup>
 				</h:panelGroup>
 
@@ -76,32 +73,42 @@
 
 				<h:panelGroup styleClass="form-group text-center">
 					<h:panelGroup styleClass="col-xs-offset-2 col-xs-8 ">
-					<h:commandButton styleClass="btn btn-sm btn-tccblue"
-						action="${questionarioPtIIIMB.adicionar()}" value="Adiciona Renda">
-						<!-- 	<f:ajax execute="@form" render="tabela" /> -->
-						<f:ajax execute="@form" render="@form" />
-					</h:commandButton>
-				</h:panelGroup>
+						<h:commandButton styleClass="btn btn-sm btn-tccblue" rendered="#{questionarioPtIIIMB.ocultar == true}"
+							action="${questionarioPtIIIMB.adicionar()}"
+							value="Adiciona Renda">
+							<!-- 	<f:ajax execute="@form" render="tabela" /> -->
+							<f:ajax execute="@form" render="@form" />
+						</h:commandButton>
+
+						<h:panelGroup layout="block"  id="atualizar">
+						<h:commandButton styleClass="btn btn-sm btn-tccblue" rendered="#{questionarioPtIIIMB.ocultar == false}"
+							action="${questionarioPtIIIMB.atualizar()}" value="Atualizar">
+							<!-- 	<f:ajax execute="@form" render="tabela" /> -->
+							<f:ajax execute="@form" render="@form" />
+						</h:commandButton>
+						</h:panelGroup>
+
+					</h:panelGroup>
 				</h:panelGroup>
 
 				<h:panelGroup>
 					<a class="btn btn-link btnPrevious pull-left"><h:graphicImage
 							library="images" name="1_esquerda.png"
-							styleClass="img-responsive center-block img-rounded" width="50" height="50"></h:graphicImage></a>
+							styleClass="img-responsive center-block img-rounded" width="50"
+							height="50"></h:graphicImage></a>
 					<a class="btn btn-link btnNext pull-right"><h:graphicImage
 							library="images" name="2_direita.png"
-							styleClass="img-responsive center-block img-rounded" width="50" height="50"></h:graphicImage></a> 
+							styleClass="img-responsive center-block img-rounded" width="50"
+							height="50"></h:graphicImage></a>
 				</h:panelGroup>
-				
-			</h:panelGrid> 
-	
-	
-	
-				<p:dataTable id="tabela" value="${questionarioPtIIIMB.rendas}"
-				var="questionarioPtIII" rendered="#{not empty questionarioPtIIIMB.rendas}">
-				<p:column headerText="id">
-		${questionarioPtIII.id}
-		</p:column>
+
+			</h:panelGrid>
+
+
+
+			<p:dataTable id="tabela" value="${questionarioPtIIIMB.rendas}"
+				var="questionarioPtIII"
+				rendered="#{not empty questionarioPtIIIMB.rendas}">
 				<p:column headerText="Valor">
 		${questionarioPtIII.valor}
 		</p:column>
@@ -111,12 +118,29 @@
 				<p:column headerText="Periodo">
 		${questionarioPtIII.periodo}
 		</p:column>
+				<p:column headerText="Editar">
+					<h:commandButton
+						action="${questionarioPtIIIMB.editar(questionarioPtIII)}"
+						value="Editar">
+						<f:ajax execute="@form" render="@form" />
+						<f:ajax  render="atualizar"></f:ajax>
+
+					</h:commandButton>
+				</p:column>
+				<p:column headerText="Deletar">
+					<h:commandButton
+						action="${questionarioPtIIIMB.deletar(questionarioPtIII)}"
+						value="Deletar">
+						<f:ajax execute="@form" render="@form" />
+					</h:commandButton>
+
+				</p:column>
 
 				<p:chart type="line" model="#{chartView.lineModel1}"
 					style="height:300px;" />
 			</p:dataTable>
 
-				
+
 		</p:panel>
 
 	</h:form>

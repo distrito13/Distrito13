@@ -9,4 +9,8 @@ public interface QuestionarioPtVIDAO {
 
 	public List<QuestionarioPtVI> listarAtivos() throws SQLException;
 
+	void atualizarAtivo(QuestionarioPtVI questionarioPtVI, int idAtivo) throws SQLException;
+
+	void deletarAtivo(QuestionarioPtVI questionarioPtVI) throws SQLException;
+
 }

@@ -45,7 +45,6 @@ public class QuestionarioPtVIDAOImpl implements QuestionarioPtVIDAO {
 		List<QuestionarioPtVI> lista = new ArrayList<QuestionarioPtVI>();
 		String sql = "SELECT * FROM Ativos WHERE idTomador = ?";
 		PreparedStatement ps = conection.prepareStatement(sql);
-		System.out.println("UltimoTomador"+idTomador);
 		ps.setInt(1, idTomador);
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
@@ -59,6 +58,32 @@ public class QuestionarioPtVIDAOImpl implements QuestionarioPtVIDAO {
 		ps.close();
 		rs.close();
 		return lista;
+
+	}
+	
+	@Override
+	public void atualizarAtivo(QuestionarioPtVI questionarioPtVI, int idAtivo) throws SQLException {
+		String sql = "UPDATE Ativos SET valor = ? , tipo = ? WHERE idAtivo = " + idAtivo;
+		PreparedStatement ps = conection.prepareStatement(sql);
+		ps.setDouble(1, questionarioPtVI.getValor());
+		ps.setString(2, questionarioPtVI.getTipoAtivo());
+
+		ps.execute();
+		ps.close();
+	}
+
+	/**
+	 * Método usado para deletar determinada dívida do banco de dados
+	 * 
+	 * @param questionarioPtIV
+	 */
+	@Override
+	public void deletarAtivo(QuestionarioPtVI questionarioPtVI) throws SQLException {
+		String sql = "DELETE Ativos WHERE idAtivo = ?";
+		PreparedStatement ps = conection.prepareStatement(sql);
+		ps.setInt(1, questionarioPtVI.getId());
+		ps.execute();
+		ps.close();
 
 	}
 

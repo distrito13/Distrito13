@@ -5,7 +5,11 @@ import java.util.List;
 
 import fatec.edu.models.QuestionarioPtI;
 import fatec.edu.models.QuestionarioPtIII;
-
+/**
+ * 
+ * @author Concedred
+ *
+ */
 public interface ConfiguracoesEditarTomadorDAO {
 
 	public List<QuestionarioPtI> retornaUsuariodaSessionparaFazerOFiltro() throws SQLException;

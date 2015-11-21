@@ -49,15 +49,7 @@ public class ControladorFuzzyManagedBean {
 
 		try {
 			questionarioptIAtual.setId(controleAcessoDAO.retornaIdControleAcesso());
-/*			megaDAO.getSomasMediasRenda(questionarioptIAtual);
-			System.out.println(megaDAO.getSomasMediasRenda(questionarioptIAtual).getValor());
-			megaDAO.getSomaDivida(questionarioptIAtual);
-			System.out.println(megaDAO.getSomaDivida(questionarioptIAtual).getValor());
-			megaDAO.getSomasMediasPendencia(questionarioptIAtual);
-			System.out.println(megaDAO.getSomasMediasPendencia(questionarioptIAtual).getValor());
-			megaDAO.getSomaExerceAtividade(questionarioptIAtual);
-			System.out.println(megaDAO.getSomaExerceAtividade(questionarioptIAtual).getSalario());
-			geraAvaliacao();*/
+
 			
 			questionarioptIIIAtual=megaDAO.getSomasMediasRenda(questionarioptIAtual);
 			System.out.println(megaDAO.getSomasMediasRenda(questionarioptIAtual).getValor());

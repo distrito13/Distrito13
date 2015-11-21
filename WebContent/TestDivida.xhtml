@@ -23,8 +23,8 @@
 <h:body>
 	<h:form>
 	
-	<p:messages id="messages"  autoUpdate="true" closable="true" infoStyle="color:darkgreen" errorStyle="color:darkred"/>
-	
+	<!-- <p:messages id="messages"  autoUpdate="true" closable="true" infoStyle="color:darkgreen" errorStyle="color:darkred"/>
+	 -->
 		<p:panel >
 			<h:panelGrid styleClass="table table-responsive" columns="1"
 				cellpadding="10">
@@ -35,7 +35,7 @@
 					</h:outputLabel>
 					<h:panelGroup styleClass="col-xs-10">
 						<h:inputText id="valor" styleClass="form-control"
-							value="${questionarioPtIVMB.questionarioPtIVAtual.valor}" required="true" requiredMessage="*Preencha o campo Valor."></h:inputText>
+							value="${questionarioPtIVMB.questionarioPtIVAtual.valor}" ></h:inputText>
 					</h:panelGroup>
 						<!-- <h:message id="m1" for="valor" style="color:blue"></h:message> -->
 				</h:panelGroup>
@@ -54,11 +54,20 @@
 				</h:panelGroup>
 				<h:panelGroup styleClass="form-group text-center">
 					<h:panelGroup styleClass="col-xs-offset-2 col-xs-8 ">
-						<h:commandButton styleClass="btn btn-sm btn-tccblue"
+						<h:commandButton styleClass="btn btn-sm btn-tccblue" rendered="#{questionarioPtIVMB.ocultar == true}"
 							action="${questionarioPtIVMB.adicionar()}" value="Adiciona Divida">
 							<!-- <f:ajax execute="@form" render="tabela" /> -->
 							<f:ajax execute="@form" render="@form" />
 						</h:commandButton>
+					
+						<h:panelGroup layout="block"  id="atualizar">
+						<h:commandButton styleClass="btn btn-sm btn-tccblue" rendered="#{questionarioPtIVMB.ocultar == false}"
+							action="${questionarioPtIVMB.atualizar()}" value="Atualizar">
+							<!-- 	<f:ajax execute="@form" render="tabela" /> -->
+							<f:ajax execute="@form" render="@form" />
+						</h:commandButton>
+						</h:panelGroup>
+					
 					</h:panelGroup>
 				</h:panelGroup>
 				
@@ -76,15 +85,29 @@
 			<p:dataTable id="tabela" value="${questionarioPtIVMB.dividas}"
 				var="questionarioPtIV"
 				rendered="#{not empty questionarioPtIVMB.dividas}">
-				<p:column headerText="id">
-		${questionarioPtIV.id}
-		</p:column>
 				<p:column headerText="Valor">
 		${questionarioPtIV.valor}
 		</p:column>
 				<p:column headerText="Dívida">
 		${questionarioPtIV.tipoDivida}
 		</p:column>
+		<p:column headerText="Editar">
+					<h:commandButton
+						action="${questionarioPtIVMB.editar(questionarioPtIV)}"
+						value="Editar">
+						<f:ajax execute="@form" render="@form" />
+						<f:ajax  render="atualizar"></f:ajax>
+
+					</h:commandButton>
+				</p:column>
+				<p:column headerText="Deletar">
+					<h:commandButton
+						action="${questionarioPtIVMB.deletar(questionarioPtIV)}"
+						value="Deletar">
+						<f:ajax execute="@form" render="@form" />
+					</h:commandButton>
+
+				</p:column>
 				<p:chart type="line" model="#{chartView.lineModel1}"
 					style="height:300px;" />
 			</p:dataTable>

@@ -92,7 +92,6 @@ public class BuscarTomadorDAOImpl implements BuscaEditarTomadorDAO, Serializable
 
 	@Override
 	public String buscarNomeTomador(int idTomador) throws SQLException {
-		List<QuestionarioPtI> lista = new ArrayList<QuestionarioPtI>();
 		String sql = "SELECT  nome FROM Tomadores WHERE idTomador =" + idTomador;
 		PreparedStatement ps = conection.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();

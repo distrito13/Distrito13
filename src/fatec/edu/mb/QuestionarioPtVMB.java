@@ -23,14 +23,12 @@ public class QuestionarioPtVMB {
 	private QuestionarioPtVDAO questionarioPtVDAO;
 	private List periodo;
 	private List<QuestionarioPtV> pendencias;
-	private boolean rememberMe;
-	private String sim;
-	private String nao;
-	private String[] resposta;
+	
+	private boolean ocultar;
+	
 
-	
-	
 	public QuestionarioPtVMB() {
+		ocultar = true;
 		questionarioPtVAtual = new QuestionarioPtV();
 		questionarioPtVDAO = new QuestionarioPtVDAOImpl();
 		try {
@@ -44,22 +42,80 @@ public class QuestionarioPtVMB {
 	public void init() {
 		periodo = Arrays.asList(Periodo.values());
 	}
+	
+	public boolean validaEntrada(){
+		if(questionarioPtVAtual.getDataAtraso()==null){
+			FacesContext fc = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Favor preencher o campo data de atraso!", null);
+			fc.addMessage("", msg);	
+			return false;
+		}else if(questionarioPtVAtual.getValor()<=0.0){
+			FacesContext fc = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Favor inserir um valor maior que zero!", null);
+			fc.addMessage("", msg);
+			return false;
+			
+		} else if(questionarioPtVAtual.getTipoPendencia().isEmpty()) {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Favor preencher o campo tipo de pendência", null);
+			fc.addMessage("", msg);
+			return false;
+		}else{
+		return true;
+			}
+	}
 
 	public String adicionar() {
 		try {
+
+			if(validaEntrada()){
 			questionarioPtVDAO.manter(getQuestionarioPtVAtual());
 			FacesContext fc = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Pendência inserida com sucesso", null);
 			fc.addMessage("", msg);
+			questionarioPtVAtual = new QuestionarioPtV();
 			setPendencias(questionarioPtVDAO.listarPendencias());
-
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			FacesContext fc = FacesContext.getCurrentInstance();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao inserir",      null);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao inserir", null);
 			fc.addMessage("", msg);
 		}
 		return " ";
+	}
+
+	public void editar(QuestionarioPtV pendencia) {
+		questionarioPtVAtual = pendencia;
+		setOcultar(false);
+	}
+
+	public void atualizar() {
+		try {
+			if(validaEntrada()){
+			questionarioPtVDAO.atualizarPendencia(questionarioPtVAtual, questionarioPtVAtual.getId());
+			setOcultar(true);
+			FacesContext fc = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Pendência atualizada com sucesso", null);
+			fc.addMessage("", msg);
+			questionarioPtVAtual = new QuestionarioPtV();
+		}
+			setPendencias(questionarioPtVDAO.listarPendencias());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deletar(QuestionarioPtV pendencia) {
+		try {
+			questionarioPtVDAO.deletarPendencia(pendencia);
+			setPendencias(questionarioPtVDAO.listarPendencias());
+			FacesContext fc = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Pendência excluida com sucesso", null);
+			fc.addMessage("", msg);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public QuestionarioPtVDAO getQuestionarioPtVDAO() {
@@ -85,48 +141,22 @@ public class QuestionarioPtVMB {
 	public void setPeriodo(List periodo) {
 		this.periodo = periodo;
 	}
-	
+
 	public List<QuestionarioPtV> getPendencias() {
 		return pendencias;
 	}
 
 	public void setPendencias(List<QuestionarioPtV> pendencias) {
-		this.pendencias= pendencias;
+		this.pendencias = pendencias;
 	}
 
-	public boolean isRememberMe() {
-		return rememberMe;
+	public boolean isOcultar() {
+		return ocultar;
 	}
 
-	public void setRememberMe(boolean rememberMe) {
-		this.rememberMe = rememberMe;
+	public void setOcultar(boolean ocultar) {
+		this.ocultar = ocultar;
 	}
 
-	public String getSim() {
-		return sim;
-	}
-
-	public void setSim(String sim) {
-		this.sim = sim;
-	}
-
-	public String getNao() {
-		return nao;
-	}
-
-	public void setNao(String nao) {
-		this.nao = nao;
-	}
-
-	public String[] getResposta() {
-		return resposta;
-	}
-
-	public void setResposta(String[] resposta) {
-		this.resposta = resposta;
-	}
-
-
-	
 
 }

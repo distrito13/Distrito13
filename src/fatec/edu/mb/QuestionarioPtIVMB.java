@@ -25,7 +25,10 @@ public class QuestionarioPtIVMB {
 	private List tipoDivida;
 	private List<QuestionarioPtIV> dividas;
 
+	private boolean ocultar;
+	
 	public QuestionarioPtIVMB() {
+		ocultar = true;
 		questionarioPtIVAtual = new QuestionarioPtIV();
 		questionarioPtIVDAO = new QuestionarioPtIVDAOImpl();
 		try {
@@ -40,21 +43,68 @@ public class QuestionarioPtIVMB {
 		tipoDivida = Arrays.asList(TipoDivida.values());
 	}
 
+	public boolean validaEntrada(){
+		if(questionarioPtIVAtual.getValor()<=0.0){
+			FacesContext fc = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Favor inserir um valor maior que zero!", null);
+			fc.addMessage("", msg);
+			
+			return false;
+		}else{
+		return true;
+			}
+	}
+	
 	public String adicionar() {
 		try {
+			if(validaEntrada()){
 			questionarioPtIVDAO.manter(getQuestionarioPtIVAtual());
 			FacesContext fc = FacesContext.getCurrentInstance();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Dívida/Despesa inserida com sucesso", null);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Dívida/Despesa inserida com sucesso",null);
 			fc.addMessage("", msg);
 			questionarioPtIVAtual = new QuestionarioPtIV();
 			setDividas(questionarioPtIVDAO.listarDividas());
-		} catch (SQLException e) {
+			}
+			} catch (SQLException e) {
 			e.printStackTrace();
 			FacesContext fc = FacesContext.getCurrentInstance();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao inserir",      null);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao inserir", null);
 			fc.addMessage("", msg);
 		}
 		return "";
+	}
+
+	public void editar(QuestionarioPtIV divida) {
+		questionarioPtIVAtual = divida;
+		setOcultar(false);
+	}
+
+	public void atualizar() {
+		try {
+			if(validaEntrada()){
+			questionarioPtIVDAO.atualizarDivida(questionarioPtIVAtual, questionarioPtIVAtual.getId());
+			setOcultar(true);
+			FacesContext fc = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Dívida/Despesa atualizada com sucesso", null);
+			fc.addMessage("", msg);
+			questionarioPtIVAtual = new QuestionarioPtIV();
+		}
+			setDividas(questionarioPtIVDAO.listarDividas());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deletar(QuestionarioPtIV divida) {
+		try {
+			questionarioPtIVDAO.deletarDivida(divida);
+			setDividas(questionarioPtIVDAO.listarDividas());
+			FacesContext fc = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Dívida/Despesa excluida com sucesso", null);
+			fc.addMessage("", msg);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public QuestionarioPtIVDAO getQuestionarioPtIVDAO() {
@@ -88,5 +138,14 @@ public class QuestionarioPtIVMB {
 	public void setDividas(List<QuestionarioPtIV> dividas) {
 		this.dividas = dividas;
 	}
+
+	public boolean isOcultar() {
+		return ocultar;
+	}
+
+	public void setOcultar(boolean ocultar) {
+		this.ocultar = ocultar;
+	}
+
 	
 }

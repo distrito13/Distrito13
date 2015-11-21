@@ -21,8 +21,8 @@
 <h:body>
 	<h:form>
 	
-	<p:messages id="messages"  autoUpdate="true" closable="true" infoStyle="color:darkgreen" errorStyle="color:darkred"/>
-	
+	<!-- <p:messages id="messages"  autoUpdate="true" closable="true" infoStyle="color:darkgreen" errorStyle="color:darkred"/>
+	 -->
 		<p:panel >
 			<h:panelGrid styleClass="table table-responsive" columns="1"
 				cellpadding="10">
@@ -54,12 +54,21 @@
 				</h:panelGroup>
 				
 				<h:panelGroup styleClass="form-group text-center">
-					<h:panelGroup styleClass="col-xs-offset-2 col-xs-8 " >
-						<h:commandButton styleClass="btn btn-sm btn-tccblue"
-							 action="${questionarioPtVIMB.adicionar()}" value="Adicionar Ativo" >
-							<!--  <f:ajax execute="@form" render="tabela"/> -->
+					<h:panelGroup styleClass="col-xs-offset-2 col-xs-8 ">
+						<h:commandButton styleClass="btn btn-sm btn-tccblue" rendered="#{questionarioPtVIMB.ocultar == true}"
+							action="${questionarioPtVIMB.adicionar()}" value="Adiciona Ativo">
+							<!-- <f:ajax execute="@form" render="tabela" /> -->
 							<f:ajax execute="@form" render="@form" />
 						</h:commandButton>
+					
+						<h:panelGroup layout="block"  id="atualizar">
+						<h:commandButton styleClass="btn btn-sm btn-tccblue" rendered="#{questionarioPtVIMB.ocultar == false}"
+							action="${questionarioPtVIMB.atualizar()}" value="Atualizar">
+							<!-- 	<f:ajax execute="@form" render="tabela" /> -->
+							<f:ajax execute="@form" render="@form" />
+						</h:commandButton>
+						</h:panelGroup>
+					
 					</h:panelGroup>
 				</h:panelGroup>
 				
@@ -86,7 +95,23 @@
 				<p:column headerText="id Tomador">
 				${questionarioPtVI.idTomador}
 				</p:column>
-			
+				<p:column headerText="Editar">
+					<h:commandButton
+						action="${questionarioPtVIMB.editar(questionarioPtVI)}"
+						value="Editar">
+						<f:ajax execute="@form" render="@form" />
+						<f:ajax  render="atualizar"></f:ajax>
+
+					</h:commandButton>
+				</p:column>
+				<p:column headerText="Deletar">
+					<h:commandButton
+						action="${questionarioPtVIMB.deletar(questionarioPtVI)}"
+						value="Deletar">
+						<f:ajax execute="@form" render="@form" />
+					</h:commandButton>
+
+				</p:column>
 
 				<p:chart type="line" model="#{chartView.lineModel1}"
 					style="height:300px;" />

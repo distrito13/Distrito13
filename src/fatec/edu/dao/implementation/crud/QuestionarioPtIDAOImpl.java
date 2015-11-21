@@ -60,7 +60,6 @@ public class QuestionarioPtIDAOImpl implements QuestionarioPtIDAO {
 		PreparedStatement ps = conection.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
-			QuestionarioPtI qptI = new QuestionarioPtI();
 			i = rs.getInt("idTomador");
 		}
 		return i;

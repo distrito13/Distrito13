@@ -37,7 +37,6 @@ public class SessionSalDAOImpl implements SessionSalDAO{
 		PreparedStatement ps = conection.prepareStatement(sql);
 		ps.setInt(1,tomador);
 		ps.setInt(2,credor.getId());
-		System.out.println("Dados"+tomador+"-"+credor.getId());
 		
 		
 		

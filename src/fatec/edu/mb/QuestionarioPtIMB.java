@@ -24,11 +24,13 @@ import fatec.edu.enumeration.RegimeCasamento;
 import fatec.edu.models.Estado;
 import fatec.edu.models.QuestionarioPtI;
 import fatec.edu.models.Sexo;
+import fatec.edu.verificarExistencia.ValidaExistenciaDAO;
+import fatec.edu.verificarExistencia.ValidaExistenciaDAOImpl;
 
 @ManagedBean
 @SessionScoped
 
-public class QuestionarioPtIMB  implements Serializable{
+public class QuestionarioPtIMB implements Serializable {
 
 	private static final long serialVersionUID = -9157355034999009316L;
 	private QuestionarioPtI questionarioPtIAtual;
@@ -39,21 +41,24 @@ public class QuestionarioPtIMB  implements Serializable{
 	private EstadoDAO estadoDAO;
 	private SelectItem[] regimeCasamento;
 	private SelectItem[] escolaridade;
-	
-	private List  regimesCasamento;
-	private List  estadosCivil;
+
+	private List regimesCasamento;
+	private List estadosCivil;
 	private List escolaridades;
+
+	private ValidaExistenciaDAO validaExistenciaDAO;
 
 	public QuestionarioPtIMB() {
 		questionarioPtIAtual = new QuestionarioPtI();
 		questionarioPtIDAO = new QuestionarioPtIDAOImpl();
 		sexoDAO = new SexoDAOImpl();
 		estadoDAO = new EstadoDAOImpl();
+		validaExistenciaDAO = new ValidaExistenciaDAOImpl();
 
 		try {
 			setSexos(sexoDAO.pesquisar());
 			setEstados(estadoDAO.pesquisar());
-			
+
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -61,29 +66,34 @@ public class QuestionarioPtIMB  implements Serializable{
 
 	}
 
-	
 	@PostConstruct
-	 public void init() {
+	public void init() {
 		regimesCasamento = Arrays.asList(RegimeCasamento.values());
 		estadosCivil = Arrays.asList(EstadoCivil.values());
 		escolaridades = Arrays.asList(Escolaridade.values());
-				
+
 	}
-	 
-	
-	
+
 	public String adicionar() {
 		try {
-			questionarioPtIDAO.manter(getQuestionarioPtIAtual());
-			FacesContext fc = FacesContext.getCurrentInstance();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Tomador atualizado com sucesso", null);
-			fc.addMessage("", msg);
-			questionarioPtIAtual = new QuestionarioPtI();
-			System.out.println("Esse é o id :D"+questionarioPtIDAO.pesquisarUltimoId());
+
+			boolean existencia = validaExistenciaDAO.verificaExistenciaCpf(questionarioPtIAtual.getCpf());
+			if (existencia) {
+				FacesContext fc = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cpf já cadastrado", null);
+				fc.addMessage("", msg);
+			} else {
+
+				questionarioPtIDAO.manter(getQuestionarioPtIAtual());
+				FacesContext fc = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Tomador atualizado com sucesso", null);
+				fc.addMessage("", msg);
+				questionarioPtIAtual = new QuestionarioPtI();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			FacesContext fc = FacesContext.getCurrentInstance();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao inserir",      null);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao inserir", null);
 			fc.addMessage("", msg);
 		}
 		return "";
@@ -129,8 +139,6 @@ public class QuestionarioPtIMB  implements Serializable{
 		this.estados = estados;
 	}
 
-
-
 	public EstadoDAO getEstadoDAO() {
 		return estadoDAO;
 	}
@@ -165,15 +173,13 @@ public class QuestionarioPtIMB  implements Serializable{
 		return estadosCivil;
 	}
 
-
 	public void setEstadosCivil(List estadosCivil) {
 		this.estadosCivil = estadosCivil;
 	}
-	
+
 	public List getEscolaridades() {
 		return escolaridades;
 	}
-
 
 	public void setEscolaridades(List escolaridades) {
 		this.escolaridades = escolaridades;
@@ -188,10 +194,9 @@ public class QuestionarioPtIMB  implements Serializable{
 		return items;
 
 	}
+
 	public void setEscolaridade(SelectItem[] escolaridade) {
 		this.escolaridade = escolaridade;
 	}
-
-	
 
 }

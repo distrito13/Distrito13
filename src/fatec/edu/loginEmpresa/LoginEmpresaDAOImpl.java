@@ -26,11 +26,12 @@ public class LoginEmpresaDAOImpl implements LoginEmpresaDAO {
 	public void inserirEmpresa(Credor credor) throws SQLException {
 		String sql = "INSERT INTO Credor VALUES (?,?,?,?,?)";
 		PreparedStatement ps = conection.prepareStatement(sql);
-		/*ps.setString(1, credor.getCnpj());
-		ps.setString(2, credor.getEmpresa());
-		ps.setString(3, credor.getUsuario());
-		ps.setString(4, credor.getEmail());
-		ps.setString(5, credor.getSenha());*/
+		/*
+		 * ps.setString(1, credor.getCnpj()); ps.setString(2,
+		 * credor.getEmpresa()); ps.setString(3, credor.getUsuario());
+		 * ps.setString(4, credor.getEmail()); ps.setString(5,
+		 * credor.getSenha());
+		 */
 		ps.setString(5, credor.getCnpj());
 		ps.setString(1, credor.getEmpresa());
 		ps.setString(3, credor.getUsuario());
@@ -45,11 +46,12 @@ public class LoginEmpresaDAOImpl implements LoginEmpresaDAO {
 		Credor credor = new Credor();
 
 		List<Credor> listaCredor = new ArrayList<Credor>();
-		String sql = "SELECT id FROM Credor WHERE usuario =" + "'" + credorUsuario + "'" + " and senha =" + "'" + senha+ "'";
+		String sql = "SELECT id FROM Credor WHERE usuario =" + "'" + credorUsuario + "'" + " and senha =" + "'" + senha
+				+ "'";
 		PreparedStatement ps = conection.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		if (rs.next()) {
-			credor.setId(rs.getInt("id"));			
+			credor.setId(rs.getInt("id"));
 			listaCredor.add(credor);
 		}
 		ps.close();
@@ -57,23 +59,21 @@ public class LoginEmpresaDAOImpl implements LoginEmpresaDAO {
 		return listaCredor;
 	}
 
-
 	@Override
 	public int buscarLoginId(String credorUsuario, String senha) throws SQLException {
 		Credor credor = new Credor();
 
-		String sql = "SELECT id FROM Credor WHERE usuario =" + "'" + credorUsuario + "'" + " and senha =" + "'" + senha+ "'";
+		String sql = "SELECT id FROM Credor WHERE usuario =" + "'" + credorUsuario + "'" + " and senha =" + "'" + senha
+				+ "'";
 		PreparedStatement ps = conection.prepareStatement(sql);
 		int id;
 		ResultSet rs = ps.executeQuery();
 		if (rs.next()) {
 			credor.setId(rs.getInt("id"));
-		}	
+		}
 		ps.close();
 		rs.close();
 		return credor.getId();
 	}
-
-
 
 }

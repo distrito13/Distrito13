@@ -49,7 +49,6 @@ public class ManagedBeanControleAcesso {
 			
 			int ultimo = controleAcessoDAO.retornaIdControleAcesso();
 			
-			System.out.println(ultimo);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
